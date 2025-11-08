@@ -1,0 +1,11 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.4/schema.json",
+  "root": false,
+  "extends": "//",
+  "json": {
+    "parser": {
+      "allowComments": true,
+      "allowTrailingCommas": true
+    }
+  }
+}

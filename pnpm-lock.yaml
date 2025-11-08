@@ -50,6 +50,9 @@ importers:
       '@fastify/swagger-ui':
         specifier: ^5.2.3
         version: 5.2.3
+      '@repo/logging':
+        specifier: workspace:*
+        version: link:../../packages/logging
       fastify:
         specifier: ^5.6.1
         version: 5.6.1
@@ -66,6 +69,9 @@ importers:
       '@biomejs/biome':
         specifier: catalog:tooling
         version: 2.3.4
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../tooling/typescript-config
       '@types/node':
         specifier: catalog:tooling
         version: 22.19.0
@@ -85,18 +91,26 @@ importers:
         specifier: catalog:tooling
         version: 5.9.3
 
-  packages/my-library:
+  packages/logging:
     dependencies:
       pino:
         specifier: ^10.1.0
         version: 10.1.0
     devDependencies:
+      '@biomejs/biome':
+        specifier: catalog:tooling
+        version: 2.3.4
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../tooling/typescript-config
       '@types/node':
         specifier: catalog:tooling
         version: 22.19.0
       typescript:
         specifier: catalog:tooling
         version: 5.9.3
+
+  tooling/typescript-config: {}
 
 packages:
 

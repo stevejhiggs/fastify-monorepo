@@ -1,5 +1,8 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "sourceMap": true,
+
     // module settings
     "module": "preserve",
     "moduleResolution": "bundler",
@@ -9,7 +12,6 @@
     "resolveJsonModule": true,
     "lib": ["ES2024"],
     "target": "ES2024",
-    "types": ["@types/node"],
 
     // strictness options
     "strict": true,
