@@ -1,12 +1,11 @@
 {
-  "name": "fastify-example",
+  "name": "example-api",
   "version": "1.0.0",
   "description": "",
   "main": "dist/listener.js",
   "type": "module",
   "scripts": {
-    "watch": "node --import tsx --watch-path=./src ./index.ts | pino-pretty ",
-    "start": "node --import tsx ./index.ts | pino-pretty",
+    "dev": "node --import tsx --watch-path=./src ./index.ts | pino-pretty ",
     "start:production": "node --enable-source-maps ./.dist/index.js",
     "build": "tsdown",
     "test": "LOG_LEVEL=warn node --test --import tsx ./src/**/*.test.ts",
