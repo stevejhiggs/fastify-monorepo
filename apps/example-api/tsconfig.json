@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    // output settings
+    "outDir": ".dist",
+    "sourceMap": true,
+
+    // module settings
+    "module": "preserve",
+    "moduleResolution": "bundler",
+
+    // environment settings
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "lib": ["ES2024"],
+    "target": "ES2024",
+    "types": ["@types/node"],
+
+    // strictness options
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "verbatimModuleSyntax": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    // Allow node to natively read typescript
+    "rewriteRelativeImportExtensions": true,
+    "erasableSyntaxOnly": true,
+
+    // recommended options
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": ["./src/**/*.ts", "./tests/**/*.ts"]
+}

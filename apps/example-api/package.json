@@ -1,0 +1,44 @@
+{
+  "name": "fastify-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/listener.js",
+  "type": "module",
+  "scripts": {
+    "watch": "node --import tsx --watch-path=./src ./index.ts | pino-pretty ",
+    "start": "node --import tsx ./index.ts | pino-pretty",
+    "start:production": "node --enable-source-maps ./.dist/index.js",
+    "build": "tsdown",
+    "test": "LOG_LEVEL=warn node --test --import tsx ./src/**/*.test.ts",
+    "test:ci": "LOG_LEVEL=warn node --test --experimental-test-coverage --import tsx ./src/**/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "lint:ci": "biome check ./src",
+    "lint": "pnpm run lint:ci --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/helmet": "^13.0.2",
+    "@fastify/swagger": "^9.6.0",
+    "@fastify/swagger-ui": "^5.2.3",
+    "fastify": "^5.6.1",
+    "fastify-type-provider-zod": "^6.1.0",
+    "pino": "^10.1.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:tooling",
+    "@types/node": "catalog:tooling",
+    "globals": "^16.5.0",
+    "pino-pretty": "^13.1.2",
+    "tsdown": "catalog:tooling",
+    "tsx": "catalog:tooling",
+    "typescript": "catalog:tooling"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "biome check --write --no-errors-on-unmatched"
+    ]
+  }
+}
