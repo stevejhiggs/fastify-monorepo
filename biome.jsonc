@@ -3,6 +3,9 @@
   "vcs": {
     "useIgnoreFile": true
   },
+  "files": {
+    "includes": ["**/*.{js,jsx,ts,tsx,md}", "!!**/node_modules", "!!**/.dist", "!!**/.turbo"]
+  },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,

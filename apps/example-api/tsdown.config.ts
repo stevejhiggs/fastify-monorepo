@@ -9,10 +9,10 @@ export default defineConfig({
   // make sure that internal packages (@repo/*) are bundled into the output
   noExternal: [/^@repo\//],
   platform: 'node',
-  tsconfig: 'tsconfig.build.json',
+  tsconfig: 'tsconfig.json',
 
   // output
   outDir: '.dist',
   sourcemap: true,
-  format: 'esm',
+  format: 'esm'
 });
