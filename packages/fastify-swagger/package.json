@@ -1,0 +1,30 @@
+{
+  "name": "@repo/fastify-swagger",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint:ci": "biome check ./src",
+    "lint": "pnpm run lint:ci --write",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fastify/swagger": "^9.6.0",
+    "@fastify/swagger-ui": "^5.2.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:tooling",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:tooling",
+    "typescript": "catalog:tooling"
+  },
+  "peerDependencies": {
+    "fastify": "^5"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "biome check --write --no-errors-on-unmatched"
+    ]
+  }
+}

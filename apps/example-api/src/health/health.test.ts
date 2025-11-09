@@ -2,10 +2,10 @@ import assert from 'node:assert';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 
 import getServer from '../server.js';
-import type { EnhancedFastifyInstance } from '../types.js';
+import type { ZodFastifyInstance } from '../types.js';
 
 describe('endpoints -> health', () => {
-  let app: EnhancedFastifyInstance;
+  let app: ZodFastifyInstance;
 
   beforeEach(async () => {
     // allows us to spin up the server in memory

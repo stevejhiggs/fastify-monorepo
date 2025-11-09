@@ -1,5 +1,5 @@
 import { z } from 'zod/v4';
-import type { EnhancedFastifyInstance } from '../types.js';
+import type { ZodFastifyInstance } from '../types.js';
 
 // Zod can generate both json schema and typescript types
 // the json schemas are checked at runtime, the ts schemas at compile time.
@@ -55,7 +55,7 @@ const getSchema = {
   }
 };
 
-export default function registerRoutes(app: EnhancedFastifyInstance) {
+export default function registerRoutes(app: ZodFastifyInstance) {
   app.post('/schema-test/post/:par1/:par2', { schema: postSchema }, async (request, reply) => {
     reply.send({
       par1: request.params.par1,
