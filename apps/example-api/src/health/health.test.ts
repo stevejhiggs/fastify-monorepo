@@ -1,8 +1,7 @@
 import assert from 'node:assert';
 import { afterEach, beforeEach, describe, it } from 'node:test';
-
-import getServer from '../server.js';
 import type { ZodFastifyInstance } from '@repo/fastify-zod';
+import getServer from '../server.js';
 
 describe('endpoints -> health', () => {
   let app: ZodFastifyInstance;

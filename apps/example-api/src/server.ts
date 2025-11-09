@@ -1,9 +1,8 @@
 import helmet from '@fastify/helmet';
 import { registerSwagger } from '@repo/fastify-swagger';
-import { fastify } from 'fastify';
-
-import registerRoutes from './routes.js';
 import { jsonSchemaTransform, registerZodProvider } from '@repo/fastify-zod';
+import { fastify } from 'fastify';
+import registerRoutes from './routes.js';
 
 export default async function getServer(port: number = 3000) {
   const rawApp = fastify({
@@ -13,7 +12,7 @@ export default async function getServer(port: number = 3000) {
     logger: {
       level: process.env['LOG_LEVEL'] || 'info'
     }
-  })
+  });
 
   // Set up Zod validators and serializers
   const app = registerZodProvider(rawApp);

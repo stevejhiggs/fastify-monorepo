@@ -1,14 +1,18 @@
 import { defineConfig } from 'tsdown/config';
 
 export default defineConfig({
-  entry: 'index.ts',
-  platform: 'node',
-  sourcemap: true,
-  format: 'esm',
+  // input
+  entry: 'src/index.ts',
+
+  // transform
+  skipNodeModulesBundle: true,
   // make sure that internal packages (@repo/*) are bundled into the output
   noExternal: [/^@repo\//],
-  skipNodeModulesBundle: true,
+  platform: 'node',
   tsconfig: 'tsconfig.build.json',
+
+  // output
   outDir: '.dist',
-  
+  sourcemap: true,
+  format: 'esm',
 });
