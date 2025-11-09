@@ -45,18 +45,9 @@ importers:
 
   apps/example-api:
     dependencies:
-      '@fastify/helmet':
-        specifier: ^13.0.2
-        version: 13.0.2
-      '@repo/fastify-swagger':
+      '@repo/fastify-base':
         specifier: workspace:*
-        version: link:../../packages/fastify-swagger
-      '@repo/fastify-zod':
-        specifier: workspace:*
-        version: link:../../packages/fastify-zod
-      '@repo/logging':
-        specifier: workspace:*
-        version: link:../../packages/logging
+        version: link:../../packages/fastify-base
       fastify:
         specifier: ^5.6.2
         version: 5.6.2
@@ -85,6 +76,59 @@ importers:
       tsx:
         specifier: catalog:tooling
         version: 4.20.6
+      typescript:
+        specifier: catalog:tooling
+        version: 5.9.3
+
+  packages/fastify-base:
+    dependencies:
+      '@repo/fastify-security':
+        specifier: workspace:*
+        version: link:../fastify-security
+      '@repo/fastify-swagger':
+        specifier: workspace:*
+        version: link:../fastify-swagger
+      '@repo/fastify-zod':
+        specifier: workspace:*
+        version: link:../fastify-zod
+      '@repo/logging':
+        specifier: workspace:*
+        version: link:../logging
+      fastify:
+        specifier: ^5
+        version: 5.6.2
+    devDependencies:
+      '@biomejs/biome':
+        specifier: catalog:tooling
+        version: 2.3.4
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../tooling/typescript-config
+      '@types/node':
+        specifier: catalog:tooling
+        version: 24.10.0
+      typescript:
+        specifier: catalog:tooling
+        version: 5.9.3
+
+  packages/fastify-security:
+    dependencies:
+      '@fastify/helmet':
+        specifier: ^13.0.2
+        version: 13.0.2
+      fastify:
+        specifier: ^5
+        version: 5.6.2
+    devDependencies:
+      '@biomejs/biome':
+        specifier: catalog:tooling
+        version: 2.3.4
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../tooling/typescript-config
+      '@types/node':
+        specifier: catalog:tooling
+        version: 24.10.0
       typescript:
         specifier: catalog:tooling
         version: 5.9.3

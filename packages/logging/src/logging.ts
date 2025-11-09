@@ -1,7 +1,11 @@
-import logger from 'pino';
+import logger, { type LevelWithSilentOrString } from 'pino';
 
-export function initLogger() {
+export type LoggerConfig = {
+  logLevel?: LevelWithSilentOrString | undefined;
+};
+
+export function initLogger(config: LoggerConfig) {
   return logger({
-    level: process.env['LOG_LEVEL'] || 'info'
+    level: config.logLevel ?? 'info'
   });
 }

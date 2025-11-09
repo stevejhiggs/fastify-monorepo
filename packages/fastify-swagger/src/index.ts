@@ -2,17 +2,17 @@ import fastifySwagger, { type SwaggerOptions, type SwaggerTransform } from '@fas
 import fastifySwaggerUi from '@fastify/swagger-ui';
 import type { FastifyInstance, FastifySchema } from 'fastify';
 
-export type FastifySwaggerOptions = {
+export type SwaggerConfig = {
   enable: boolean;
-  title: string;
-  version: string;
+  title?: string | undefined;
+  version?: string | undefined;
   port: number;
   transform?: SwaggerTransform<FastifySchema>;
   host?: string;
   documentationRoute?: string;
 };
 
-export async function registerSwagger(app: FastifyInstance, config: FastifySwaggerOptions) {
+export async function registerSwagger(app: FastifyInstance, config: SwaggerConfig) {
   if (!config.enable) {
     return;
   }
@@ -21,8 +21,8 @@ export async function registerSwagger(app: FastifyInstance, config: FastifySwagg
     openapi: {
       openapi: '3.1.0',
       info: {
-        title: config.title,
-        version: config.version
+        title: config.title ?? 'API',
+        version: config.version ?? '1.0.0'
       },
       servers: [
         {

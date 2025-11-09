@@ -17,6 +17,3 @@ catalogs:
 
 onlyBuiltDependencies:
   - esbuild
-
-publicHoistPattern:
-  - "*"

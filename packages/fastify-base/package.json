@@ -1,0 +1,32 @@
+{
+  "name": "@repo/fastify-base",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint:ci": "biome check ./src",
+    "lint": "pnpm run lint:ci --write",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/fastify-security": "workspace:*",
+    "@repo/fastify-swagger": "workspace:*",
+    "@repo/fastify-zod": "workspace:*",
+    "@repo/logging": "workspace:*"
+  },
+  "peerDependencies": {
+    "fastify": "^5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:tooling",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:tooling",
+    "typescript": "catalog:tooling"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "biome check --write --no-errors-on-unmatched"
+    ]
+  }
+}

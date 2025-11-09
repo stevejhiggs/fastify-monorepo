@@ -18,10 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fastify/helmet": "^13.0.2",
-    "@repo/fastify-swagger": "workspace:*",
-    "@repo/fastify-zod": "workspace:*",
-    "@repo/logging": "workspace:*",
+    "@repo/fastify-base": "workspace:*",
     "fastify": "^5.6.2",
     "zod": "catalog:"
   },

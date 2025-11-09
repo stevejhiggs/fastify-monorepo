@@ -14,7 +14,8 @@
     "lint": "turbo lint",
     "setup-commit-hooks": "pnpm husky",
     "pre-commit": "pnpm lint-staged",
-    "generate:package": "turbo gen workspace --copy @repo/templates-package --type package --destination packages/"
+    "generate:package": "turbo gen workspace --copy @repo/templates-package --type package --destination packages/",
+    "turbo": "turbo"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:tooling",

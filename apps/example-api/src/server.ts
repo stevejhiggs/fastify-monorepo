@@ -1,30 +1,17 @@
-import helmet from '@fastify/helmet';
-import { registerSwagger } from '@repo/fastify-swagger';
-import { jsonSchemaTransform, registerZodProvider } from '@repo/fastify-zod';
-import { fastify } from 'fastify';
-import registerRoutes from './routes.js';
+import { setupBaseApp } from '@repo/fastify-base';
+import registerRoutes from './routes/route-registry';
 
 export default async function getServer(port: number = 3000) {
-  const rawApp = fastify({
-    routerOptions: {
-      ignoreTrailingSlash: true
-    },
-    logger: {
-      level: process.env['LOG_LEVEL'] || 'info'
-    }
-  });
-
-  // Set up Zod validators and serializers
-  const app = registerZodProvider(rawApp);
-  // add security headers
-  await app.register(helmet);
-  // adds open api documentations at /documentation
-  await registerSwagger(app, {
-    enable: process.env['DISABLE_DOCS'] !== 'true',
+  const app = await setupBaseApp({
     port,
-    title: 'Example-api',
-    version: '1.0.0',
-    transform: jsonSchemaTransform
+    logger: {
+      logLevel: process.env['LOG_LEVEL']
+    },
+    swagger: {
+      enable: process.env['DISABLE_DOCS'] !== 'true',
+      title: 'Example-api',
+      version: '1.0.0'
+    }
   });
 
   registerRoutes(app);
