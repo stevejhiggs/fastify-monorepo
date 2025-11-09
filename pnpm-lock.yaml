@@ -221,21 +221,6 @@ importers:
         specifier: catalog:tooling
         version: 5.9.3
 
-  templates/package:
-    devDependencies:
-      '@biomejs/biome':
-        specifier: catalog:tooling
-        version: 2.3.4
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../tooling/typescript-config
-      '@types/node':
-        specifier: catalog:tooling
-        version: 24.10.0
-      typescript:
-        specifier: catalog:tooling
-        version: 5.9.3
-
   tooling/typescript-config: {}
 
   tooling/vitest:
