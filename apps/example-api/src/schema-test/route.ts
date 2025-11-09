@@ -1,5 +1,5 @@
+import type { ZodFastifyInstance } from '@repo/fastify-zod';
 import { z } from 'zod/v4';
-import type { ZodFastifyInstance } from '../types.js';
 
 // Zod can generate both json schema and typescript types
 // the json schemas are checked at runtime, the ts schemas at compile time.

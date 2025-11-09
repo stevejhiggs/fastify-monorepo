@@ -1,0 +1,30 @@
+{
+  "name": "@repo/fastify-zod",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint:ci": "biome check ./src",
+    "lint": "pnpm run lint:ci --write",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "fastify-type-provider-zod": "^6.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:tooling",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:tooling",
+    "typescript": "catalog:tooling"
+  },
+  "peerDependencies": {
+    "fastify": "^5",
+    "zod": "catalog:"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "biome check --write --no-errors-on-unmatched"
+    ]
+  }
+}

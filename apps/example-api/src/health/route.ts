@@ -1,4 +1,4 @@
-import type { ZodFastifyInstance } from '../types.js';
+import type { ZodFastifyInstance } from "@repo/fastify-zod";
 
 export default function registerRoutes(app: ZodFastifyInstance) {
   app.get('/health', async (_request, reply) => {
