@@ -58,9 +58,6 @@ importers:
       '@repo/fastify-base':
         specifier: workspace:*
         version: link:../../packages/fastify-base
-      '@repo/vitest':
-        specifier: workspace:*
-        version: link:../../tooling/vitest
       fastify:
         specifier: ^5.6.2
         version: 5.6.2
@@ -74,6 +71,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../tooling/typescript-config
+      '@repo/vitest':
+        specifier: workspace:*
+        version: link:../../tooling/vitest
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.0
