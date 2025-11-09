@@ -10,7 +10,7 @@ export { initLogger } from '@repo/logging';
 
 export type FastifyBaseConfig = {
   port: number;
-  swagger: Omit<SwaggerConfig, 'port'>;
+  swagger: Omit<SwaggerConfig, 'port' | 'transform'>;
   logger?: LoggerConfig;
 };
 
@@ -29,7 +29,7 @@ export async function setupBaseApp(config: FastifyBaseConfig) {
   // add security headers
   await registerDefaultSecurity(app);
   // adds open api documentations at /documentation
-  await registerSwagger(app, { ...config.swagger, port: config.port });
+  await registerSwagger(app, { ...config.swagger, port: config.port, transform: jsonSchemaTransform });
 
   return app;
 }

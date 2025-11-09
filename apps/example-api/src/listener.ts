@@ -9,7 +9,13 @@ const port: number = Number.parseInt(process.env['PORT'] || '3000');
 const start = async () => {
   try {
     const app = await getServer(port);
-    await app.listen({ port, host: '::', listenTextResolver: (address) => { return `Server listening on ${address.replace('[::]', 'localhost')}` } });
+    await app.listen({
+      port,
+      host: '::',
+      listenTextResolver: (address) => {
+        return `Server listening on ${address.replace('[::]', 'localhost')}`;
+      }
+    });
   } catch (error) {
     logger.error(error);
   }

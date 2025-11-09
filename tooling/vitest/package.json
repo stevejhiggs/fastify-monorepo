@@ -1,0 +1,28 @@
+{
+  "name": "@repo/vitest",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "lint:ci": "biome check ./src",
+    "lint": "pnpm run lint:ci --write",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vitest/coverage-v8": "catalog:testing",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "catalog:testing"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:tooling",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:tooling",
+    "typescript": "catalog:tooling"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "biome check --write --no-errors-on-unmatched"
+    ]
+  }
+}

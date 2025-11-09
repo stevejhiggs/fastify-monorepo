@@ -1,6 +1,5 @@
-import assert from 'node:assert';
-import { afterEach, beforeEach, describe, it } from 'node:test';
 import type { ZodFastifyInstance } from '@repo/fastify-base';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import getServer from '@/server';
 
 describe('endpoints -> health', () => {
@@ -22,7 +21,7 @@ describe('endpoints -> health', () => {
         url: '/health'
       });
 
-      assert.equal(result.statusCode, 200);
+      expect(result.statusCode).toBe(200);
     });
 
     it('should return a 404 with a POST request', async () => {
@@ -31,7 +30,7 @@ describe('endpoints -> health', () => {
         url: '/health'
       });
 
-      assert.equal(result.statusCode, 404);
+      expect(result.statusCode).toBe(404);
     });
   });
 });

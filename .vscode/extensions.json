@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "vitest.explorer",
+    "biomejs.biome",
+    "yoavbls.pretty-ts-errors"
+  ]
+}
