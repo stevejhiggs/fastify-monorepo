@@ -2,7 +2,7 @@ packages:
   - apps/*
   - packages/*
   - tooling/*
-  - templates/*
+  - tooling/templates/*
   
 catalog:
   zod: ^4.1.12
