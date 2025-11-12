@@ -12,6 +12,7 @@
   "dependencies": {
     "@repo/fastify-security": "workspace:*",
     "@repo/fastify-swagger": "workspace:*",
+    "@repo/fastify-logging": "workspace:*",
     "@repo/fastify-zod": "workspace:*",
     "@repo/logging": "workspace:*"
   },

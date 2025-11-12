@@ -1,8 +1,8 @@
 {
-  "name": "@repo/logging",
+  "name": "@repo/fastify-logging",
   "type": "module",
   "exports": {
-    ".": "./index.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "lint:ci": "biome check ./src",
@@ -10,8 +10,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@google-cloud/pino-logging-gcp-config": "^1.2.0",
-    "pino": "^10.1.0"
+    "@repo/logging": "workspace:*",
+    "cls-proxify": "^2.0.0"
+  },
+  "peerDependencies": {
+    "fastify": "^5"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:tooling",

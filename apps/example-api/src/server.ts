@@ -2,7 +2,7 @@ import { setupBaseApp } from '@repo/fastify-base';
 import registerRoutes from './routes/route-registry';
 
 export default async function getServer(port: number = 3000) {
-  const app = await setupBaseApp({
+  const { app } = await setupBaseApp({
     port,
     logger: {
       logLevel: process.env['LOG_LEVEL']

@@ -2,6 +2,10 @@ import fastifySwagger, { type SwaggerOptions, type SwaggerTransform } from '@fas
 import fastifySwaggerUi from '@fastify/swagger-ui';
 import type { FastifyInstance, FastifySchema } from 'fastify';
 
+// Helper type to simplify FastifyInstance generics
+// biome-ignore lint/suspicious/noExplicitAny: Intentional - this type accepts any FastifyInstance variant
+type AnyFastifyInstance = FastifyInstance<any, any, any, any, any>;
+
 export type SwaggerConfig = {
   enable: boolean;
   title?: string | undefined;
@@ -12,7 +16,7 @@ export type SwaggerConfig = {
   documentationRoute?: string;
 };
 
-export async function registerSwagger(app: FastifyInstance, config: SwaggerConfig) {
+export async function registerSwagger(app: AnyFastifyInstance, config: SwaggerConfig) {
   if (!config.enable) {
     return;
   }
