@@ -11,8 +11,7 @@
   },
   "dependencies": {
     "@fastify/request-context": "^6.2.1",
-    "@repo/logging": "workspace:*",
-    "cls-proxify": "^2.0.0"
+    "@repo/logging": "workspace:*"
   },
   "peerDependencies": {
     "fastify": "^5"
