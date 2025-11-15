@@ -1,14 +1,12 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
 import type { Logger } from '@repo/logging';
-import type { FastifyInstance } from 'fastify';
-
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export type AnyFastifyInstance = FastifyInstance<any, any, any, any, any>;
+import type { FastifyBaseLogger, FastifyInstance } from 'fastify';
 
 const asyncLocalStorage = new AsyncLocalStorage<Map<string, unknown>>();
-let initialLogger: Logger;
+let initialLogger: FastifyBaseLogger;
 
-export function registerPerRequestLogger(app: AnyFastifyInstance, logger: Logger) {
+// biome-ignore lint/suspicious/noExplicitAny: We dont care about the internal extensions of fastify here
+export function registerPerRequestLogger(app: FastifyInstance<any, any, any, any, any>, logger: Logger) {
   initialLogger = logger;
 
   app.addHook('onRequest', (request, _reply, next) => {
@@ -23,6 +21,6 @@ export function registerPerRequestLogger(app: AnyFastifyInstance, logger: Logger
   });
 }
 
-export function getLogger(): Logger {
-  return (asyncLocalStorage.getStore()?.get('logger') as Logger) ?? initialLogger;
+export function getLogger(): FastifyBaseLogger {
+  return (asyncLocalStorage.getStore()?.get('logger') as FastifyBaseLogger) ?? initialLogger;
 }

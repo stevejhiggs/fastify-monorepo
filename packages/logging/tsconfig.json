@@ -1,7 +1,4 @@
 {
   "extends": "@repo/typescript-config/tsconfig.base",
   "include": ["./src/**/*.ts", "./tests/**/*.ts"],
-  "compilerOptions": {
-    "exactOptionalPropertyTypes": false
-  }
 }

@@ -2,11 +2,7 @@ import type { FastifyBaseLogger, FastifyInstance, RawReplyDefaultExpression, Raw
 import { serializerCompiler, validatorCompiler, type ZodTypeProvider } from 'fastify-type-provider-zod';
 
 // used for swagger generation
-export { jsonSchemaTransform } from 'fastify-type-provider-zod';
-
-// Helper type to simplify FastifyInstance generics - accepts any FastifyInstance
-// biome-ignore lint/suspicious/noExplicitAny: Intentional - this type accepts any FastifyInstance variant
-export type AnyFastifyInstance = FastifyInstance<any, any, any, any, any>;
+export { jsonSchemaTransform, type ZodTypeProvider } from 'fastify-type-provider-zod';
 
 export type ZodFastifyInstance<
   RawServer extends RawServerDefault = RawServerDefault,
@@ -17,7 +13,7 @@ export type ZodFastifyInstance<
 
 // Simplified version that accepts any ZodFastifyInstance (for route handlers)
 // biome-ignore lint/suspicious/noExplicitAny: Intentional - this type accepts any ZodFastifyInstance variant
-export type AnyZodFastifyInstance = ZodFastifyInstance<any, any, any, any>;
+type AnyFastifyInstance = ZodFastifyInstance<any, any, any, any>;
 
 export function registerZodProvider<T extends AnyFastifyInstance>(app: T) {
   const zodApp = app.withTypeProvider<ZodTypeProvider>();

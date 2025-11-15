@@ -3,11 +3,13 @@ import { registerDefaultSecurity } from '@repo/fastify-security';
 import { registerSwagger, type SwaggerConfig } from '@repo/fastify-swagger';
 import { jsonSchemaTransform, registerZodProvider } from '@repo/fastify-zod';
 import { initLogger, type LoggerConfig } from '@repo/logging';
-import { fastify } from 'fastify';
+import { type FastifyBaseLogger, type FastifyInstance, fastify, type RawReplyDefaultExpression, type RawRequestDefaultExpression, type RawServerDefault } from 'fastify';
 
 export { getLogger } from '@repo/fastify-logging';
+
 // some things get re-exported from this package, so we need to export them
-export type { AnyZodFastifyInstance, ZodFastifyInstance } from '@repo/fastify-zod';
+import type { ZodTypeProvider } from '@repo/fastify-zod';
+
 export type { Logger } from '@repo/logging';
 
 export type FastifyBaseConfig = {
@@ -15,6 +17,8 @@ export type FastifyBaseConfig = {
   swagger: Omit<SwaggerConfig, 'port' | 'transform'>;
   logger?: LoggerConfig;
 };
+
+export type EnhancedFastifyInstance = FastifyInstance<RawServerDefault, RawRequestDefaultExpression<RawServerDefault>, RawReplyDefaultExpression<RawServerDefault>, FastifyBaseLogger, ZodTypeProvider>;
 
 export async function setupBaseApp(config: FastifyBaseConfig) {
   const logger = initLogger(config.logger);

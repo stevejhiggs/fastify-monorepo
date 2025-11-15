@@ -5,7 +5,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@10.22.0",
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
@@ -21,7 +21,7 @@
     "@biomejs/biome": "catalog:tooling",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.6",
-    "turbo": "^2.6.0",
+    "turbo": "^2.6.1",
     "vitest": "catalog:testing"
   }
 }

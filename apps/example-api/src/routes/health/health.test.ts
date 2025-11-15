@@ -1,9 +1,9 @@
-import type { ZodFastifyInstance } from '@repo/fastify-base';
+import type { EnhancedFastifyInstance } from '@repo/fastify-base';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import getServer from '@/server';
 
 describe('endpoints -> health', () => {
-  let app: ZodFastifyInstance;
+  let app: EnhancedFastifyInstance;
 
   beforeEach(async () => {
     // allows us to spin up the server in memory
