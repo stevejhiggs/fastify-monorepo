@@ -133,6 +133,25 @@ importers:
         specifier: catalog:tooling
         version: 5.9.3
 
+  packages/fastify-common-types:
+    dependencies:
+      fastify:
+        specifier: ^5
+        version: 5.6.2
+    devDependencies:
+      '@biomejs/biome':
+        specifier: catalog:tooling
+        version: 2.3.5
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../tooling/typescript-config
+      '@types/node':
+        specifier: catalog:tooling
+        version: 24.10.1
+      typescript:
+        specifier: catalog:tooling
+        version: 5.9.3
+
   packages/fastify-logging:
     dependencies:
       '@repo/logging':
@@ -148,6 +167,9 @@ importers:
       '@biomejs/biome':
         specifier: catalog:tooling
         version: 2.3.5
+      '@repo/fastify-common-types':
+        specifier: workspace:*
+        version: link:../fastify-common-types
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../tooling/typescript-config
@@ -189,6 +211,9 @@ importers:
       '@biomejs/biome':
         specifier: catalog:tooling
         version: 2.3.5
+      '@repo/fastify-common-types':
+        specifier: workspace:*
+        version: link:../fastify-common-types
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../tooling/typescript-config
@@ -214,6 +239,9 @@ importers:
       '@biomejs/biome':
         specifier: catalog:tooling
         version: 2.3.5
+      '@repo/fastify-common-types':
+        specifier: workspace:*
+        version: link:../fastify-common-types
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../tooling/typescript-config
@@ -239,6 +267,9 @@ importers:
       '@biomejs/biome':
         specifier: catalog:tooling
         version: 2.3.5
+      '@repo/fastify-common-types':
+        specifier: workspace:*
+        version: link:../fastify-common-types
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../tooling/typescript-config

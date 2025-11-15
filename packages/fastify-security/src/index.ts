@@ -1,11 +1,7 @@
 import helmet from '@fastify/helmet';
-import type { FastifyInstance } from 'fastify';
+import type { FastifyInstanceForRegistration } from '@repo/fastify-common-types';
 
-// Helper type to simplify FastifyInstance generics
-// biome-ignore lint/suspicious/noExplicitAny: Intentional - this type accepts any FastifyInstance variant
-type AnyFastifyInstance = FastifyInstance<any, any, any, any, any>;
-
-export async function registerDefaultSecurity(app: AnyFastifyInstance) {
+export async function registerDefaultSecurity(app: FastifyInstanceForRegistration) {
   // add security headers
   await app.register(helmet);
 }

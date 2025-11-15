@@ -1,5 +1,5 @@
 {
-  "name": "@repo/fastify-logging",
+  "name": "@repo/fastify-common-types",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
@@ -9,19 +9,15 @@
     "lint": "pnpm run lint:ci --write",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
-    "@repo/logging": "workspace:*",
-    "cls-proxify": "^2.0.0"
-  },
-  "peerDependencies": {
-    "fastify": "^5"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@biomejs/biome": "catalog:tooling",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:tooling",
-    "typescript": "catalog:tooling",
-    "@repo/fastify-common-types": "workspace:*"
+    "typescript": "catalog:tooling"
+  },
+  "peerDependencies": {
+    "fastify": "^5"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [

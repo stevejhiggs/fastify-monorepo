@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:tooling",
+    "@repo/fastify-common-types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:tooling",
     "typescript": "catalog:tooling"
