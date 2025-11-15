@@ -1,5 +1,6 @@
 import KeyvRedis from '@keyv/redis';
 import { Cacheable, CacheableMemory } from 'cacheable';
+import SuperJSON from 'superjson';
 
 type CacheErrorHandler = (error: unknown) => void;
 
@@ -17,6 +18,20 @@ export type CacheOptions = {
 
 export type InMemoryCacheOptions = CacheOptions & { maxSize: number };
 
+function serializeValue<T>(value: T | undefined): string | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  return SuperJSON.stringify(value);
+}
+
+function deserializeValue<T>(value: string | undefined): T | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  return SuperJSON.parse(value);
+}
+
 export function createInMemoryCache(args: InMemoryCacheOptions): Cache {
   new Cacheable({});
   const cache = new CacheableMemory({ ttl: args.ttl, lruSize: args.maxSize });
@@ -24,10 +39,18 @@ export function createInMemoryCache(args: InMemoryCacheOptions): Cache {
 
   return {
     getItem: async <T>(key: string) => {
-      return cache.get<T>(key);
+      const value = cache.get<T | string>(key);
+      if (typeof value === 'string') {
+        return deserializeValue<T>(value);
+      }
+      return value;
     },
     setItem: async <T>(key: string, value: T) => {
-      return cache.set(key, value);
+      const serializedValue = serializeValue(value);
+      if (serializedValue === undefined) {
+        return;
+      }
+      cache.set(key, serializedValue);
     },
     deleteItem: async (key: string) => {
       return cache.delete(key);
@@ -53,10 +76,18 @@ export function createRedisCache(args: RedisCacheOptions): Cache {
 
   return {
     getItem: async <T>(key: string) => {
-      return cache.get<T>(key);
+      const value = await cache.get<T | string>(key);
+      if (typeof value === 'string') {
+        return deserializeValue<T>(value);
+      }
+      return value;
     },
     setItem: async <T>(key: string, value: T) => {
-      cache.set<T>(key, value);
+      const serializedValue = serializeValue(value);
+      if (serializedValue === undefined) {
+        return;
+      }
+      cache.set<string>(key, serializedValue);
     },
     deleteItem: async (key: string) => {
       cache.delete(key);
