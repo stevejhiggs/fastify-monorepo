@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@fastify/request-context": "^6.2.1",
     "@repo/logging": "workspace:*",
     "cls-proxify": "^2.0.0"
   },
@@ -18,10 +19,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:tooling",
+    "@repo/fastify-common-types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:tooling",
-    "typescript": "catalog:tooling",
-    "@repo/fastify-common-types": "workspace:*"
+    "typescript": "catalog:tooling"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [

@@ -1,0 +1,16 @@
+import { randomUUID } from 'node:crypto';
+import type { EnhancedFastifyInstance } from '@repo/fastify-base';
+import { logger } from '@repo/fastify-base';
+
+function outerFunction() {
+  const uuid = randomUUID();
+  logger.instance.info(`this is a test message from outer function ${uuid}`);
+  logger.instance.info('the logger can be accessed from anywhere and retains the context of the request');
+}
+
+export default function registerRoutes(app: EnhancedFastifyInstance) {
+  app.get('/logging', async (_req, reply) => {
+    outerFunction();
+    reply.send(`OK`);
+  });
+}

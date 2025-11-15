@@ -1,16 +1,18 @@
-import { registerPerRequestLogger } from '@repo/fastify-logging';
+import { getPerRequestLogger, registerPerRequestLogger } from '@repo/fastify-logging';
 import { registerDefaultSecurity } from '@repo/fastify-security';
 import { registerSwagger, type SwaggerConfig } from '@repo/fastify-swagger';
+// some things get re-exported from this package, so we need to export them
+import type { ZodTypeProvider } from '@repo/fastify-zod';
 import { jsonSchemaTransform, registerZodProvider } from '@repo/fastify-zod';
 import { initLogger, type LoggerConfig } from '@repo/logging';
 import { type FastifyBaseLogger, type FastifyInstance, fastify, type RawReplyDefaultExpression, type RawRequestDefaultExpression, type RawServerDefault } from 'fastify';
 
-export { getLogger } from '@repo/fastify-logging';
-
-// some things get re-exported from this package, so we need to export them
-import type { ZodTypeProvider } from '@repo/fastify-zod';
-
 export type { Logger } from '@repo/logging';
+export const logger = {
+  get instance() {
+    return getPerRequestLogger();
+  }
+};
 
 export type FastifyBaseConfig = {
   port: number;
