@@ -15,7 +15,9 @@ export type CacheOptions = {
   onError: CacheErrorHandler;
 };
 
-export function createInMemoryCache(args: CacheOptions & { maxSize: number }): Cache {
+export type InMemoryCacheOptions = CacheOptions & { maxSize: number };
+
+export function createInMemoryCache(args: InMemoryCacheOptions): Cache {
   new Cacheable({});
   const cache = new CacheableMemory({ ttl: args.ttl, lruSize: args.maxSize });
   cache.on('error', args.onError);
@@ -36,7 +38,9 @@ export function createInMemoryCache(args: CacheOptions & { maxSize: number }): C
   };
 }
 
-export function createRedisCache(args: CacheOptions & { connection: string }): Cache {
+export type RedisCacheOptions = CacheOptions & { connection: string };
+
+export function createRedisCache(args: RedisCacheOptions): Cache {
   // fall back to redis
   const redisCache = new KeyvRedis(args.connection);
   redisCache.on('error', args.onError);

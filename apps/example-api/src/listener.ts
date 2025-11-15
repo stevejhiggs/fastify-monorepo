@@ -1,4 +1,4 @@
-import { logger } from '@repo/fastify-base';
+import { logger } from '@repo/fastify-base/logging';
 import getServer from './server';
 
 const port: number = Number.parseInt(process.env['PORT'] || '3000');

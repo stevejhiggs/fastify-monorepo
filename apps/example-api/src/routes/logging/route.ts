@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { EnhancedFastifyInstance } from '@repo/fastify-base';
-import { logger } from '@repo/fastify-base';
+import { logger } from '@repo/fastify-base/logging';
 
 function outerFunction() {
   const uuid = randomUUID();

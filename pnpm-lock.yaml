@@ -57,7 +57,7 @@ importers:
     dependencies:
       '@repo/fastify-base':
         specifier: workspace:*
-        version: link:../../packages/fastify-base
+        version: link:../../packages/fastify/fastify-base
       fastify:
         specifier: ^5.6.2
         version: 5.6.2
@@ -104,9 +104,6 @@ importers:
       '@keyv/redis':
         specifier: ^5.1.4
         version: 5.1.4(keyv@5.5.4)
-      '@keyv/valkey':
-        specifier: ^1.0.11
-        version: 1.0.11
       cacheable:
         specifier: ^2.1.1
         version: 2.1.1
@@ -124,8 +121,11 @@ importers:
         specifier: catalog:tooling
         version: 5.9.3
 
-  packages/fastify-base:
+  packages/fastify/fastify-base:
     dependencies:
+      '@repo/caching':
+        specifier: workspace:*
+        version: link:../../caching
       '@repo/fastify-logging':
         specifier: workspace:*
         version: link:../fastify-logging
@@ -140,7 +140,7 @@ importers:
         version: link:../fastify-zod
       '@repo/logging':
         specifier: workspace:*
-        version: link:../logging
+        version: link:../../logging
       fastify:
         specifier: ^5
         version: 5.6.2
@@ -150,7 +150,7 @@ importers:
         version: 2.3.5
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../tooling/typescript-config
+        version: link:../../../tooling/typescript-config
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.1
@@ -158,7 +158,7 @@ importers:
         specifier: catalog:tooling
         version: 5.9.3
 
-  packages/fastify-common-types:
+  packages/fastify/fastify-common-types:
     dependencies:
       fastify:
         specifier: ^5
@@ -169,7 +169,7 @@ importers:
         version: 2.3.5
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../tooling/typescript-config
+        version: link:../../../tooling/typescript-config
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.1
@@ -177,14 +177,14 @@ importers:
         specifier: catalog:tooling
         version: 5.9.3
 
-  packages/fastify-logging:
+  packages/fastify/fastify-logging:
     dependencies:
       '@fastify/request-context':
         specifier: ^6.2.1
         version: 6.2.1
       '@repo/logging':
         specifier: workspace:*
-        version: link:../logging
+        version: link:../../logging
       fastify:
         specifier: ^5
         version: 5.6.2
@@ -197,7 +197,7 @@ importers:
         version: link:../fastify-common-types
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../tooling/typescript-config
+        version: link:../../../tooling/typescript-config
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.1
@@ -205,18 +205,18 @@ importers:
         specifier: catalog:tooling
         version: 5.9.3
 
-  packages/fastify-observability:
+  packages/fastify/fastify-observability:
     dependencies:
       '@repo/logging':
         specifier: workspace:*
-        version: link:../logging
+        version: link:../../logging
     devDependencies:
       '@biomejs/biome':
         specifier: catalog:tooling
         version: 2.3.5
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../tooling/typescript-config
+        version: link:../../../tooling/typescript-config
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.1
@@ -224,7 +224,7 @@ importers:
         specifier: catalog:tooling
         version: 5.9.3
 
-  packages/fastify-security:
+  packages/fastify/fastify-security:
     dependencies:
       '@fastify/helmet':
         specifier: ^13.0.2
@@ -241,7 +241,7 @@ importers:
         version: link:../fastify-common-types
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../tooling/typescript-config
+        version: link:../../../tooling/typescript-config
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.1
@@ -249,7 +249,7 @@ importers:
         specifier: catalog:tooling
         version: 5.9.3
 
-  packages/fastify-swagger:
+  packages/fastify/fastify-swagger:
     dependencies:
       '@fastify/swagger':
         specifier: ^9.6.1
@@ -269,7 +269,7 @@ importers:
         version: link:../fastify-common-types
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../tooling/typescript-config
+        version: link:../../../tooling/typescript-config
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.1
@@ -277,7 +277,7 @@ importers:
         specifier: catalog:tooling
         version: 5.9.3
 
-  packages/fastify-zod:
+  packages/fastify/fastify-zod:
     dependencies:
       fastify:
         specifier: ^5
@@ -297,7 +297,7 @@ importers:
         version: link:../fastify-common-types
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../tooling/typescript-config
+        version: link:../../../tooling/typescript-config
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.1
@@ -700,9 +700,6 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
-  '@iovalkey/commands@0.1.0':
-    resolution: {integrity: sha512-/B9W4qKSSITDii5nkBCHyPkIkAi+ealUtr1oqBJsLxjSRLka4pxun2VvMNSmcwgAMxgXtQfl0qRv7TE+udPJzg==}
-
   '@isaacs/balanced-match@4.0.1':
     resolution: {integrity: sha512-yzMTt9lEb8Gv7zRioUilSglI0c0smZ9k5D65677DLWLtWJaXIS3CqcGyUFByYKlnUj6TkjLVs54fBl6+TiGQDQ==}
     engines: {node: 20 || >=22}
@@ -745,10 +742,6 @@ packages:
 
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
-
-  '@keyv/valkey@1.0.11':
-    resolution: {integrity: sha512-uXf4TftClagJxquhlo1QFKd7JIcmxVm9vlWkDZGlkLQAIesocKaap2ojJocMDvon6h56L2SczoWkkL5OZs4AfQ==}
-    engines: {node: '>= 18'}
 
   '@lukeed/ms@2.0.2':
     resolution: {integrity: sha512-9I2Zn6+NJLfaGoz9jN3lpwDgAYvfGeNYdbAIjJOqzs4Tpc+VU3Jqq4IofSUBKajiDS8k9fZIg18/z13mpk1bsA==}
@@ -1248,10 +1241,6 @@ packages:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
 
-  denque@2.1.0:
-    resolution: {integrity: sha512-HVQE3AAb/pxF8fQAoiqpvg9i3evqug3hoiwakOyZAwJm+6vZehbkYXZ0l4JxS+I3QxM97v5aaRNhj8v5oBhekw==}
-    engines: {node: '>=0.10'}
-
   depd@2.0.0:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
     engines: {node: '>= 0.8'}
@@ -1558,10 +1547,6 @@ packages:
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
 
-  iovalkey@0.3.3:
-    resolution: {integrity: sha512-4rTJX6Q5wTYEvxboXi8DsEiUo+OvqJGtLYOSGm37KpdRXsG5XJjbVtYKGJpPSWP+QT7rWscA4vsrdmzbEbenpw==}
-    engines: {node: '>=18.12.0'}
-
   ipaddr.js@2.2.0:
     resolution: {integrity: sha512-Ag3wB2o37wslZS19hZqorUnrnzSkpOVy+IiiDEiTqNubEYpYuHWIf6K4psgN2ZWKExS4xhVCrRVfb/wfW8fWJA==}
     engines: {node: '>= 10'}
@@ -1657,12 +1642,6 @@ packages:
 
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
-
-  lodash.defaults@4.2.0:
-    resolution: {integrity: sha512-qjxPLHd3r5DnsdGacqOMU6pb/avJzdh9tFX2ymgoZE27BmjXrNy/y4LoaiTeAb+O3gL8AfpJGtqfX/ae2leYYQ==}
-
-  lodash.isarguments@3.1.0:
-    resolution: {integrity: sha512-chi4NHZlZqZD18a0imDHnZPrDeBbTtVN7GXMwuGdRH9qotxAjYs3aVLKc7zNOG9eddR5Ksd8rvFEBc9SsggPpg==}
 
   log-update@6.1.0:
     resolution: {integrity: sha512-9ie8ItPR6tjY5uYJh8K/Zrv/RMZ5VOlOWvtZdEHYSTFKZfIBPQa9tOAEeAWhd+AnIneLJ22w5fjOYtoutpWq5w==}
@@ -1862,14 +1841,6 @@ packages:
     resolution: {integrity: sha512-57frrGM/OCTLqLOAh0mhVA9VBMHd+9U7Zb2THMGdBUoZVOtGbJzjxsYGDJ3A9AYYCP4hn6y1TVbaOfzWtm5GFg==}
     engines: {node: '>= 12.13.0'}
 
-  redis-errors@1.2.0:
-    resolution: {integrity: sha512-1qny3OExCf0UvUV/5wpYKf2YwPcOqXzkwKKSmKHiE6ZMQs5heeE/c8eXK+PNllPvmjgAbfnsbpkGZWy8cBpn9w==}
-    engines: {node: '>=4'}
-
-  redis-parser@3.0.0:
-    resolution: {integrity: sha512-DJnGAeenTdpMEH6uAJRK/uiyEIH9WVsUmoLwzudwGJUwZPp80PDBWPHXSAGNPwNvIXAbe7MSUB1zQFugFml66A==}
-    engines: {node: '>=4'}
-
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
@@ -1985,9 +1956,6 @@ packages:
 
   stackback@0.0.2:
     resolution: {integrity: sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==}
-
-  standard-as-callback@2.1.0:
-    resolution: {integrity: sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==}
 
   statuses@2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
@@ -2642,8 +2610,6 @@ snapshots:
       protobufjs: 7.5.4
       yargs: 17.7.2
 
-  '@iovalkey/commands@0.1.0': {}
-
   '@isaacs/balanced-match@4.0.1': {}
 
   '@isaacs/brace-expansion@5.0.0':
@@ -2689,12 +2655,6 @@ snapshots:
       keyv: 5.5.4
 
   '@keyv/serialize@1.1.1': {}
-
-  '@keyv/valkey@1.0.11':
-    dependencies:
-      iovalkey: 0.3.3
-    transitivePeerDependencies:
-      - supports-color
 
   '@lukeed/ms@2.0.2': {}
 
@@ -3097,8 +3057,6 @@ snapshots:
 
   delayed-stream@1.0.0: {}
 
-  denque@2.1.0: {}
-
   depd@2.0.0: {}
 
   dequal@2.0.3: {}
@@ -3463,20 +3421,6 @@ snapshots:
 
   inherits@2.0.4: {}
 
-  iovalkey@0.3.3:
-    dependencies:
-      '@iovalkey/commands': 0.1.0
-      cluster-key-slot: 1.1.2
-      debug: 4.4.3
-      denque: 2.1.0
-      lodash.defaults: 4.2.0
-      lodash.isarguments: 3.1.0
-      redis-errors: 1.2.0
-      redis-parser: 3.0.0
-      standard-as-callback: 2.1.0
-    transitivePeerDependencies:
-      - supports-color
-
   ipaddr.js@2.2.0: {}
 
   is-fullwidth-code-point@3.0.0: {}
@@ -3583,10 +3527,6 @@ snapshots:
       wrap-ansi: 9.0.2
 
   lodash.camelcase@4.3.0: {}
-
-  lodash.defaults@4.2.0: {}
-
-  lodash.isarguments@3.1.0: {}
 
   log-update@6.1.0:
     dependencies:
@@ -3784,12 +3724,6 @@ snapshots:
 
   real-require@0.2.0: {}
 
-  redis-errors@1.2.0: {}
-
-  redis-parser@3.0.0:
-    dependencies:
-      redis-errors: 1.2.0
-
   require-directory@2.1.1: {}
 
   require-from-string@2.0.2: {}
@@ -3922,8 +3856,6 @@ snapshots:
   split2@4.2.0: {}
 
   stackback@0.0.2: {}
-
-  standard-as-callback@2.1.0: {}
 
   statuses@2.0.1: {}
 
