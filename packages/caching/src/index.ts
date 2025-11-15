@@ -32,47 +32,16 @@ function deserializeValue<T>(value: string | undefined): T | undefined {
   return SuperJSON.parse(value);
 }
 
-export function createInMemoryCache(args: InMemoryCacheOptions): Cache {
-  new Cacheable({});
-  const cache = new CacheableMemory({ ttl: args.ttl, lruSize: args.maxSize });
-  cache.on('error', args.onError);
+type CacheInstance = {
+  get<T>(key: string): T | Promise<T> | undefined | Promise<T | undefined>;
+  set(key: string, value: string): void | Promise<void> | Promise<boolean>;
+  delete(key: string): void | Promise<void> | Promise<boolean>;
+  clear(): void | Promise<void>;
+  on(event: 'error', handler: CacheErrorHandler): void;
+};
 
-  return {
-    getItem: async <T>(key: string) => {
-      const value = cache.get<T | string>(key);
-      if (typeof value === 'string') {
-        return deserializeValue<T>(value);
-      }
-      return value;
-    },
-    setItem: async <T>(key: string, value: T) => {
-      const serializedValue = serializeValue(value);
-      if (serializedValue === undefined) {
-        return;
-      }
-      cache.set(key, serializedValue);
-    },
-    deleteItem: async (key: string) => {
-      return cache.delete(key);
-    },
-    clear: async () => {
-      return cache.clear();
-    }
-  };
-}
-
-export type RedisCacheOptions = CacheOptions & { connection: string };
-
-export function createRedisCache(args: RedisCacheOptions): Cache {
-  // fall back to redis
-  const redisCache = new KeyvRedis(args.connection);
-  redisCache.on('error', args.onError);
-
-  const cache = new Cacheable({
-    ttl: args.ttl,
-    secondary: redisCache
-  });
-  cache.on('error', args.onError);
+function createCacheAdapter(cache: CacheInstance, onError: CacheErrorHandler): Cache {
+  cache.on('error', onError);
 
   return {
     getItem: async <T>(key: string) => {
@@ -87,13 +56,31 @@ export function createRedisCache(args: RedisCacheOptions): Cache {
       if (serializedValue === undefined) {
         return;
       }
-      cache.set<string>(key, serializedValue);
+      await cache.set(key, serializedValue);
     },
     deleteItem: async (key: string) => {
-      cache.delete(key);
+      await cache.delete(key);
     },
     clear: async () => {
-      cache.clear();
+      await cache.clear();
     }
   };
+}
+
+export function createInMemoryCache(args: InMemoryCacheOptions): Cache {
+  const cache = new CacheableMemory({ ttl: args.ttl, lruSize: args.maxSize });
+  return createCacheAdapter(cache, args.onError);
+}
+
+export type RedisCacheOptions = CacheOptions & { connection: string };
+
+export function createRedisCache(args: RedisCacheOptions): Cache {
+  const redisCache = new KeyvRedis(args.connection);
+  redisCache.on('error', args.onError);
+
+  const cache = new Cacheable({
+    ttl: args.ttl,
+    secondary: redisCache
+  });
+  return createCacheAdapter(cache, args.onError);
 }

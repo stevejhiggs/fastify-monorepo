@@ -117,12 +117,21 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../tooling/typescript-config
+      '@repo/vitest':
+        specifier: workspace:*
+        version: link:../../tooling/vitest
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.1
+      '@vitest/coverage-v8':
+        specifier: catalog:testing
+        version: 4.0.9(vitest@4.0.9(@types/node@24.10.1)(tsx@4.20.6)(yaml@2.8.1))
       typescript:
         specifier: catalog:tooling
         version: 5.9.3
+      vitest:
+        specifier: catalog:testing
+        version: 4.0.9(@types/node@24.10.1)(tsx@4.20.6)(yaml@2.8.1)
 
   packages/fastify/fastify-base:
     dependencies:

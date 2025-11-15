@@ -11,6 +11,8 @@ export const defaultVitestConfig = {
     coverage: {
       include: ['src/**/*.{ts,tsx,js,mjs,mts}'],
       exclude: ['generated/**/*']
-    }
+    },
+    mockReset: true,
+    restoreMocks: true
   }
 };

@@ -7,7 +7,9 @@
   "scripts": {
     "lint:ci": "biome check ./src",
     "lint": "pnpm run lint:ci --write",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:ci": "vitest run"
   },
   "dependencies": {
     "@keyv/redis": "^5.1.4",
@@ -17,8 +19,11 @@
   "devDependencies": {
     "@biomejs/biome": "catalog:tooling",
     "@repo/typescript-config": "workspace:*",
+    "@repo/vitest": "workspace:*",
     "@types/node": "catalog:tooling",
-    "typescript": "catalog:tooling"
+    "@vitest/coverage-v8": "catalog:testing",
+    "typescript": "catalog:tooling",
+    "vitest": "catalog:testing"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
