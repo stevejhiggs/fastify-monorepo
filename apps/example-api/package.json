@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "node --import tsx --watch-path=./src ./src/index.ts | pino-pretty ",
+    "debug": "node --inspect --import tsx ./src/index.ts ",
     "start:production": "node --enable-source-maps ./.dist/index.mjs",
     "build": "tsdown",
     "test": "LOG_LEVEL=warn vitest",
