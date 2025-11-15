@@ -25,3 +25,4 @@ An attempt to implement a fastify mono-repo with all the high-level features you
 * Auth
 * Github actions
 * Api generation from templates
+* Rate limiting
