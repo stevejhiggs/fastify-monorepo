@@ -16,6 +16,7 @@ An attempt to implement a fastify mono-repo with all the high-level features you
   * Persistant logger used throughout the request, usable from anywhere
 * Caching support
   * In memory with and without a redis secondary cache
+  * Uses superJson to make sure things like dates cache properly
 * Turborepo
 
 ## Todo
