@@ -1,8 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "sourceMap": true,
-
     // module settings
     "module": "preserve",
     "moduleResolution": "bundler",
@@ -27,6 +25,11 @@
 
     // recommended options
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    // check time improvements
+    "incremental": true,
+    "composite": true,
+    "isolatedModules": true
   }
 }

@@ -22,7 +22,7 @@ export type FastifyBaseConfig = {
 
 export type EnhancedFastifyInstance = FastifyInstance<RawServerDefault, RawRequestDefaultExpression<RawServerDefault>, RawReplyDefaultExpression<RawServerDefault>, FastifyBaseLogger, ZodTypeProvider>;
 
-export async function setupBaseApp(config: FastifyBaseConfig) {
+export async function setupBaseApp(config: FastifyBaseConfig): Promise<{ app: EnhancedFastifyInstance }> {
   const logger = initLogger(config.logger);
 
   const rawApp = fastify({
@@ -41,5 +41,5 @@ export async function setupBaseApp(config: FastifyBaseConfig) {
   // adds open api documentations at /documentation
   await registerSwagger(app, { ...config.swagger, port: config.port, transform: jsonSchemaTransform });
 
-  return { app, logger };
+  return { app };
 }
