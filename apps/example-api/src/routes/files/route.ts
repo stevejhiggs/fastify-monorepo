@@ -1,9 +1,11 @@
+/**
+ * File upload handling with multipart/form-data.
+ * Shows how to use the multipart plugin with Zod validation for file uploads,
+ * including MIME type restrictions and file size limits. Uses preValidation
+ * to extract form data into the request body for Swagger compatibility.
+ */
 import type { EnhancedFastifyInstance } from '@repo/fastify-base';
 import z from 'zod';
-
-// shows how to handle file uploads with the multipart plugin + zod validation
-// unfortunatly this is a little faffy to make it work with swagger so we need to do
-// a little preValidation to get the body into the request object
 export default function registerRoutes(app: EnhancedFastifyInstance) {
   app.post(
     '/files/upload',

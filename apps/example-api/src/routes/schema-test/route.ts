@@ -1,12 +1,14 @@
+/**
+ * Zod schema validation for Fastify routes.
+ * Shows validation for all request parts: body, querystring, params, headers, and responses.
+ * Illustrates both inline schema definitions and separate schema objects, along with
+ * various Zod features like coercion, optional fields, unions, arrays, and date validation.
+ * The Zod schema provider enables both runtime validation and compile-time type checking.
+ */
 import type { EnhancedFastifyInstance } from '@repo/fastify-base';
 import type { FastifySchema } from 'fastify';
 import { z } from 'zod/v4';
 
-// Zod can generate both json schema and typescript types
-// the json schemas are checked at runtime, the ts schemas at compile time.
-// You don't have to use all of these on each request.
-// We've enabled the zod schema provider so we can just pass the zod schema
-// directly in and get runtime + build time checking
 const postSchema = {
   body: z.object({
     someKey: z.string().optional(),
