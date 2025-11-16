@@ -21,3 +21,4 @@ catalogs:
 
 onlyBuiltDependencies:
   - esbuild
+  - protobufjs
