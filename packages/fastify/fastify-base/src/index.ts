@@ -42,7 +42,7 @@ export async function setupBaseApp(config: FastifyBaseConfig): Promise<{ app: En
   // Set up Zod validators and serializers
   const app = registerZodProvider(rawApp);
   // support multipart/form-data requests for file uploads
-  registerMultipart(app);
+  registerMultipart(app, { limits: { fileSize: 100 * 1024 * 1024 } }); // 100MB max file size, you can enforce limits lower than this via validation
   // add security headers
   await registerDefaultSecurity(app);
   // adds open api documentations at /documentation
