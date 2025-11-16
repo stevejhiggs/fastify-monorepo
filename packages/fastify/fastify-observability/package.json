@@ -2,7 +2,8 @@
   "name": "@repo/fastify-observability",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./logging": "./src/logging.ts"
   },
   "scripts": {
     "lint:ci": "biome check ./src",
@@ -10,11 +11,16 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@fastify/request-context": "^6.2.1",
     "@repo/logging": "workspace:*"
+  },
+  "peerDependencies": {
+    "fastify": "^5"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:tooling",
     "@repo/typescript-config": "workspace:*",
+    "@repo/fastify-common-types": "workspace:*",
     "@types/node": "catalog:tooling",
     "typescript": "catalog:tooling"
   },

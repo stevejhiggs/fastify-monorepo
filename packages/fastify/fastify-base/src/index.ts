@@ -1,4 +1,4 @@
-import { registerPerRequestLogger } from '@repo/fastify-logging';
+import { registerPerRequestLogger } from '@repo/fastify-observability/logging';
 import { registerDefaultSecurity } from '@repo/fastify-security';
 import { registerSwagger, type SwaggerConfig } from '@repo/fastify-swagger';
 // some things get re-exported from this package, so we need to export them

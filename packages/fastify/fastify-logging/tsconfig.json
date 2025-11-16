@@ -1,5 +1,0 @@
-{
-  "extends": "@repo/typescript-config/tsconfig.base",
-  "include": ["./src/**/*.ts"],
-  "exclude": ["**/node_modules", "**/.*/"],
-}

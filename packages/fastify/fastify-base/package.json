@@ -15,7 +15,7 @@
     "@repo/caching": "workspace:*",
     "@repo/fastify-security": "workspace:*",
     "@repo/fastify-swagger": "workspace:*",
-    "@repo/fastify-logging": "workspace:*",
+    "@repo/fastify-observability": "workspace:*",
     "@repo/fastify-zod": "workspace:*",
     "@repo/logging": "workspace:*"
   },

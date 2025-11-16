@@ -138,9 +138,9 @@ importers:
       '@repo/caching':
         specifier: workspace:*
         version: link:../../caching
-      '@repo/fastify-logging':
+      '@repo/fastify-observability':
         specifier: workspace:*
-        version: link:../fastify-logging
+        version: link:../fastify-observability
       '@repo/fastify-security':
         specifier: workspace:*
         version: link:../fastify-security
@@ -189,7 +189,7 @@ importers:
         specifier: catalog:tooling
         version: 5.9.3
 
-  packages/fastify/fastify-logging:
+  packages/fastify/fastify-observability:
     dependencies:
       '@fastify/request-context':
         specifier: ^6.2.1
@@ -207,25 +207,6 @@ importers:
       '@repo/fastify-common-types':
         specifier: workspace:*
         version: link:../fastify-common-types
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../../tooling/typescript-config
-      '@types/node':
-        specifier: catalog:tooling
-        version: 24.10.1
-      typescript:
-        specifier: catalog:tooling
-        version: 5.9.3
-
-  packages/fastify/fastify-observability:
-    dependencies:
-      '@repo/logging':
-        specifier: workspace:*
-        version: link:../../logging
-    devDependencies:
-      '@biomejs/biome':
-        specifier: catalog:tooling
-        version: 2.3.5
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../../tooling/typescript-config
