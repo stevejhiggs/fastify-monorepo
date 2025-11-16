@@ -160,9 +160,6 @@ Tests are co-located with source files using Vitest:
 # Run all tests
 pnpm test
 
-# Run tests in watch mode
-pnpm test --watch
-
 # Run tests with coverage
 pnpm test --coverage
 ```
