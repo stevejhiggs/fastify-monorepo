@@ -1,6 +1,6 @@
 # Fastify Monorepo
 
-A  Fastify monorepo template with all the essential features you need to build scalable, type-safe APIs. This monorepo provides a modular architecture with reusable packages, buildless TypeScript support, and comprehensive tooling.
+A Fastify monorepo template with all the essential features you need to build scalable, type-safe APIs. This monorepo provides a modular architecture with reusable packages, buildless TypeScript support, and comprehensive tooling.
 
 ## 🚀 Features
 
@@ -37,7 +37,6 @@ fastify-monorepo/
 │   └── fastify/
 │       ├── fastify-base/     # Base Fastify setup with all plugins
 │       ├── fastify-common-types/  # Shared TypeScript types
-│       ├── fastify-logging/  # Fastify logging plugin
 │       ├── fastify-observability/ # Observability plugin
 │       ├── fastify-security/ # Security headers plugin
 │       ├── fastify-swagger/  # Swagger/OpenAPI plugin
@@ -143,32 +142,15 @@ const { app } = await setupBaseApp({
 });
 ```
 
-### `@repo/fastify-zod`
-
-Zod schema validation for Fastify requests and responses. Automatically integrates with Swagger documentation.
-
-### `@repo/fastify-swagger`
-
-Automatic OpenAPI/Swagger documentation generation.
-
-### `@repo/fastify-logging`
-
-Request-scoped logging that persists throughout the request lifecycle.
-
-### `@repo/fastify-security`
-
-Security headers plugin (Helmet integration).
-
-### `@repo/caching`
-
-Flexible caching solution with:
-- In-memory caching
-- Optional Redis secondary cache
-- SuperJSON serialization for proper date/object handling
-
-### `@repo/logging`
-
-Core logging utilities with optional GCP formatting.
+- `@repo/fastify-zod` Zod schema validation for Fastify requests and responses. Automatically integrates with Swagger documentation.
+- `@repo/fastify-swagger` Automatic OpenAPI/Swagger documentation generation.
+- `@repo/fastify-observability` Request-scoped logging that persists throughout the request lifecycle.
+- `@repo/fastify-security` Security headers plugin (Helmet integration).
+- `@repo/caching` Flexible caching solution with:
+  - In-memory caching
+  - Optional Redis secondary cache
+  - SuperJSON serialization for proper date/object handling
+- `@repo/logging` Core logging utilities with optional GCP formatting.
 
 ## 🧪 Testing
 
