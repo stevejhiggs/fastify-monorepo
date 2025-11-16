@@ -1,9 +1,8 @@
+import { registerMultipart } from '@repo/fastify-multipart';
 import { registerPerRequestLogger } from '@repo/fastify-observability/logging';
 import { registerDefaultSecurity } from '@repo/fastify-security';
 import { registerSwagger, type SwaggerConfig } from '@repo/fastify-swagger';
-// some things get re-exported from this package, so we need to export them
-import type { ZodTypeProvider } from '@repo/fastify-zod';
-import { jsonSchemaTransform, registerZodProvider } from '@repo/fastify-zod';
+import { jsonSchemaTransform, registerZodProvider, type ZodTypeProvider } from '@repo/fastify-zod';
 import { initLogger, type LoggerConfig } from '@repo/logging';
 import {
   type FastifyBaseLogger,
@@ -42,6 +41,8 @@ export async function setupBaseApp(config: FastifyBaseConfig): Promise<{ app: En
 
   // Set up Zod validators and serializers
   const app = registerZodProvider(rawApp);
+  // support multipart/form-data requests for file uploads
+  registerMultipart(app);
   // add security headers
   await registerDefaultSecurity(app);
   // adds open api documentations at /documentation

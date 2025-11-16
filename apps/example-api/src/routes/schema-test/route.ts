@@ -1,4 +1,5 @@
 import type { EnhancedFastifyInstance } from '@repo/fastify-base';
+import type { FastifySchema } from 'fastify';
 import { z } from 'zod/v4';
 
 // Zod can generate both json schema and typescript types
@@ -34,26 +35,7 @@ const postSchema = {
       someOtherKey: z.number()
     })
   }
-};
-
-const getSchema = {
-  querystring: z.object({
-    date: z.iso.date(),
-    excitement: z.coerce.number().int().optional()
-  }),
-  params: z.object({
-    par1: z.string(),
-    par2: z.coerce.number()
-  }),
-  response: {
-    200: z.object({
-      par1: z.string(),
-      par2: z.number(),
-      queryDate: z.iso.date(),
-      someOtherKey: z.number()
-    })
-  }
-};
+} satisfies FastifySchema;
 
 export default function registerRoutes(app: EnhancedFastifyInstance) {
   app.post('/schema-test/post/:par1/:par2', { schema: postSchema }, async (request, reply) => {
@@ -66,12 +48,36 @@ export default function registerRoutes(app: EnhancedFastifyInstance) {
     });
   });
 
-  app.get('/schema-test/get/:par1/:par2', { schema: getSchema }, async (request, reply) => {
-    reply.send({
-      par1: request.params.par1,
-      par2: request.params.par2,
-      queryDate: request.query.date,
-      someOtherKey: 100
-    });
-  });
+  app.get(
+    '/schema-test/get/:par1/:par2',
+    {
+      // you can also just pass the zod schema directly in here
+      schema: {
+        querystring: z.object({
+          date: z.iso.date(),
+          excitement: z.coerce.number().int().optional()
+        }),
+        params: z.object({
+          par1: z.string(),
+          par2: z.coerce.number()
+        }),
+        response: {
+          200: z.object({
+            par1: z.string(),
+            par2: z.number(),
+            queryDate: z.iso.date(),
+            someOtherKey: z.number()
+          })
+        }
+      }
+    },
+    async (request, reply) => {
+      reply.send({
+        par1: request.params.par1,
+        par2: request.params.par2,
+        queryDate: request.query.date,
+        someOtherKey: 100
+      });
+    }
+  );
 }

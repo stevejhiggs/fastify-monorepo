@@ -13,36 +13,40 @@ const cachedItemSchema = z.object({
   timestamp: z.date()
 });
 
-const requestSchema = z.object({
-  response: {
-    200: cachedItemSchema
-  }
-});
-
 type CachedItem = z.infer<typeof cachedItemSchema>;
 
 export default function registerRoutes(app: EnhancedFastifyInstance) {
-  app.get('/caching', { schema: requestSchema }, async (req, reply) => {
-    // try to get the uuid from the cache
-    const cachedItem = await cache.getItem<CachedItem>('test-item');
-    if (cachedItem) {
-      req.log.info({ message: 'cached hit', item: cachedItem });
+  app.get(
+    '/caching',
+    {
+      schema: {
+        response: {
+          200: cachedItemSchema
+        }
+      }
+    },
+    async (req, reply) => {
+      // try to get the uuid from the cache
+      const cachedItem = await cache.getItem<CachedItem>('test-item');
+      if (cachedItem) {
+        req.log.info({ message: 'cached hit', item: cachedItem });
 
-      return reply.send(cachedItem);
+        return reply.send(cachedItem);
+      }
+
+      // not found, so generate a new uuid
+      const uuid = randomUUID();
+      const timestamp = new Date();
+      req.log.info({ message: 'cache miss', uuid });
+      cache.setItem<CachedItem>('test-item', {
+        uuid,
+        timestamp: new Date()
+      });
+
+      reply.send({
+        uuid,
+        timestamp
+      });
     }
-
-    // not found, so generate a new uuid
-    const uuid = randomUUID();
-    const timestamp = new Date();
-    req.log.info({ message: 'cache miss', uuid });
-    cache.setItem<CachedItem>('test-item', {
-      uuid,
-      timestamp: new Date()
-    });
-
-    reply.send({
-      uuid,
-      timestamp
-    });
-  });
+  );
 }

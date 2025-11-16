@@ -1,11 +1,8 @@
 {
-  "name": "@repo/fastify-base",
+  "name": "@repo/fastify-multipart",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./caching": "./src/caching.ts",
-    "./logging": "./src/logging.ts",
-    "./multipart": "./src/multipart.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "lint:ci": "biome check ./src",
@@ -13,20 +10,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    
-    "@repo/caching": "workspace:*",
-    "@repo/fastify-observability": "workspace:*",
-    "@repo/fastify-multipart": "workspace:*",
-    "@repo/fastify-security": "workspace:*",
-    "@repo/fastify-swagger": "workspace:*",
-    "@repo/fastify-zod": "workspace:*",
-    "@repo/logging": "workspace:*"
+    "@fastify/multipart": "^9.3.0"
   },
   "peerDependencies": {
     "fastify": "^5"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:tooling",
+    "@repo/fastify-common-types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:tooling",
     "typescript": "catalog:tooling"

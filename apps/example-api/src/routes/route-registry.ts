@@ -1,5 +1,6 @@
 import type { EnhancedFastifyInstance } from '@repo/fastify-base';
 import caching from './caching/route';
+import files from './files/route';
 import health from './health/route';
 import logging from './logging/route';
 import schemaTest from './schema-test/route';
@@ -10,4 +11,5 @@ export default function registerRoutes(app: EnhancedFastifyInstance) {
   schemaTest(app);
   logging(app);
   caching(app);
+  files(app);
 }
