@@ -10,8 +10,7 @@ setupFastifyOpenTelemetry({
     exporter: 'otlp-grpc'
   },
   metrics: {
-    exporter: 'otlp-grpc',
-    intervalMillis: 10_000
+    exporter: 'otlp-grpc'
   },
   logLevel: 'info'
 });
