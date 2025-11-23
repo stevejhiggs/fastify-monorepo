@@ -5,7 +5,7 @@
   "main": "dist/listener.js",
   "type": "module",
   "scripts": {
-    "dev": "node --import tsx --watch-path=./src ./src/index.ts | pino-pretty ",
+    "dev": "node --import tsx  --import ./src/telemetry.ts --watch-path=./src ./src/index.ts | pino-pretty ",
     "debug": "node --inspect --import tsx ./src/index.ts ",
     "start:production": "node --enable-source-maps ./.dist/index.mjs",
     "build": "tsdown",

@@ -5,7 +5,8 @@
     ".": "./src/index.ts",
     "./caching": "./src/caching.ts",
     "./logging": "./src/logging.ts",
-    "./multipart": "./src/multipart.ts"
+    "./multipart": "./src/multipart.ts",
+    "./telemetry/setup": "./src/telemetry/setup.ts"
   },
   "scripts": {
     "lint:ci": "biome check ./src",
@@ -13,7 +14,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    
     "@repo/caching": "workspace:*",
     "@repo/fastify-observability": "workspace:*",
     "@repo/fastify-multipart": "workspace:*",

@@ -1,11 +1,8 @@
 {
-  "name": "@repo/fastify-observability",
+  "name": "@repo/open-telemetry",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./logging": "./src/logging.ts",
-    "./open-telemetry": "./src/open-telemetry/index.ts",
-    "./open-telemetry/setup": "./src/open-telemetry/setup.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "lint:ci": "biome check ./src",
@@ -13,17 +10,16 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@fastify/otel": "^0.14.0",
-    "@fastify/request-context": "^6.2.1",
-    "@repo/logging": "workspace:*",
-    "@repo/open-telemetry": "workspace:*"
-  },
-  "peerDependencies": {
-    "fastify": "^5"
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/exporter-metrics-otlp-proto": "^0.208.0",
+    "@opentelemetry/resources": "^2.2.0",
+    "@opentelemetry/sdk-metrics": "^2.2.0",
+    "@opentelemetry/sdk-node": "^0.208.0",
+    "@opentelemetry/semantic-conventions": "^1.38.0",
+    "@repo/typescript-utils": "workspace:*"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:tooling",
-    "@repo/fastify-common-types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:tooling",
     "typescript": "catalog:tooling"

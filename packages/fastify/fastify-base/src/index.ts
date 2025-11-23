@@ -1,5 +1,6 @@
 import { registerMultipart } from '@repo/fastify-multipart';
 import { registerPerRequestLogger } from '@repo/fastify-observability/logging';
+import { registerOpenTelemetry } from '@repo/fastify-observability/open-telemetry';
 import { registerDefaultSecurity } from '@repo/fastify-security';
 import { registerSwagger, type SwaggerConfig } from '@repo/fastify-swagger';
 import { jsonSchemaTransform, registerZodProvider, type ZodTypeProvider } from '@repo/fastify-zod';
@@ -36,6 +37,8 @@ export async function setupBaseApp(config: FastifyBaseConfig): Promise<{ app: En
     },
     loggerInstance: logger
   });
+
+  await registerOpenTelemetry(rawApp);
 
   registerPerRequestLogger(rawApp, logger);
 
