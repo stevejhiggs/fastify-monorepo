@@ -129,9 +129,9 @@ export function setupOpenTelemetry(params: OpenTelemetryParams) {
     instrumentations: [
       getNodeAutoInstrumentations({
         // Disable deprecated instrumentations
-        '@opentelemetry/instrumentation-fastify': { enabled: false },
+        '@opentelemetry/instrumentation-fastify': { enabled: false }
         // Disable noisy instrumentations
-        '@opentelemetry/instrumentation-runtime-node': { enabled: false }
+        //'@opentelemetry/instrumentation-runtime-node': { enabled: true }
       }),
       ...(params.instrumentations ?? [])
     ],
