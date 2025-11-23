@@ -1,12 +1,11 @@
 import { DiagConsoleLogger, diag } from '@opentelemetry/api';
-import {
-  getNodeAutoInstrumentations,
-  getResourceDetectors as getResourceDetectorsFromEnv
-} from '@opentelemetry/auto-instrumentations-node';
+import { getResourceDetectors as getResourceDetectorsFromEnv } from '@opentelemetry/auto-instrumentations-node';
 import { OTLPMetricExporter as OTLPMetricExporterGrpc } from '@opentelemetry/exporter-metrics-otlp-grpc';
 import { OTLPMetricExporter as OTLPMetricExporterProto } from '@opentelemetry/exporter-metrics-otlp-proto';
 import { OTLPTraceExporter as OTLPTraceExporterGrpc } from '@opentelemetry/exporter-trace-otlp-grpc';
 import { OTLPTraceExporter as OTLPTraceExporterHttp } from '@opentelemetry/exporter-trace-otlp-http';
+import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
+import { UndiciInstrumentation } from '@opentelemetry/instrumentation-undici';
 import { resourceFromAttributes } from '@opentelemetry/resources';
 import {
   AggregationType,
@@ -39,11 +38,6 @@ const traceExporter = {
 export type TraceExporter = ObjectValues<typeof traceExporter>;
 
 function getMetricReader(params: { metricsExporter: MetricsExporter; metricIntervalMillis?: number; endpoint?: string }) {
-  const exportIntervalMillis = params.metricIntervalMillis ?? 5_000;
-  const readerOptions = {
-    exportIntervalMillis
-  };
-
   let exporter: PushMetricExporter | undefined;
 
   switch (params.metricsExporter) {
@@ -80,7 +74,7 @@ function getMetricReader(params: { metricsExporter: MetricsExporter; metricInter
   }
 
   return new PeriodicExportingMetricReader({
-    ...readerOptions,
+    exportIntervalMillis: params.metricIntervalMillis ?? 60_000,
     exporter
   });
 }
@@ -126,15 +120,7 @@ export function setupOpenTelemetry(params: OpenTelemetryParams) {
       [ATTR_SERVICE_NAME]: params.serviceInfo.name,
       [ATTR_SERVICE_VERSION]: params.serviceInfo.version
     }),
-    instrumentations: [
-      getNodeAutoInstrumentations({
-        // Disable deprecated instrumentations
-        '@opentelemetry/instrumentation-fastify': { enabled: false }
-        // Disable noisy instrumentations
-        //'@opentelemetry/instrumentation-runtime-node': { enabled: true }
-      }),
-      ...(params.instrumentations ?? [])
-    ],
+    instrumentations: [new HttpInstrumentation(), new UndiciInstrumentation(), ...(params.instrumentations ?? [])],
     resourceDetectors: getResourceDetectorsFromEnv(),
     traceExporter: getTraceExporter({ traceExporter: params.traces.exporter, endpoint: params.traces.endpoint }),
     metricReader: getMetricReader({
