@@ -1,0 +1,38 @@
+{
+  "name": "@repo/open-telemetry",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint:ci": "biome check ./src",
+    "lint": "pnpm run lint:ci --write",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/exporter-metrics-otlp-grpc": "^0.208.0",
+    "@opentelemetry/exporter-metrics-otlp-proto": "^0.208.0",
+    "@opentelemetry/exporter-trace-otlp-grpc": "^0.208.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.208.0",
+    "@opentelemetry/instrumentation-http": "^0.208.0",
+    "@opentelemetry/instrumentation-undici": "^0.19.0",
+    "@opentelemetry/resources": "^2.2.0",
+    "@opentelemetry/sdk-metrics": "^2.2.0",
+    "@opentelemetry/sdk-node": "^0.208.0",
+    "@opentelemetry/sdk-trace-node": "^2.2.0",
+    "@opentelemetry/semantic-conventions": "^1.38.0",
+    "@repo/typescript-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:tooling",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:tooling",
+    "typescript": "catalog:tooling"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "biome check --write --no-errors-on-unmatched"
+    ]
+  }
+}

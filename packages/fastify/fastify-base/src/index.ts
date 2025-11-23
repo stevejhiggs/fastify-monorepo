@@ -15,8 +15,12 @@ import {
 
 export type FastifyBaseConfig = {
   port: number;
-  swagger: Omit<SwaggerConfig, 'port' | 'transform'>;
+  swagger: Omit<SwaggerConfig, 'port' | 'transform' | 'title' | 'version'>;
   logger?: LoggerConfig;
+  serviceInfo: {
+    name: string;
+    version: string;
+  };
 };
 
 export type EnhancedFastifyInstance = FastifyInstance<
@@ -46,7 +50,13 @@ export async function setupBaseApp(config: FastifyBaseConfig): Promise<{ app: En
   // add security headers
   await registerDefaultSecurity(app);
   // adds open api documentations at /documentation
-  await registerSwagger(app, { ...config.swagger, port: config.port, transform: jsonSchemaTransform });
+  await registerSwagger(app, {
+    ...config.swagger,
+    port: config.port,
+    transform: jsonSchemaTransform,
+    title: config.serviceInfo.name,
+    version: config.serviceInfo.version
+  });
 
   return { app };
 }
