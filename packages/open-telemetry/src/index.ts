@@ -3,61 +3,129 @@ import {
   getNodeAutoInstrumentations,
   getResourceDetectors as getResourceDetectorsFromEnv
 } from '@opentelemetry/auto-instrumentations-node';
-import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
-import { AggregationType, ConsoleMetricExporter, InstrumentType, PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
+import { OTLPMetricExporter as OTLPMetricExporterGrpc } from '@opentelemetry/exporter-metrics-otlp-grpc';
+import { OTLPMetricExporter as OTLPMetricExporterProto } from '@opentelemetry/exporter-metrics-otlp-proto';
+import { OTLPTraceExporter as OTLPTraceExporterGrpc } from '@opentelemetry/exporter-trace-otlp-grpc';
+import { OTLPTraceExporter as OTLPTraceExporterHttp } from '@opentelemetry/exporter-trace-otlp-http';
+import { resourceFromAttributes } from '@opentelemetry/resources';
+import {
+  AggregationType,
+  ConsoleMetricExporter,
+  InstrumentType,
+  PeriodicExportingMetricReader,
+  type PushMetricExporter
+} from '@opentelemetry/sdk-metrics';
 import * as opentelemetry from '@opentelemetry/sdk-node';
+import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-node';
+import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } from '@opentelemetry/semantic-conventions';
 import type { ObjectValues } from '@repo/typescript-utils/types';
 
 const metricsExporter = {
   Otlp: 'otlp',
+  OtlpGrpc: 'otlp-grpc',
   Console: 'console',
   None: 'none'
 } as const;
 
 export type MetricsExporter = ObjectValues<typeof metricsExporter>;
 
-function getMetricReader(params: { metricsExporter: MetricsExporter; metricIntervalMillis?: number }) {
+const traceExporter = {
+  OtlpHttp: 'otlp-http',
+  OtlpGrpc: 'otlp-grpc',
+  Console: 'console',
+  None: 'none'
+} as const;
+
+export type TraceExporter = ObjectValues<typeof traceExporter>;
+
+function getMetricReader(params: { metricsExporter: MetricsExporter; metricIntervalMillis?: number; endpoint?: string }) {
   const exportIntervalMillis = params.metricIntervalMillis ?? 5_000;
   const readerOptions = {
     exportIntervalMillis
   };
 
+  let exporter: PushMetricExporter | undefined;
+
   switch (params.metricsExporter) {
     case 'otlp':
-      diag.info('using otel metrics exporter');
-      return new PeriodicExportingMetricReader({
-        ...readerOptions,
-        exporter: new OTLPMetricExporter({
-          aggregationPreference: (instrumentType: InstrumentType) => {
-            if (instrumentType === InstrumentType.HISTOGRAM) {
-              return { type: AggregationType.EXPONENTIAL_HISTOGRAM };
-            }
-            return { type: AggregationType.DEFAULT };
+      diag.info('using otel protobuf metrics exporter');
+      exporter = new OTLPMetricExporterProto({
+        url: params.endpoint ?? 'http://localhost:4318',
+        aggregationPreference: (instrumentType: InstrumentType) => {
+          if (instrumentType === InstrumentType.HISTOGRAM) {
+            return { type: AggregationType.EXPONENTIAL_HISTOGRAM };
           }
-        })
+          return { type: AggregationType.DEFAULT };
+        }
       });
+      break;
+    case 'otlp-grpc':
+      diag.info('using otel grpcmetrics exporter');
+      exporter = new OTLPMetricExporterGrpc({
+        url: params.endpoint ?? 'http://localhost:4317'
+      });
+      break;
     case 'console':
-      return new PeriodicExportingMetricReader({
-        ...readerOptions,
-        exporter: new ConsoleMetricExporter()
-      });
+      exporter = new ConsoleMetricExporter();
+      break;
     case 'none':
       diag.info('disabling metrics reader');
-      return undefined;
+      break;
     default:
       throw Error(`no valid option for OTEL_METRICS_EXPORTER`);
   }
+
+  if (!exporter) {
+    return undefined;
+  }
+
+  return new PeriodicExportingMetricReader({
+    ...readerOptions,
+    exporter
+  });
 }
 
-export function setupOpenTelemetry(params: {
-  metricsExporter: MetricsExporter;
+function getTraceExporter(params: { traceExporter: TraceExporter; endpoint?: string }) {
+  switch (params.traceExporter) {
+    case 'otlp-http':
+      return new OTLPTraceExporterHttp({ url: params.endpoint ?? 'http://localhost:4318' });
+    case 'otlp-grpc':
+      return new OTLPTraceExporterGrpc({ url: params.endpoint ?? 'http://localhost:4317' });
+    case 'console':
+      return new ConsoleSpanExporter();
+    case 'none':
+      return undefined;
+    default:
+      throw Error(`no valid option for OTEL_TRACE_EXPORTER`);
+  }
+}
+
+export type OpenTelemetryParams = {
+  metrics: {
+    exporter: MetricsExporter;
+    intervalMillis?: number;
+    endpoint?: string;
+  };
+  traces: {
+    exporter: TraceExporter;
+    endpoint?: string;
+  };
   instrumentations?: opentelemetry.NodeSDKConfiguration['instrumentations'];
-  metricIntervalMillis?: number;
+  serviceInfo: {
+    name: string;
+    version: string;
+  };
   logLevel?: string;
-}) {
+};
+
+export function setupOpenTelemetry(params: OpenTelemetryParams) {
   diag.setLogger(new DiagConsoleLogger(), opentelemetry.core.diagLogLevelFromString(params.logLevel ?? 'info'));
 
   const sdk = new opentelemetry.NodeSDK({
+    resource: resourceFromAttributes({
+      [ATTR_SERVICE_NAME]: params.serviceInfo.name,
+      [ATTR_SERVICE_VERSION]: params.serviceInfo.version
+    }),
     instrumentations: [
       getNodeAutoInstrumentations({
         // Disable deprecated instrumentations
@@ -68,9 +136,11 @@ export function setupOpenTelemetry(params: {
       ...(params.instrumentations ?? [])
     ],
     resourceDetectors: getResourceDetectorsFromEnv(),
+    traceExporter: getTraceExporter({ traceExporter: params.traces.exporter, endpoint: params.traces.endpoint }),
     metricReader: getMetricReader({
-      metricsExporter: params.metricsExporter,
-      metricIntervalMillis: params.metricIntervalMillis
+      metricsExporter: params.metrics.exporter,
+      metricIntervalMillis: params.metrics.intervalMillis,
+      endpoint: params.metrics.endpoint
     })
   });
 

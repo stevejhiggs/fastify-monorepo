@@ -1,14 +1,10 @@
 import FastifyOtelInstrumentation from '@fastify/otel';
-import { type MetricsExporter, setupOpenTelemetry } from '@repo/open-telemetry';
+import { type OpenTelemetryParams, setupOpenTelemetry } from '@repo/open-telemetry';
 
-export type FastifyOpenTelemetryParams = {
-  metricsExporter: MetricsExporter;
-  metricIntervalMillis?: number;
-  logLevel?: string;
-};
+export type FastifyOpenTelemetryParams = OpenTelemetryParams;
 
-export const fastifyOtelInstrumentation = new FastifyOtelInstrumentation();
+export const fastifyOtelInstrumentation = new FastifyOtelInstrumentation({ registerOnInitialization: true });
 
-export function setupFastifyOpenTelemetry(params: { metricsExporter: MetricsExporter; metricIntervalMillis?: number; logLevel?: string }) {
+export function setupFastifyOpenTelemetry(params: FastifyOpenTelemetryParams) {
   setupOpenTelemetry({ ...params, instrumentations: [fastifyOtelInstrumentation] });
 }

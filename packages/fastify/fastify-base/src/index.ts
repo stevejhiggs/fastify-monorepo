@@ -1,6 +1,5 @@
 import { registerMultipart } from '@repo/fastify-multipart';
 import { registerPerRequestLogger } from '@repo/fastify-observability/logging';
-import { registerOpenTelemetry } from '@repo/fastify-observability/open-telemetry';
 import { registerDefaultSecurity } from '@repo/fastify-security';
 import { registerSwagger, type SwaggerConfig } from '@repo/fastify-swagger';
 import { jsonSchemaTransform, registerZodProvider, type ZodTypeProvider } from '@repo/fastify-zod';
@@ -16,8 +15,12 @@ import {
 
 export type FastifyBaseConfig = {
   port: number;
-  swagger: Omit<SwaggerConfig, 'port' | 'transform'>;
+  swagger: Omit<SwaggerConfig, 'port' | 'transform' | 'title' | 'version'>;
   logger?: LoggerConfig;
+  serviceInfo: {
+    name: string;
+    version: string;
+  };
 };
 
 export type EnhancedFastifyInstance = FastifyInstance<
@@ -38,8 +41,6 @@ export async function setupBaseApp(config: FastifyBaseConfig): Promise<{ app: En
     loggerInstance: logger
   });
 
-  await registerOpenTelemetry(rawApp);
-
   registerPerRequestLogger(rawApp, logger);
 
   // Set up Zod validators and serializers
@@ -49,7 +50,13 @@ export async function setupBaseApp(config: FastifyBaseConfig): Promise<{ app: En
   // add security headers
   await registerDefaultSecurity(app);
   // adds open api documentations at /documentation
-  await registerSwagger(app, { ...config.swagger, port: config.port, transform: jsonSchemaTransform });
+  await registerSwagger(app, {
+    ...config.swagger,
+    port: config.port,
+    transform: jsonSchemaTransform,
+    title: config.serviceInfo.name,
+    version: config.serviceInfo.version
+  });
 
   return { app };
 }
