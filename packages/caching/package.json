@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@keyv/redis": "^5.1.4",
-    "cacheable": "^2.2.0",
-    "superjson": "^2.2.5"
+    "cacheable": "^2.3.0",
+    "superjson": "^2.2.6"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:tooling",

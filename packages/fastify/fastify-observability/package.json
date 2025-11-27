@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@fastify/otel": "^0.14.0",
+    "@fastify/otel": "^0.15.0",
     "@fastify/request-context": "^6.2.1",
     "@repo/logging": "workspace:*",
     "@repo/open-telemetry": "workspace:*"
