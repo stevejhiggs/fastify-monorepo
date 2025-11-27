@@ -25,34 +25,12 @@ A Fastify monorepo template with all the essential features you need to build sc
 - **Vitest** - Fast unit testing framework
 - **Biome** - Fast formatter and linter
 
-## 📁 Project Structure
-
-```
-fastify-monorepo/
-├── apps/
-│   └── example-api/          # Example Fastify API application
-├── packages/
-│   ├── caching/              # Caching utilities with Redis support
-│   ├── logging/              # Logging utilities
-│   └── fastify/
-│       ├── fastify-base/     # Base Fastify setup with all plugins
-│       ├── fastify-common-types/  # Shared TypeScript types
-│       ├── fastify-observability/ # Observability plugin
-│       ├── fastify-security/ # Security headers plugin
-│       ├── fastify-swagger/  # Swagger/OpenAPI plugin
-│       └── fastify-zod/      # Zod schema validation plugin
-└── tooling/
-    ├── templates/            # Package templates for code generation
-    ├── typescript-config/    # Shared TypeScript configuration
-    └── vitest/               # Shared Vitest configuration
-```
-
 ## 🏁 Getting Started
 
 ### Prerequisites
 
 - **Node.js** (v24 or higher)
-- **pnpm** (v10.22.0 or higher) - Install via `npm install -g pnpm@10.22.0`
+- **pnpm** (v10.24.0 or higher) - Install via `npm install -g pnpm@10.24.0`
 
 ### Installation
 
@@ -113,7 +91,30 @@ For the example API:
 - `DISABLE_DOCS` - Set to `true` to disable the `/documentation` endpoint. Defaults to `false`
 - `REDIS_URL` - Optional Redis connection URL for caching
 
-## 📦 Available Packages
+## 📁 Project Structure
+
+```
+fastify-monorepo/
+├── apps/
+│   └── example-api/          # Example Fastify API application
+├── packages/
+│   ├── caching/              # Caching utilities with Redis support
+│   ├── logging/              # Logging utilities
+│   ├── open-telemetry/       # OpenTelemetry instrumentation utilities
+│   ├── typescript-utils/     # Shared TypeScript utility types
+│   └── fastify/
+│       ├── fastify-base/     # Base Fastify setup with all plugins
+│       ├── fastify-common-types/  # Shared TypeScript types
+│       ├── fastify-multipart/     # Multipart form handling and upload plugin
+│       ├── fastify-observability/ # Observability plugin
+│       ├── fastify-security/ # Security headers plugin
+│       ├── fastify-swagger/  # Swagger/OpenAPI plugin
+│       └── fastify-zod/      # Zod schema validation plugin
+└── tooling/
+    ├── templates/            # Package templates for code generation
+    ├── typescript-config/    # Shared TypeScript configuration
+    └── vitest/               # Shared Vitest configuration
+```
 
 ### `@repo/fastify-base`
 
@@ -142,15 +143,20 @@ const { app } = await setupBaseApp({
 });
 ```
 
-- `@repo/fastify-zod` Zod schema validation for Fastify requests and responses. Automatically integrates with Swagger documentation.
-- `@repo/fastify-swagger` Automatic OpenAPI/Swagger documentation generation.
-- `@repo/fastify-observability` Request-scoped logging that persists throughout the request lifecycle.
-- `@repo/fastify-security` Security headers plugin (Helmet integration).
-- `@repo/caching` Flexible caching solution with:
-  - In-memory caching
-  - Optional Redis secondary cache
-  - SuperJSON serialization for proper date/object handling
-- `@repo/logging` Core logging utilities with optional GCP formatting.
+## 🐳 Docker
+
+### Building Docker Images
+
+The monorepo includes a multi-stage Dockerfile that efficiently builds production-ready images for any app in the monorepo.
+
+#### Building an App
+
+To build a Docker image for an app, use the `TARGET_PACKAGE` build argument:
+
+```bash
+# Build the example-api app
+docker build --build-arg TARGET_PACKAGE=example-api -t example-api:latest .
+```
 
 ## 🧪 Testing
 
@@ -191,7 +197,6 @@ Production builds use `tsdown` for optimized output.
 ### Planned Features
 
 - [ ] OpenTelemetry support
-- [ ] Docker buildfile
 - [ ] Authentication/Authorization
 - [ ] GitHub Actions CI/CD
 - [ ] API generation from templates

@@ -2,7 +2,7 @@ import { defineConfig } from 'tsdown/config';
 
 export default defineConfig({
   // input
-  entry: 'src/index.ts',
+  entry: ['src/index.ts', 'src/telemetry.ts'],
 
   // transform
   skipNodeModulesBundle: true,
@@ -12,7 +12,7 @@ export default defineConfig({
   tsconfig: 'tsconfig.json',
 
   // output
-  outDir: '.dist',
+  outDir: process.env.DIST_DIR ?? '.dist',
   sourcemap: true,
   format: 'esm'
 });
