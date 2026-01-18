@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "import"],
+  "env": {
+    "node": true,
+    "es2024": true
+  },
+  "rules": {
+    "unicorn/prefer-for-of": "error",
+    "unicorn/filename-case": ["error", { "case": "kebabCase" }]
+  },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "ignorePatterns": ["**/node_modules", "**/.dist", "**/.turbo", "**/coverage"]
+}

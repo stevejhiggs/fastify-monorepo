@@ -8,9 +8,9 @@
     "./open-telemetry/setup": "./src/open-telemetry/setup.ts"
   },
   "scripts": {
-    "lint:ci": "biome check ./src",
-    "lint": "pnpm run lint:ci --write",
-    "typecheck": "tsc --noEmit"
+    "lint:ci": "oxlint --type-aware ./src && oxfmt --check ./src",
+    "lint": "oxlint --type-aware --fix ./src && oxfmt --write ./src",
+    "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
     "@fastify/otel": "^0.16.0",
@@ -22,15 +22,18 @@
     "fastify": "^5"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:tooling",
+    "oxlint": "catalog:tooling",
+    "oxlint-tsgolint": "catalog:tooling",
+    "oxfmt": "catalog:tooling",
     "@repo/fastify-common-types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:tooling",
-    "typescript": "catalog:tooling"
+    "@typescript/native-preview": "catalog:tooling"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
-      "biome check --write --no-errors-on-unmatched"
+      "oxlint --type-aware --fix",
+      "oxfmt --write"
     ]
   }
 }

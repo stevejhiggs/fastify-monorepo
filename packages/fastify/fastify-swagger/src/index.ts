@@ -1,14 +1,13 @@
 import fastifySwagger, { type SwaggerOptions, type SwaggerTransform } from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
 import type { FastifyInstanceForRegistration } from '@repo/fastify-common-types';
-import type { FastifySchema } from 'fastify';
 
 export type SwaggerConfig = {
   enable: boolean;
   title?: string | undefined;
   version?: string | undefined;
   port: number;
-  transform?: SwaggerTransform<FastifySchema>;
+  transform?: SwaggerTransform;
   host?: string;
   documentationRoute?: string;
 };

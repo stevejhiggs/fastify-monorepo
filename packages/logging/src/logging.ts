@@ -14,7 +14,7 @@ export type LoggerConfig = {
   logLevel?: LevelWithSilentOrString | undefined;
 };
 
-function getPlatformOptions(outputFormat?: OutputFormat): LoggerOptions<never, boolean> | undefined {
+function getPlatformOptions(outputFormat?: OutputFormat): LoggerOptions | undefined {
   if (outputFormat === 'GCP') {
     return createGcpLoggingPinoConfig();
   }

@@ -6,5 +6,5 @@ export type MultipartOptions = Omit<Parameters<typeof fastifyMultipart>[1], 'att
 
 // support multipart/form-data requests
 export function registerMultipart(app: FastifyInstanceForRegistration, options?: MultipartOptions) {
-  app.register(fastifyMultipart, { ...(options ?? {}), attachFieldsToBody: true });
+  app.register(fastifyMultipart, { ...options, attachFieldsToBody: true });
 }

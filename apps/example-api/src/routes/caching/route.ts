@@ -44,7 +44,7 @@ export default function registerRoutes(app: EnhancedFastifyInstance) {
       const uuid = randomUUID();
       const timestamp = new Date();
       req.log.info({ message: 'cache miss', uuid });
-      cache.setItem<CachedItem>('test-item', {
+      void cache.setItem<CachedItem>('test-item', {
         uuid,
         timestamp: new Date()
       });

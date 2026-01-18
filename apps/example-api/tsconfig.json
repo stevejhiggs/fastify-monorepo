@@ -1,7 +1,6 @@
 {
   "extends": "@repo/typescript-config/tsconfig.base",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

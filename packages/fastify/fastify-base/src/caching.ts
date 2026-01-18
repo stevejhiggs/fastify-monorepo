@@ -4,14 +4,14 @@ import {
   createInMemoryCache as baseCreateInMemoryCache,
   createRedisCache as baseCreateRedisCache,
   type Cache,
-  type InMemoryCacheOptions,
+  type CacheOptions,
   type RedisCacheOptions
 } from '@repo/caching';
 import { logger } from './logging';
 
 export type { Cache } from '@repo/caching';
 
-export function createInMemoryCache(args: Omit<InMemoryCacheOptions, 'onError'>): Cache {
+export function createInMemoryCache(args: Omit<CacheOptions, 'onError'>): Cache {
   return baseCreateInMemoryCache({ ...args, onError: (error) => logger.instance.error({ message: 'Error caching item', err: error }) });
 }
 

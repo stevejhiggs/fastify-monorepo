@@ -5,23 +5,26 @@
     ".": "./index.ts"
   },
   "scripts": {
-    "lint:ci": "biome check ./src",
-    "lint": "pnpm run lint:ci --write",
-    "typecheck": "tsc --noEmit"
+    "lint:ci": "oxlint --type-aware ./src && oxfmt --check ./src",
+    "lint": "oxlint --type-aware --fix ./src && oxfmt --write ./src",
+    "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
     "@google-cloud/pino-logging-gcp-config": "^1.3.0",
     "pino": "^10.1.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:tooling",
+    "oxlint": "catalog:tooling",
+    "oxlint-tsgolint": "catalog:tooling",
+    "oxfmt": "catalog:tooling",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:tooling",
-    "typescript": "catalog:tooling"
+    "@typescript/native-preview": "catalog:tooling"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
-      "biome check --write --no-errors-on-unmatched"
+      "oxlint --type-aware --fix",
+      "oxfmt --write"
     ]
   }
 }

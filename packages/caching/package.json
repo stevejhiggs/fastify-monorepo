@@ -5,9 +5,9 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "lint:ci": "biome check ./src",
-    "lint": "pnpm run lint:ci --write",
-    "typecheck": "tsc --noEmit",
+    "lint:ci": "oxlint --type-aware ./src && oxfmt --check ./src",
+    "lint": "oxlint --type-aware --fix ./src && oxfmt --write ./src",
+    "typecheck": "tsgo --noEmit",
     "test": "vitest",
     "test:ci": "vitest run"
   },
@@ -17,17 +17,20 @@
     "superjson": "^2.2.6"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:tooling",
+    "oxlint": "catalog:tooling",
+    "oxlint-tsgolint": "catalog:tooling",
+    "oxfmt": "catalog:tooling",
     "@repo/typescript-config": "workspace:*",
     "@repo/vitest": "workspace:*",
     "@types/node": "catalog:tooling",
     "@vitest/coverage-v8": "catalog:testing",
-    "typescript": "catalog:tooling",
+    "@typescript/native-preview": "catalog:tooling",
     "vitest": "catalog:testing"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
-      "biome check --write --no-errors-on-unmatched"
+      "oxlint --type-aware --fix",
+      "oxfmt --write"
     ]
   }
 }

@@ -6,12 +6,12 @@ Production-ready Fastify v5 monorepo with modular plugins for building type-safe
 
 - **Runtime**: Node.js 24+ with native ES modules
 - **Framework**: Fastify v5.6
-- **Language**: TypeScript 5.9 (strict mode)
+- **Language**: TypeScript Native 7.0 (tsgo - strict mode)
 - **Validation**: Zod v4 with type providers
 - **Package Manager**: pnpm 10.25 with workspaces
 - **Build**: Turborepo for orchestration, tsdown for production builds
 - **Testing**: Vitest
-- **Linting**: Biome (formatter + linter)
+- **Linting**: oxlint + oxfmt (with type-aware linting)
 
 ## Architecture
 
@@ -49,7 +49,7 @@ Plugins can be composed: `registerZod(registerSecurity(app))`
 ## Key Conventions
 
 ### File Naming
-- Use **kebab-case** for all files (enforced by Biome)
+- Use **kebab-case** for all files (enforced by oxlint)
 - Tests co-located: `foo.ts` → `foo.test.ts`
 
 ### Imports
@@ -72,8 +72,8 @@ Plugins can be composed: `registerZod(registerSecurity(app))`
 pnpm install          # Install dependencies
 pnpm dev              # Run all apps in watch mode
 pnpm test             # Run tests
-pnpm typecheck        # Type check all packages
-pnpm lint             # Format and lint with Biome
+pnpm typecheck        # Type check with tsgo (TypeScript Native)
+pnpm lint             # Lint with oxlint and format with oxfmt
 pnpm build            # Production build
 ```
 

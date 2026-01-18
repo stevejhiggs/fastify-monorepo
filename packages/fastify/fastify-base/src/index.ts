@@ -25,8 +25,8 @@ export type FastifyBaseConfig = {
 
 export type EnhancedFastifyInstance = FastifyInstance<
   RawServerDefault,
-  RawRequestDefaultExpression<RawServerDefault>,
-  RawReplyDefaultExpression<RawServerDefault>,
+  RawRequestDefaultExpression,
+  RawReplyDefaultExpression,
   FastifyBaseLogger,
   ZodTypeProvider
 >;
