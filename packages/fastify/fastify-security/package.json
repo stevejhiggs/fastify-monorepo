@@ -12,17 +12,17 @@
   "dependencies": {
     "@fastify/helmet": "^13.0.2"
   },
-  "peerDependencies": {
-    "fastify": "^5"
-  },
   "devDependencies": {
-    "oxlint": "catalog:tooling",
-    "oxlint-tsgolint": "catalog:tooling",
-    "oxfmt": "catalog:tooling",
-    "@repo/typescript-config": "workspace:*",
     "@repo/fastify-common-types": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:tooling",
-    "@typescript/native-preview": "catalog:tooling"
+    "@typescript/native-preview": "catalog:tooling",
+    "oxfmt": "catalog:tooling",
+    "oxlint": "catalog:tooling",
+    "oxlint-tsgolint": "catalog:tooling"
+  },
+  "peerDependencies": {
+    "fastify": "catalog:"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [

@@ -14,16 +14,16 @@
     "@fastify/swagger-ui": "^5.2.4"
   },
   "devDependencies": {
-    "oxlint": "catalog:tooling",
-    "oxlint-tsgolint": "catalog:tooling",
-    "oxfmt": "catalog:tooling",
     "@repo/fastify-common-types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:tooling",
-    "@typescript/native-preview": "catalog:tooling"
+    "@typescript/native-preview": "catalog:tooling",
+    "oxfmt": "catalog:tooling",
+    "oxlint": "catalog:tooling",
+    "oxlint-tsgolint": "catalog:tooling"
   },
   "peerDependencies": {
-    "fastify": "^5"
+    "fastify": "catalog:"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
