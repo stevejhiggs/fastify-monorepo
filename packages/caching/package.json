@@ -5,15 +5,15 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "lint:ci": "oxlint --type-aware ./src && oxfmt --check ./src",
-    "lint": "oxlint --type-aware --fix ./src && oxfmt --write ./src",
+    "lint:ci": "oxlint --type-aware --type-check ./src && oxfmt --check ./src",
+    "lint": "oxlint --type-aware --type-check --fix ./src && oxfmt --write ./src",
     "typecheck": "tsgo --noEmit",
     "test": "vitest",
     "test:ci": "vitest run"
   },
   "dependencies": {
-    "@keyv/redis": "^5.1.4",
-    "cacheable": "^2.3.0",
+    "@keyv/redis": "^5.1.5",
+    "cacheable": "^2.3.2",
     "superjson": "^2.2.6"
   },
   "devDependencies": {
@@ -29,7 +29,7 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
-      "oxlint --type-aware --fix",
+      "oxlint --type-aware --type-check --fix",
       "oxfmt --write"
     ]
   }

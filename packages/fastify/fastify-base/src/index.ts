@@ -4,14 +4,7 @@ import { registerDefaultSecurity } from '@repo/fastify-security';
 import { registerSwagger, type SwaggerConfig } from '@repo/fastify-swagger';
 import { jsonSchemaTransform, registerZodProvider, type ZodTypeProvider } from '@repo/fastify-zod';
 import { initLogger, type LoggerConfig } from '@repo/logging';
-import {
-  type FastifyBaseLogger,
-  type FastifyInstance,
-  fastify,
-  type RawReplyDefaultExpression,
-  type RawRequestDefaultExpression,
-  type RawServerDefault
-} from 'fastify';
+import { type FastifyBaseLogger, type FastifyInstance, fastify, type RawReplyDefaultExpression, type RawRequestDefaultExpression, type RawServerDefault } from 'fastify';
 
 export type FastifyBaseConfig = {
   port: number;
@@ -23,13 +16,7 @@ export type FastifyBaseConfig = {
   };
 };
 
-export type EnhancedFastifyInstance = FastifyInstance<
-  RawServerDefault,
-  RawRequestDefaultExpression,
-  RawReplyDefaultExpression,
-  FastifyBaseLogger,
-  ZodTypeProvider
->;
+export type EnhancedFastifyInstance = FastifyInstance<RawServerDefault, RawRequestDefaultExpression, RawReplyDefaultExpression, FastifyBaseLogger, ZodTypeProvider>;
 
 export async function setupBaseApp(config: FastifyBaseConfig): Promise<{ app: EnhancedFastifyInstance }> {
   const logger = initLogger(config.logger);

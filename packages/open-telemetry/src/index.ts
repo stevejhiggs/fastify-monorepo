@@ -7,13 +7,7 @@ import { OTLPTraceExporter as OTLPTraceExporterHttp } from '@opentelemetry/expor
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
 import { UndiciInstrumentation } from '@opentelemetry/instrumentation-undici';
 import { resourceFromAttributes } from '@opentelemetry/resources';
-import {
-  AggregationType,
-  ConsoleMetricExporter,
-  InstrumentType,
-  PeriodicExportingMetricReader,
-  type PushMetricExporter
-} from '@opentelemetry/sdk-metrics';
+import { AggregationType, ConsoleMetricExporter, InstrumentType, PeriodicExportingMetricReader, type PushMetricExporter } from '@opentelemetry/sdk-metrics';
 import * as opentelemetry from '@opentelemetry/sdk-node';
 import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-node';
 import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } from '@opentelemetry/semantic-conventions';

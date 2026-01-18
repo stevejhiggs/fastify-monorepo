@@ -1,14 +1,7 @@
 {
-  "printWidth": 140,
-  "tabWidth": 2,
-  "useTabs": false,
-  "semi": true,
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "singleQuote": true,
   "trailingComma": "none",
-  "bracketSpacing": true,
-  "bracketSameLine": false,
-  "arrowParens": "always",
-  "jsxSingleQuote": false,
-  "endOfLine": "lf",
+  "printWidth": 250,
   "ignorePatterns": ["**/node_modules", "**/.dist", "**/.turbo"]
 }

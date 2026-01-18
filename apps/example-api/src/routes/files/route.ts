@@ -5,7 +5,7 @@
  * to extract form data into the request body for Swagger compatibility.
  */
 import type { EnhancedFastifyInstance } from '@repo/fastify-base';
-import z from 'zod';
+import { z } from 'zod';
 export default function registerRoutes(app: EnhancedFastifyInstance) {
   app.post(
     '/files/upload',

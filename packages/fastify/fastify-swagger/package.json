@@ -5,13 +5,13 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "lint:ci": "oxlint --type-aware ./src && oxfmt --check ./src",
-    "lint": "oxlint --type-aware --fix ./src && oxfmt --write ./src",
+    "lint:ci": "oxlint --type-aware --type-check ./src && oxfmt --check ./src",
+    "lint": "oxlint --type-aware --type-check --fix ./src && oxfmt --write ./src",
     "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
     "@fastify/swagger": "^9.6.1",
-    "@fastify/swagger-ui": "^5.2.3"
+    "@fastify/swagger-ui": "^5.2.4"
   },
   "devDependencies": {
     "oxlint": "catalog:tooling",
@@ -27,7 +27,7 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
-      "oxlint --type-aware --fix",
+      "oxlint --type-aware --type-check --fix",
       "oxfmt --write"
     ]
   }
