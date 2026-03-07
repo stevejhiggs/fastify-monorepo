@@ -5,6 +5,7 @@
  * and cached when the cache expires or misses.
  */
 import { randomUUID } from 'node:crypto';
+
 import type { EnhancedFastifyInstance } from '@repo/fastify-base';
 import { createInMemoryCache } from '@repo/fastify-base/caching';
 import { z } from 'zod';

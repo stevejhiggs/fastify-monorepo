@@ -4,6 +4,7 @@
  * the API is running and responding to requests.
  */
 import { randomUUID } from 'node:crypto';
+
 import type { EnhancedFastifyInstance } from '@repo/fastify-base';
 
 export default function registerRoutes(app: EnhancedFastifyInstance) {

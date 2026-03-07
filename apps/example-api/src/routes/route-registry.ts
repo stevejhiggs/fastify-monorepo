@@ -1,4 +1,5 @@
 import type { EnhancedFastifyInstance } from '@repo/fastify-base';
+
 import caching from './caching/route';
 import files from './files/route';
 import health from './health/route';

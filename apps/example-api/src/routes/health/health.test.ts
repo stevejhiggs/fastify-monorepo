@@ -1,5 +1,6 @@
 import type { EnhancedFastifyInstance } from '@repo/fastify-base';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+
 import getServer from '@/server';
 
 describe('endpoints -> health', () => {

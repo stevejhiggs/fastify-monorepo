@@ -1,4 +1,5 @@
 import { setupBaseApp } from '@repo/fastify-base';
+
 import { name, version } from '../package.json';
 import registerRoutes from './routes/route-registry';
 

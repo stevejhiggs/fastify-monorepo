@@ -1,6 +1,6 @@
 import KeyvRedis from '@keyv/redis';
 import { Cacheable, KeyvCacheableMemory } from 'cacheable';
-import SuperJSON from 'superjson';
+import { SuperJSON } from 'superjson';
 
 type CacheErrorHandler = (error: unknown) => void;
 

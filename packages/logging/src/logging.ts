@@ -3,18 +3,18 @@ import logger, { type LevelWithSilentOrString, type LoggerOptions } from 'pino';
 
 export type { Logger } from 'pino';
 
-const outputFormat = {
+const outputFormatEnum = {
   default: 'DEFAULT',
   gcp: 'GCP'
 };
-export type OutputFormat = (typeof outputFormat)[keyof typeof outputFormat];
+export type OutputFormatEnum = (typeof outputFormatEnum)[keyof typeof outputFormatEnum];
 
 export type LoggerConfig = {
-  outputFormat?: OutputFormat;
+  outputFormat?: OutputFormatEnum;
   logLevel?: LevelWithSilentOrString | undefined;
 };
 
-function getPlatformOptions(outputFormat?: OutputFormat): LoggerOptions | undefined {
+function getPlatformOptions(outputFormat?: OutputFormatEnum): LoggerOptions | undefined {
   if (outputFormat === 'GCP') {
     return createGcpLoggingPinoConfig();
   }

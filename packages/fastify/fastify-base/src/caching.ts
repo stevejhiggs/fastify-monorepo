@@ -1,6 +1,7 @@
 // connect the caching package to the per-request logger
 
 import { createInMemoryCache as baseCreateInMemoryCache, createRedisCache as baseCreateRedisCache, type Cache, type CacheOptions, type RedisCacheOptions } from '@repo/caching';
+
 import { logger } from './logging';
 
 export type { Cache } from '@repo/caching';
