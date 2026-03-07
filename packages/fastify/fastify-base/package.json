@@ -11,6 +11,7 @@
   "scripts": {},
   "dependencies": {
     "@repo/caching": "workspace:*",
+    "@repo/fastify-auth": "workspace:*",
     "@repo/fastify-multipart": "workspace:*",
     "@repo/fastify-observability": "workspace:*",
     "@repo/fastify-security": "workspace:*",

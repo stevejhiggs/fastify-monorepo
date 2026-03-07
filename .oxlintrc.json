@@ -7,7 +7,8 @@
   },
   "rules": {
     "unicorn/prefer-for-of": "error",
-    "unicorn/filename-case": ["error", { "case": "kebabCase" }]
+    "unicorn/filename-case": ["error", { "case": "kebabCase" }],
+    "oxc/no-async-endpoint-handlers": "off"
   },
   "categories": {
     "correctness": "error",

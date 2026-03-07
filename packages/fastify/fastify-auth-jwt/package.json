@@ -1,5 +1,5 @@
 {
-  "name": "@repo/fastify-auth",
+  "name": "@repo/fastify-auth-jwt",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
@@ -8,9 +8,11 @@
     "test": "vitest",
     "test:ci": "vitest run"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@fastify/jwt": "^9.1.0",
+    "@repo/fastify-auth": "workspace:*"
+  },
   "devDependencies": {
-    "@repo/fastify-auth-jwt": "workspace:*",
     "@repo/fastify-common-types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@repo/vitest": "workspace:*",

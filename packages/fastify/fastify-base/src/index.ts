@@ -1,3 +1,4 @@
+import { registerAuth, type AuthProvider } from '@repo/fastify-auth';
 import { registerMultipart } from '@repo/fastify-multipart';
 import { registerPerRequestLogger } from '@repo/fastify-observability/logging';
 import { registerDefaultSecurity } from '@repo/fastify-security';
@@ -10,6 +11,7 @@ export type FastifyBaseConfig = {
   port: number;
   swagger: Omit<SwaggerConfig, 'port' | 'transform' | 'title' | 'version'>;
   logger?: LoggerConfig;
+  auth?: AuthProvider;
   serviceInfo: {
     name: string;
     version: string;
@@ -36,6 +38,9 @@ export async function setupBaseApp(config: FastifyBaseConfig): Promise<{ app: En
   registerMultipart(app, { limits: { fileSize: 100 * 1024 * 1024 } }); // 100MB max file size, you can enforce limits lower than this via validation
   // add security headers
   await registerDefaultSecurity(app);
+  if (config.auth) {
+    await registerAuth(app, config.auth);
+  }
   // adds open api documentations at /documentation
   await registerSwagger(app, {
     ...config.swagger,

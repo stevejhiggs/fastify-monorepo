@@ -1,5 +1,5 @@
 {
-  "name": "@repo/fastify-auth",
+  "name": "@repo/fastify-auth-firebase",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
@@ -8,15 +8,15 @@
     "test": "vitest",
     "test:ci": "vitest run"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@repo/fastify-auth": "workspace:*",
+    "firebase-admin": "^13.0.0"
+  },
   "devDependencies": {
-    "@repo/fastify-auth-jwt": "workspace:*",
-    "@repo/fastify-common-types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@repo/vitest": "workspace:*",
     "@types/node": "catalog:tooling",
     "@vitest/coverage-v8": "catalog:testing",
-    "fastify": "catalog:",
     "vitest": "catalog:testing"
   },
   "peerDependencies": {
