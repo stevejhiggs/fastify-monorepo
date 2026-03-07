@@ -10,8 +10,8 @@
     "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
-    "@fastify/swagger": "^9.6.1",
-    "@fastify/swagger-ui": "^5.2.4"
+    "@fastify/swagger": "^9.7.0",
+    "@fastify/swagger-ui": "^5.2.5"
   },
   "devDependencies": {
     "@repo/fastify-common-types": "workspace:*",

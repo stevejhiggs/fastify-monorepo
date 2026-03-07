@@ -30,7 +30,7 @@
     "@types/node": "catalog:tooling",
     "@typescript/native-preview": "catalog:tooling",
     "@vitest/coverage-v8": "catalog:testing",
-    "globals": "^17.0.0",
+    "globals": "^17.4.0",
     "oxfmt": "catalog:tooling",
     "oxlint": "catalog:tooling",
     "oxlint-tsgolint": "catalog:tooling",

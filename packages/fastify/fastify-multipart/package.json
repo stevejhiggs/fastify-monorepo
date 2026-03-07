@@ -10,7 +10,7 @@
     "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
-    "@fastify/multipart": "^9.3.0"
+    "@fastify/multipart": "^9.4.0"
   },
   "devDependencies": {
     "@repo/fastify-common-types": "workspace:*",

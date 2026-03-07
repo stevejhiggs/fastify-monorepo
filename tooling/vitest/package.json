@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@vitest/coverage-v8": "catalog:testing",
-    "vite-tsconfig-paths": "^6.0.4",
+    "vite-tsconfig-paths": "^6.1.1",
     "vitest": "catalog:testing"
   },
   "devDependencies": {
