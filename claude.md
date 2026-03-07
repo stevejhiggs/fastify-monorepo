@@ -18,6 +18,7 @@ Production-ready Fastify v5 monorepo with modular plugins for building type-safe
 ### Buildless Development
 
 This repo uses a **buildless development** approach:
+
 - TypeScript runs directly via `tsx` during development
 - No compilation step needed for local dev
 - Production builds use `tsdown` for optimization
@@ -36,11 +37,11 @@ tooling/        → Build configuration
 Fastify packages follow a registration pattern that returns typed instances:
 
 ```typescript
-import { setupBaseApp } from "@repo/fastify-base";
+import { setupBaseApp } from '@repo/fastify-base';
 
 const app = await setupBaseApp({
-  logger: { level: "info" },
-  swagger: { title: "My API" },
+  logger: { level: 'info' },
+  swagger: { title: 'My API' }
 });
 ```
 
@@ -49,20 +50,24 @@ Plugins can be composed: `registerZod(registerSecurity(app))`
 ## Key Conventions
 
 ### File Naming
+
 - Use **kebab-case** for all files (enforced by oxlint)
 - Tests co-located: `foo.ts` → `foo.test.ts`
 
 ### Imports
+
 - Workspace packages use `@repo/` prefix
 - Use explicit `.ts` extensions for relative imports
 
 ### TypeScript
+
 - Strict mode enabled everywhere
 - No `any` types - use `unknown` and narrow
 - `noUncheckedIndexedAccess: true` - handle undefined array access
 - `verbatimModuleSyntax: true` - use `import type` for type-only imports
 
 ### Exports
+
 - Each package defines explicit `exports` in package.json
 - Prefer subpath exports over deep imports
 
@@ -89,6 +94,7 @@ pnpm build            # Production build
 Use the generator: `pnpm generate:package`
 
 Or manually:
+
 1. Create directory in appropriate location
 2. Add `package.json` with `@repo/` scoped name
 3. Extend `@repo/typescript-config` in tsconfig.json
@@ -104,6 +110,7 @@ Or manually:
 ## Docker
 
 Build any app with:
+
 ```bash
 docker build --build-arg TARGET_PACKAGE=example-api -t example-api:latest .
 ```

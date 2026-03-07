@@ -5,7 +5,7 @@ Shared TypeScript utility types used across the monorepo.
 ## Exports
 
 ```typescript
-import type { /* utility types */ } from "@repo/typescript-utils/types";
+import type {} from /* utility types */ '@repo/typescript-utils/types';
 ```
 
 ## Purpose

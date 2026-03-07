@@ -5,9 +5,6 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "lint:ci": "oxlint --type-aware --type-check ./src && oxfmt --check ./src",
-    "lint": "oxlint --type-aware --type-check --fix ./src && oxfmt --write ./src",
-    "typecheck": "tsgo --noEmit",
     "test": "vitest",
     "test:ci": "vitest run"
   },
@@ -17,20 +14,11 @@
     "superjson": "^2.2.6"
   },
   "devDependencies": {
-    "oxlint": "catalog:tooling",
-    "oxlint-tsgolint": "catalog:tooling",
-    "oxfmt": "catalog:tooling",
     "@repo/typescript-config": "workspace:*",
     "@repo/vitest": "workspace:*",
     "@types/node": "catalog:tooling",
-    "@vitest/coverage-v8": "catalog:testing",
     "@typescript/native-preview": "catalog:tooling",
+    "@vitest/coverage-v8": "catalog:testing",
     "vitest": "catalog:testing"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "oxlint --type-aware --type-check --fix",
-      "oxfmt --write"
-    ]
   }
 }

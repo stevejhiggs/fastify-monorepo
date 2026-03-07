@@ -5,9 +5,11 @@ export default defineConfig({
   entry: ['src/index.ts', 'src/telemetry.ts'],
 
   // transform
-  skipNodeModulesBundle: true,
-  // make sure that internal packages (@repo/*) are bundled into the output
-  noExternal: [/^@repo\//],
+  deps: {
+    // make sure that internal packages (@repo/*) are bundled into the output
+    alwaysBundle: [/^@repo\//]
+  },
+
   platform: 'node',
   tsconfig: 'tsconfig.json',
 

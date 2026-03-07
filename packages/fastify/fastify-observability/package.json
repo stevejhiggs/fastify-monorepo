@@ -7,11 +7,7 @@
     "./open-telemetry": "./src/open-telemetry/index.ts",
     "./open-telemetry/setup": "./src/open-telemetry/setup.ts"
   },
-  "scripts": {
-    "lint:ci": "oxlint --type-aware --type-check ./src && oxfmt --check ./src",
-    "lint": "oxlint --type-aware --type-check --fix ./src && oxfmt --write ./src",
-    "typecheck": "tsgo --noEmit"
-  },
+  "scripts": {},
   "dependencies": {
     "@fastify/otel": "^0.17.1",
     "@fastify/request-context": "^6.2.1",
@@ -22,18 +18,9 @@
     "@repo/fastify-common-types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:tooling",
-    "@typescript/native-preview": "catalog:tooling",
-    "oxfmt": "catalog:tooling",
-    "oxlint": "catalog:tooling",
-    "oxlint-tsgolint": "catalog:tooling"
+    "@typescript/native-preview": "catalog:tooling"
   },
   "peerDependencies": {
     "fastify": "catalog:"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "oxlint --type-aware --type-check --fix",
-      "oxfmt --write"
-    ]
   }
 }

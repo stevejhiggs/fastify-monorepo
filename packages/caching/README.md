@@ -64,6 +64,7 @@ const value = await cache.getItem<{ data: string; date: Date }>('key');
 ### Redis with In-Memory Fallback
 
 The Redis cache implementation uses a two-tier caching strategy:
+
 1. Primary: In-memory cache (fast access)
 2. Secondary: Redis cache (distributed, persistent)
 
@@ -87,6 +88,7 @@ type Cache = {
 Creates an in-memory LRU cache.
 
 **Options:**
+
 - `ttl: string | number` - Time to live in seconds
 - `maxSize: number` - Maximum number of items in cache
 - `onError: (error: unknown) => void` - Error handler
@@ -96,6 +98,7 @@ Creates an in-memory LRU cache.
 Creates a Redis-backed cache with in-memory fallback.
 
 **Options:**
+
 - `ttl: string | number` - Time to live in seconds
 - `connection: string` - Redis connection string
 - `onError: (error: unknown) => void` - Error handler
@@ -124,19 +127,19 @@ const cache = createInMemoryCache({
 
 async function getCachedUser(userId: string) {
   const cacheKey = `user:${userId}`;
-  
+
   // Try cache first
   const cached = await cache.getItem<{ id: string; name: string }>(cacheKey);
   if (cached) {
     return cached;
   }
-  
+
   // Fetch from API
   const user = await fetchUserFromAPI(userId);
-  
+
   // Store in cache
   await cache.setItem(cacheKey, user);
-  
+
   return user;
 }
 ```

@@ -5,7 +5,7 @@ Shared Vitest configuration for the monorepo.
 ## Exports
 
 ```typescript
-import { defaultVitestConfig, plugins } from "@repo/vitest";
+import { defaultVitestConfig, plugins } from '@repo/vitest';
 ```
 
 ## Usage
@@ -13,22 +13,23 @@ import { defaultVitestConfig, plugins } from "@repo/vitest";
 In package `vitest.config.ts`:
 
 ```typescript
-import { defineConfig } from "vitest/config";
-import { defaultVitestConfig, plugins } from "@repo/vitest";
+import { defineConfig } from 'vitest/config';
+import { defaultVitestConfig, plugins } from '@repo/vitest';
 
 export default defineConfig({
   ...defaultVitestConfig,
   plugins: [...plugins],
   test: {
-    ...defaultVitestConfig.test,
+    ...defaultVitestConfig.test
     // Package-specific overrides
-  },
+  }
 });
 ```
 
 ## Default Configuration
 
 The shared config includes:
+
 - TypeScript path resolution via `vite-tsconfig-paths`
 - Test file patterns: `**/*.test.ts`, `**/*.spec.ts`
 - Coverage collection for all `.ts` files
@@ -37,6 +38,7 @@ The shared config includes:
 ## Plugins
 
 `plugins` array includes:
+
 - `tsconfigPaths()` - Resolves tsconfig path aliases in tests
 
 ## Running Tests
@@ -62,6 +64,7 @@ Tests run with `LOG_LEVEL=warn` by default to reduce noise.
 ## Writing Tests
 
 Co-locate tests with source files:
+
 ```
 src/
   cache.ts
@@ -69,11 +72,12 @@ src/
 ```
 
 Use descriptive test names:
+
 ```typescript
-describe("createCache", () => {
-  it("returns undefined for missing keys", async () => {
+describe('createCache', () => {
+  it('returns undefined for missing keys', async () => {
     const cache = createCache();
-    expect(await cache.get("missing")).toBeUndefined();
+    expect(await cache.get('missing')).toBeUndefined();
   });
 });
 ```

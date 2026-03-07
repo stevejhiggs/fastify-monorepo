@@ -5,35 +5,38 @@ Request logging and OpenTelemetry integration for Fastify.
 ## Exports
 
 ```typescript
-import { registerObservability } from "@repo/fastify-observability";
+import { registerObservability } from '@repo/fastify-observability';
 
 // Sub-exports
-import { initLogger } from "@repo/fastify-observability/logging";
-import { setupOpenTelemetry } from "@repo/fastify-observability/open-telemetry";
+import { initLogger } from '@repo/fastify-observability/logging';
+import { setupOpenTelemetry } from '@repo/fastify-observability/open-telemetry';
 ```
 
 ## Usage
 
 ```typescript
-import { registerObservability } from "@repo/fastify-observability";
+import { registerObservability } from '@repo/fastify-observability';
 
 const app = await registerObservability(fastifyInstance, {
   logger: {
-    level: "info",
-    format: "default",
-  },
+    level: 'info',
+    format: 'default'
+  }
 });
 ```
 
 ## What It Provides
 
 ### Request Logging
+
 - Automatic request/response logging
 - Correlation IDs for request tracing
 - Structured log context
 
 ### Request Context
+
 Each request gets:
+
 - `request.log` - Scoped logger with request context
 - Request ID in headers and logs
 - Timing information
@@ -41,15 +44,15 @@ Each request gets:
 ## Using Request Logger
 
 ```typescript
-app.get("/users/:id", async (request) => {
-  request.log.info({ userId: request.params.id }, "Fetching user");
+app.get('/users/:id', async (request) => {
+  request.log.info({ userId: request.params.id }, 'Fetching user');
 
   try {
     const user = await getUser(request.params.id);
-    request.log.debug({ user }, "User found");
+    request.log.debug({ user }, 'User found');
     return user;
   } catch (err) {
-    request.log.error({ err }, "Failed to fetch user");
+    request.log.error({ err }, 'Failed to fetch user');
     throw err;
   }
 });
@@ -58,6 +61,7 @@ app.get("/users/:id", async (request) => {
 ## OpenTelemetry Integration
 
 When OTEL is configured (via `@repo/open-telemetry`), this plugin:
+
 - Correlates logs with trace IDs
 - Adds span context to requests
 - Enables distributed tracing
@@ -65,6 +69,7 @@ When OTEL is configured (via `@repo/open-telemetry`), this plugin:
 ## Log Output
 
 Request logs include:
+
 ```json
 {
   "level": "info",
@@ -84,7 +89,7 @@ Request logs include:
 interface ObservabilityConfig {
   logger?: {
     level?: string;
-    format?: "default" | "gcp";
+    format?: 'default' | 'gcp';
   };
 }
 ```

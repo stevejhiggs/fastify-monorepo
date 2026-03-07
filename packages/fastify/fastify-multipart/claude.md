@@ -5,19 +5,19 @@ File upload support for Fastify via multipart form handling.
 ## Exports
 
 ```typescript
-import { registerMultipart } from "@repo/fastify-multipart";
-import type { MultipartConfig } from "@repo/fastify-multipart";
+import { registerMultipart } from '@repo/fastify-multipart';
+import type { MultipartConfig } from '@repo/fastify-multipart';
 ```
 
 ## Usage
 
 ```typescript
-import { registerMultipart } from "@repo/fastify-multipart";
+import { registerMultipart } from '@repo/fastify-multipart';
 
 const app = await registerMultipart(fastifyInstance, {
   limits: {
-    fileSize: 100 * 1024 * 1024, // 100MB (default)
-  },
+    fileSize: 100 * 1024 * 1024 // 100MB (default)
+  }
 });
 ```
 
@@ -26,11 +26,11 @@ const app = await registerMultipart(fastifyInstance, {
 After registration, use `request.file()` or `request.files()`:
 
 ```typescript
-app.post("/upload", async (request, reply) => {
+app.post('/upload', async (request, reply) => {
   const file = await request.file();
 
   if (!file) {
-    return reply.code(400).send({ error: "No file provided" });
+    return reply.code(400).send({ error: 'No file provided' });
   }
 
   const buffer = await file.toBuffer();
@@ -39,7 +39,7 @@ app.post("/upload", async (request, reply) => {
   return {
     filename: file.filename,
     mimetype: file.mimetype,
-    size: buffer.length,
+    size: buffer.length
   };
 });
 ```
@@ -47,7 +47,7 @@ app.post("/upload", async (request, reply) => {
 ## Multiple Files
 
 ```typescript
-app.post("/upload-many", async (request) => {
+app.post('/upload-many', async (request) => {
   const files = request.files();
   const results = [];
 
@@ -65,9 +65,9 @@ app.post("/upload-many", async (request) => {
 ```typescript
 interface MultipartConfig {
   limits?: {
-    fileSize?: number;    // Max file size in bytes
-    files?: number;       // Max number of files
-    fields?: number;      // Max number of non-file fields
+    fileSize?: number; // Max file size in bytes
+    files?: number; // Max number of files
+    fields?: number; // Max number of non-file fields
   };
 }
 ```

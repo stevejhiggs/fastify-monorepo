@@ -4,28 +4,15 @@
   "exports": {
     ".": "./src/index.js"
   },
-  "scripts": {
-    "lint:ci": "oxlint ./src && oxfmt --check ./src",
-    "lint": "oxlint --fix ./src && oxfmt --write ./src",
-    "typecheck": "tsgo --noEmit"
-  },
+  "scripts": {},
   "dependencies": {
     "@vitest/coverage-v8": "catalog:testing",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "catalog:testing"
   },
   "devDependencies": {
-    "oxlint": "catalog:tooling",
-    "oxlint-tsgolint": "catalog:tooling",
-    "oxfmt": "catalog:tooling",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:tooling",
     "@typescript/native-preview": "catalog:tooling"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "oxlint --fix",
-      "oxfmt --write"
-    ]
   }
 }

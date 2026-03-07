@@ -4,11 +4,7 @@
     "build": {
       "outputs": [".dist/**"]
     },
-    "typecheck": {
-      "dependsOn": ["^typecheck"]
-    },
     "test": {},
-    "lint": {},
     "dev": {
       "persistent": true,
       "cache": false

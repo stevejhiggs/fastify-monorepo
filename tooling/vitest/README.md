@@ -30,6 +30,7 @@ export default defineConfig(defaultVitestConfig);
 ```
 
 That's it! Your tests are now configured with:
+
 - TypeScript path resolution
 - Test file patterns: `src/**/*.spec.ts` and `src/**/*.test.ts`
 - Coverage for `src/**/*.{ts,tsx,js,mjs,mts}`
@@ -73,7 +74,7 @@ export default defineConfig({
 
 The default configuration includes:
 
-- **Test Patterns**:**
+- **Test Patterns**:\*\*
   - `src/**/*.spec.ts`
   - `src/**/*.test.ts`
 
@@ -130,6 +131,7 @@ pnpm test --coverage
 Default Vitest configuration object that can be spread into `defineConfig()`.
 
 **Properties:**
+
 - `plugins` - Array of Vitest plugins (includes tsconfig-paths)
 - `test.include` - Test file patterns
 - `test.coverage` - Coverage configuration
@@ -139,6 +141,7 @@ Default Vitest configuration object that can be spread into `defineConfig()`.
 ### `plugins`
 
 Array of Vitest plugins, currently includes:
+
 - `vite-tsconfig-paths()` - TypeScript path resolution
 
 ## TypeScript Path Resolution

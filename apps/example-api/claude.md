@@ -5,6 +5,7 @@ Reference implementation demonstrating all `@repo/fastify-*` packages.
 ## Purpose
 
 This app serves as:
+
 - Working example of the monorepo's Fastify setup
 - Integration test for all plugins working together
 - Starting point for new API applications
@@ -29,12 +30,12 @@ src/
 `server.ts` creates the Fastify instance using `@repo/fastify-base`:
 
 ```typescript
-import { setupBaseApp } from "@repo/fastify-base";
+import { setupBaseApp } from '@repo/fastify-base';
 
 export async function createServer() {
   const app = await setupBaseApp({
-    logger: { level: process.env.LOG_LEVEL ?? "info" },
-    swagger: { title: "Example API", version: "1.0.0" },
+    logger: { level: process.env.LOG_LEVEL ?? 'info' },
+    swagger: { title: 'Example API', version: '1.0.0' }
   });
 
   await registerRoutes(app);
@@ -51,17 +52,17 @@ Routes are registered through a central registry in `routes/index.ts`. Each rout
 Use Zod for request/response validation:
 
 ```typescript
-import { z } from "zod";
+import { z } from 'zod';
 
 const querySchema = z.object({
-  limit: z.coerce.number().optional().default(10),
+  limit: z.coerce.number().optional().default(10)
 });
 
-app.get("/items", {
+app.get('/items', {
   schema: { querystring: querySchema },
   handler: async (request) => {
     const { limit } = request.query; // typed!
-  },
+  }
 });
 ```
 

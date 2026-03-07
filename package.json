@@ -9,7 +9,8 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "test": "turbo test",
-    "lint": "turbo lint",
+    "lint:ci": "oxlint && oxfmt --check",
+    "lint": "oxlint --fix && oxfmt --write",
     "setup-commit-hooks": "pnpm husky",
     "pre-commit": "pnpm lint-staged",
     "generate:package": "turbo gen workspace --copy @repo/templates-package --type package --destination packages/",
@@ -23,6 +24,12 @@
     "oxlint-tsgolint": "catalog:tooling",
     "turbo": "^2.8.14",
     "vitest": "catalog:testing"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "oxlint --fix",
+      "oxfmt --write"
+    ]
   },
   "packageManager": "pnpm@10.30.3"
 }

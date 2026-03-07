@@ -67,6 +67,7 @@ const logger = initLogger({
 Initializes and returns a Pino logger instance.
 
 **Config Options:**
+
 - `outputFormat?: 'DEFAULT' | 'GCP'` - Output format (defaults to 'DEFAULT')
 - `logLevel?: LevelWithSilentOrString` - Log level (defaults to 'info')
 
@@ -95,20 +96,20 @@ logger.info('Server started on port 3000');
 
 // Structured logging with context
 logger.info(
-  { 
-    userId: 123, 
-    action: 'login', 
-    ip: '192.168.1.1' 
+  {
+    userId: 123,
+    action: 'login',
+    ip: '192.168.1.1'
   },
   'User logged in'
 );
 
 // Error logging
 logger.error(
-  { 
-    err: error, 
+  {
+    err: error,
     userId: 123,
-    endpoint: '/api/users' 
+    endpoint: '/api/users'
   },
   'Failed to fetch user'
 );

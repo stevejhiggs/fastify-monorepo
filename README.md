@@ -27,16 +27,17 @@ pnpm dev  # API at http://localhost:3000, docs at /documentation
 
 ## 🛠️ Development
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start all apps in development mode |
-| `pnpm build` | Build all packages and apps |
-| `pnpm test` | Run all tests |
-| `pnpm typecheck` | Type check all packages |
-| `pnpm lint` | Lint all packages |
+| Command                 | Description                          |
+| ----------------------- | ------------------------------------ |
+| `pnpm dev`              | Start all apps in development mode   |
+| `pnpm build`            | Build all packages and apps          |
+| `pnpm test`             | Run all tests                        |
+| `pnpm typecheck`        | Type check all packages              |
+| `pnpm lint`             | Lint all packages                    |
 | `pnpm generate:package` | Generate a new package from template |
 
 **Environment Variables:**
+
 - `LOG_LEVEL` - Logging level (default: `info`)
 - `DISABLE_DOCS` - Disable `/documentation` endpoint (default: `false`)
 - `REDIS_URL` - Optional Redis connection URL

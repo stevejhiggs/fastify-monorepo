@@ -7,9 +7,9 @@ Shared TypeScript type definitions for Fastify plugins.
 ```typescript
 import type {
   FastifyInstanceForRegistration,
-  EnhancedFastifyInstance,
+  EnhancedFastifyInstance
   // other shared types
-} from "@repo/fastify-common-types";
+} from '@repo/fastify-common-types';
 ```
 
 ## Key Types
@@ -19,9 +19,7 @@ import type {
 Base Fastify instance type used as input for plugin registration functions:
 
 ```typescript
-function registerMyPlugin(
-  app: FastifyInstanceForRegistration
-): EnhancedFastifyInstance {
+function registerMyPlugin(app: FastifyInstanceForRegistration): EnhancedFastifyInstance {
   // Register plugin...
   return app as EnhancedFastifyInstance;
 }
@@ -32,18 +30,13 @@ function registerMyPlugin(
 Fully configured Fastify instance with all plugins registered and Zod type provider:
 
 ```typescript
-type EnhancedFastifyInstance = FastifyInstance<
-  RawServerDefault,
-  RawRequestDefaultExpression,
-  RawReplyDefaultExpression,
-  FastifyBaseLogger,
-  ZodTypeProvider
->;
+type EnhancedFastifyInstance = FastifyInstance<RawServerDefault, RawRequestDefaultExpression, RawReplyDefaultExpression, FastifyBaseLogger, ZodTypeProvider>;
 ```
 
 ## Purpose
 
 Centralizes Fastify-related type definitions to:
+
 - Avoid circular dependencies between fastify packages
 - Provide consistent typing across all plugins
 - Define the contract between plugin registration functions
@@ -51,7 +44,8 @@ Centralizes Fastify-related type definitions to:
 ## When to Modify
 
 Add types here when:
-- Multiple fastify-* packages need the same type
+
+- Multiple fastify-\* packages need the same type
 - Defining interfaces for cross-plugin communication
 - Creating base types that plugins extend
 

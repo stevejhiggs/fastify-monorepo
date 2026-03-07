@@ -37,16 +37,16 @@ setupOpenTelemetry({
 
 ### `OpenTelemetryParams`
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `serviceInfo` | `{ name: string; version: string }` | Yes | Service identification for telemetry |
-| `traces.exporter` | `TraceExporter` | Yes | Trace exporter type (see below) |
-| `traces.endpoint` | `string` | No | OTLP endpoint for traces (defaults based on exporter) |
-| `metrics.exporter` | `MetricsExporter` | Yes | Metrics exporter type (see below) |
-| `metrics.endpoint` | `string` | No | OTLP endpoint for metrics (defaults based on exporter) |
-| `metrics.intervalMillis` | `number` | No | Metrics export interval in milliseconds (default: 5000) |
-| `instrumentations` | `Instrumentation[]` | No | Additional OpenTelemetry instrumentations |
-| `logLevel` | `string` | No | OpenTelemetry diagnostic log level (default: 'info') |
+| Parameter                | Type                                | Required | Description                                             |
+| ------------------------ | ----------------------------------- | -------- | ------------------------------------------------------- |
+| `serviceInfo`            | `{ name: string; version: string }` | Yes      | Service identification for telemetry                    |
+| `traces.exporter`        | `TraceExporter`                     | Yes      | Trace exporter type (see below)                         |
+| `traces.endpoint`        | `string`                            | No       | OTLP endpoint for traces (defaults based on exporter)   |
+| `metrics.exporter`       | `MetricsExporter`                   | Yes      | Metrics exporter type (see below)                       |
+| `metrics.endpoint`       | `string`                            | No       | OTLP endpoint for metrics (defaults based on exporter)  |
+| `metrics.intervalMillis` | `number`                            | No       | Metrics export interval in milliseconds (default: 5000) |
+| `instrumentations`       | `Instrumentation[]`                 | No       | Additional OpenTelemetry instrumentations               |
+| `logLevel`               | `string`                            | No       | OpenTelemetry diagnostic log level (default: 'info')    |
 
 ### Trace Exporters
 
@@ -165,10 +165,10 @@ setupOpenTelemetry({
     version: '1.0.0'
   },
   traces: {
-    exporter: 'otlp-grpc',
+    exporter: 'otlp-grpc'
   },
   metrics: {
-    exporter: 'otlp-grpc',
+    exporter: 'otlp-grpc'
   }
 });
 ```
@@ -192,6 +192,7 @@ This package automatically instruments the following Node.js libraries:
 - And many more via `@opentelemetry/auto-instrumentations-node`
 
 Some instrumentations are disabled by default to reduce noise:
+
 - `@opentelemetry/instrumentation-fastify` (deprecated, use `@fastify/otel` instead)
 - `@opentelemetry/instrumentation-runtime-node` (too noisy)
 

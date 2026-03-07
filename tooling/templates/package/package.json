@@ -4,24 +4,11 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "scripts": {
-    "lint:ci": "oxlint --type-aware --type-check ./src && oxfmt --check ./src",
-    "lint": "oxlint --type-aware --type-check --fix ./src && oxfmt --write ./src",
-    "typecheck": "tsgo --noEmit"
-  },
+  "scripts": {},
   "dependencies": {},
   "devDependencies": {
-    "oxlint": "catalog:tooling",
-    "oxlint-tsgolint": "catalog:tooling",
-    "oxfmt": "catalog:tooling",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:tooling",
     "@typescript/native-preview": "catalog:tooling"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "oxlint --type-aware --type-check --fix",
-      "oxfmt --write"
-    ]
   }
 }

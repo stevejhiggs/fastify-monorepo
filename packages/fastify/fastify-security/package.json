@@ -4,11 +4,7 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "scripts": {
-    "lint:ci": "oxlint --type-aware --type-check ./src && oxfmt --check ./src",
-    "lint": "oxlint --type-aware --type-check --fix ./src && oxfmt --write ./src",
-    "typecheck": "tsgo --noEmit"
-  },
+  "scripts": {},
   "dependencies": {
     "@fastify/helmet": "^13.0.2"
   },
@@ -16,18 +12,9 @@
     "@repo/fastify-common-types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:tooling",
-    "@typescript/native-preview": "catalog:tooling",
-    "oxfmt": "catalog:tooling",
-    "oxlint": "catalog:tooling",
-    "oxlint-tsgolint": "catalog:tooling"
+    "@typescript/native-preview": "catalog:tooling"
   },
   "peerDependencies": {
     "fastify": "catalog:"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "oxlint --type-aware --type-check --fix",
-      "oxfmt --write"
-    ]
   }
 }

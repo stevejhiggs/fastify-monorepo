@@ -38,20 +38,25 @@ The base config enforces strict TypeScript:
 ## Key Behaviors
 
 ### `verbatimModuleSyntax`
+
 Requires explicit `import type` for type-only imports:
+
 ```typescript
-import type { User } from "./types.ts";  // Correct
-import { User } from "./types.ts";        // Error if User is type-only
+import type { User } from './types.ts'; // Correct
+import { User } from './types.ts'; // Error if User is type-only
 ```
 
 ### `noUncheckedIndexedAccess`
+
 Array/object index access may be undefined:
+
 ```typescript
 const arr = [1, 2, 3];
 const val = arr[0]; // type: number | undefined
 ```
 
 ### `erasableSyntaxOnly`
+
 Only TypeScript syntax that can be erased is allowed (no enums with computed values, etc.).
 
 ## Path Aliases
@@ -71,6 +76,7 @@ Each package defines its own path aliases in its tsconfig:
 ## Modifying
 
 Changes here affect all packages. Test thoroughly:
+
 ```bash
 pnpm typecheck
 ```

@@ -61,22 +61,26 @@ await registerSwagger(zodApp, {
   transform: jsonSchemaTransform // Converts Zod to OpenAPI
 });
 
-zodApp.get('/users/:id', {
-  schema: {
-    params: z.object({
-      id: z.string().uuid()
-    }),
-    response: {
-      200: z.object({
-        id: z.string().uuid(),
-        name: z.string(),
-        email: z.string().email()
-      })
+zodApp.get(
+  '/users/:id',
+  {
+    schema: {
+      params: z.object({
+        id: z.string().uuid()
+      }),
+      response: {
+        200: z.object({
+          id: z.string().uuid(),
+          name: z.string(),
+          email: z.string().email()
+        })
+      }
     }
+  },
+  async (request) => {
+    return { id: request.params.id, name: 'John', email: 'john@example.com' };
   }
-}, async (request) => {
-  return { id: request.params.id, name: 'John', email: 'john@example.com' };
-});
+);
 ```
 
 ### Custom Configuration
@@ -111,19 +115,21 @@ await registerSwagger(app, {
 Registers Swagger/OpenAPI documentation on a Fastify instance.
 
 **Parameters:**
+
 - `app: FastifyInstanceForRegistration` - Fastify instance
 - `config: SwaggerConfig` - Configuration object
 
 **Config Options:**
+
 ```typescript
 type SwaggerConfig = {
-  enable: boolean;                    // Enable/disable documentation
-  title?: string;                      // API title (default: 'API')
-  version?: string;                    // API version (default: '1.0.0')
-  port: number;                        // Server port
-  host?: string;                       // Server host (default: 'localhost')
-  documentationRoute?: string;        // Route prefix (default: '/documentation')
-  transform?: SwaggerTransform;        // Schema transform function
+  enable: boolean; // Enable/disable documentation
+  title?: string; // API title (default: 'API')
+  version?: string; // API version (default: '1.0.0')
+  port: number; // Server port
+  host?: string; // Server host (default: 'localhost')
+  documentationRoute?: string; // Route prefix (default: '/documentation')
+  transform?: SwaggerTransform; // Schema transform function
 };
 ```
 
@@ -154,42 +160,50 @@ await registerSwagger(zodApp, {
 });
 
 // Define routes with schemas
-zodApp.post('/users', {
-  schema: {
-    body: z.object({
-      name: z.string().min(1),
-      email: z.string().email()
-    }),
-    response: {
-      201: z.object({
-        id: z.string().uuid(),
-        name: z.string(),
+zodApp.post(
+  '/users',
+  {
+    schema: {
+      body: z.object({
+        name: z.string().min(1),
         email: z.string().email()
-      })
+      }),
+      response: {
+        201: z.object({
+          id: z.string().uuid(),
+          name: z.string(),
+          email: z.string().email()
+        })
+      }
     }
+  },
+  async (request, reply) => {
+    const user = await createUser(request.body);
+    reply.code(201);
+    return user;
   }
-}, async (request, reply) => {
-  const user = await createUser(request.body);
-  reply.code(201);
-  return user;
-});
+);
 
-zodApp.get('/users/:id', {
-  schema: {
-    params: z.object({
-      id: z.string().uuid()
-    }),
-    response: {
-      200: z.object({
-        id: z.string().uuid(),
-        name: z.string(),
-        email: z.string().email()
-      })
+zodApp.get(
+  '/users/:id',
+  {
+    schema: {
+      params: z.object({
+        id: z.string().uuid()
+      }),
+      response: {
+        200: z.object({
+          id: z.string().uuid(),
+          name: z.string(),
+          email: z.string().email()
+        })
+      }
     }
+  },
+  async (request) => {
+    return await getUserById(request.params.id);
   }
-}, async (request) => {
-  return await getUserById(request.params.id);
-});
+);
 
 await app.listen({ port: 3000 });
 ```
@@ -200,7 +214,7 @@ In production, consider disabling documentation:
 
 ```typescript
 await registerSwagger(app, {
-  enable: process.env.NODE_ENV !== 'production',
+  enable: process.env.NODE_ENV !== 'production'
   // ... other config
 });
 ```

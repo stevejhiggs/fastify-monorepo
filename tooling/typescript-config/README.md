@@ -86,6 +86,7 @@ If your package includes JavaScript files:
 ### Consistency
 
 All packages use the same TypeScript configuration, ensuring:
+
 - Consistent type checking behavior
 - Same language features available everywhere
 - Predictable compilation results
@@ -93,6 +94,7 @@ All packages use the same TypeScript configuration, ensuring:
 ### Type Safety
 
 Strict settings catch more errors at compile time:
+
 - Unused variables and parameters
 - Unsafe index access
 - Missing type annotations
@@ -100,6 +102,7 @@ Strict settings catch more errors at compile time:
 ### Performance
 
 Incremental compilation and composite projects enable:
+
 - Faster type checking
 - Better IDE performance
 - Efficient monorepo builds
@@ -109,6 +112,7 @@ Incremental compilation and composite projects enable:
 If you're adding this to an existing package:
 
 1. Create or update `tsconfig.json`:
+
    ```json
    {
      "extends": "@repo/typescript-config/tsconfig.base",
@@ -117,6 +121,7 @@ If you're adding this to an existing package:
    ```
 
 2. Run type checking:
+
    ```bash
    pnpm typecheck
    ```
@@ -136,4 +141,3 @@ in any package that uses it.
 ## License
 
 ISC
-

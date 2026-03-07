@@ -35,22 +35,26 @@ const { app } = await setupBaseApp({
 });
 
 // Define routes with Zod schemas
-app.get('/users/:id', {
-  schema: {
-    params: z.object({
-      id: z.string()
-    }),
-    response: {
-      200: z.object({
-        id: z.string(),
-        name: z.string()
-      })
+app.get(
+  '/users/:id',
+  {
+    schema: {
+      params: z.object({
+        id: z.string()
+      }),
+      response: {
+        200: z.object({
+          id: z.string(),
+          name: z.string()
+        })
+      }
     }
+  },
+  async (request, reply) => {
+    const { id } = request.params;
+    return { id, name: 'John Doe' };
   }
-}, async (request, reply) => {
-  const { id } = request.params;
-  return { id, name: 'John Doe' };
-});
+);
 
 await app.listen({ port: 3000 });
 ```
@@ -72,6 +76,7 @@ This package automatically sets up:
 Creates and configures a Fastify instance with all plugins.
 
 **Config:**
+
 ```typescript
 type FastifyBaseConfig = {
   port: number;
@@ -92,6 +97,7 @@ type FastifyBaseConfig = {
 ### Enhanced Fastify Instance
 
 The returned app has enhanced TypeScript types with:
+
 - Zod type provider for schema validation
 - Request-scoped logger access
 - All Fastify plugins registered
@@ -129,7 +135,7 @@ import { logger } from '@repo/fastify-base/logging';
 app.get('/users/:id', async (request) => {
   // Access logger from anywhere in your request handler
   logger.instance.info({ userId: request.params.id }, 'Fetching user');
-  
+
   // Your logic here
   return { id: request.params.id, name: 'John' };
 });
@@ -148,11 +154,11 @@ const cache = createInMemoryCache({
 app.get('/users/:id', async (request) => {
   const cacheKey = `user:${request.params.id}`;
   const cached = await cache.getItem(cacheKey);
-  
+
   if (cached) {
     return cached;
   }
-  
+
   const user = await fetchUser(request.params.id);
   await cache.setItem(cacheKey, user);
   return user;

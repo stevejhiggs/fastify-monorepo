@@ -55,6 +55,7 @@ Helmet sets the following HTTP headers by default:
 Registers Helmet with default security settings on a Fastify instance.
 
 **Parameters:**
+
 - `app: FastifyInstanceForRegistration` - Fastify instance
 
 **Returns:** `Promise<void>`
@@ -70,9 +71,9 @@ await app.register(helmet, {
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-    },
-  },
+      styleSrc: ["'self'", "'unsafe-inline'"]
+    }
+  }
 });
 ```
 
