@@ -17,7 +17,6 @@
     "@repo/typescript-config": "workspace:*",
     "@repo/vitest": "workspace:*",
     "@types/node": "catalog:tooling",
-    "@typescript/native-preview": "catalog:tooling",
     "@vitest/coverage-v8": "catalog:testing",
     "vitest": "catalog:testing"
   }

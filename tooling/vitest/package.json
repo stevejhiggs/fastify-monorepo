@@ -2,7 +2,7 @@
   "name": "@repo/vitest",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.js"
   },
   "scripts": {},
   "dependencies": {
@@ -12,7 +12,6 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "catalog:tooling",
-    "@typescript/native-preview": "catalog:tooling"
+    "@types/node": "catalog:tooling"
   }
 }

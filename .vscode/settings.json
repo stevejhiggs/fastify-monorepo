@@ -5,5 +5,6 @@
     "source.fixAll.oxc": "always",
     "source.organizeImports.oxc": "always"
   },
-  "oxc.typeAware": true
+  "oxc.typeAware": true,
+  "typescript.experimental.useTsgo": true
 }

@@ -1,3 +1,5 @@
+// needs to be a js file as otherwise the vitest extension
+// in vscode explodes
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 /**@type {import("vitest/config").Plugin[]} */

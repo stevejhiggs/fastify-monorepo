@@ -11,8 +11,7 @@
   "devDependencies": {
     "@repo/fastify-common-types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "catalog:tooling",
-    "@typescript/native-preview": "catalog:tooling"
+    "@types/node": "catalog:tooling"
   },
   "peerDependencies": {
     "fastify": "catalog:",

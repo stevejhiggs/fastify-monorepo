@@ -46,6 +46,9 @@ importers:
 
   .:
     devDependencies:
+      '@typescript/native-preview':
+        specifier: catalog:tooling
+        version: 7.0.0-dev.20260307.1
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -89,9 +92,6 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
       '@vitest/coverage-v8':
         specifier: catalog:testing
         version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@24.10.9)(tsx@4.21.0)(yaml@2.8.2))
@@ -132,15 +132,21 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
       '@vitest/coverage-v8':
         specifier: catalog:testing
         version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@24.10.9)(tsx@4.21.0)(yaml@2.8.2))
       vitest:
         specifier: catalog:testing
         version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@24.10.9)(tsx@4.21.0)(yaml@2.8.2)
+
+  packages/fastify/fastify-auth:
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../tooling/typescript-config
+      '@types/node':
+        specifier: catalog:tooling
+        version: 24.10.9
 
   packages/fastify/fastify-base:
     dependencies:
@@ -175,9 +181,6 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
 
   packages/fastify/fastify-common-types:
     dependencies:
@@ -191,9 +194,6 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
 
   packages/fastify/fastify-multipart:
     dependencies:
@@ -213,9 +213,6 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
 
   packages/fastify/fastify-observability:
     dependencies:
@@ -244,9 +241,6 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
 
   packages/fastify/fastify-security:
     dependencies:
@@ -266,9 +260,6 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
 
   packages/fastify/fastify-swagger:
     dependencies:
@@ -291,9 +282,6 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
 
   packages/fastify/fastify-zod:
     dependencies:
@@ -316,9 +304,6 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
 
   packages/logging:
     dependencies:
@@ -335,9 +320,6 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
 
   packages/open-telemetry:
     dependencies:
@@ -390,9 +372,6 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
 
   packages/typescript-utils:
     devDependencies:
@@ -402,9 +381,6 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
 
   tooling/templates/package:
     devDependencies:
@@ -414,9 +390,6 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
 
   tooling/typescript-config: {}
 
@@ -438,9 +411,6 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.10.9
-      '@typescript/native-preview':
-        specifier: catalog:tooling
-        version: 7.0.0-dev.20260307.1
 
 packages:
 
