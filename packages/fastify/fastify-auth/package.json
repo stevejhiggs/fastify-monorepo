@@ -1,5 +1,5 @@
 {
-  "name": "fastify-auth",
+  "name": "@repo/fastify-auth",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
