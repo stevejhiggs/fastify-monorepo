@@ -9,8 +9,7 @@
     "test:ci": "vitest run"
   },
   "dependencies": {
-    "@repo/fastify-auth": "workspace:*",
-    "firebase-admin": "^13.0.0"
+    "@repo/fastify-auth": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -20,6 +19,7 @@
     "vitest": "catalog:testing"
   },
   "peerDependencies": {
-    "fastify": "catalog:"
+    "fastify": "catalog:",
+    "firebase-admin": "*"
   }
 }
