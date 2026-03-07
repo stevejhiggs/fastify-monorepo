@@ -1,6 +1,6 @@
 import { fastifyRequestContext, requestContext } from '@fastify/request-context';
 import type { FastifyInstanceForRegistration } from '@repo/fastify-common-types';
-import type { Logger } from '@repo/logging';
+import { initLogger, type Logger } from '@repo/logging';
 import type { FastifyBaseLogger } from 'fastify';
 
 declare module '@fastify/request-context' {
@@ -9,7 +9,11 @@ declare module '@fastify/request-context' {
   }
 }
 
-let initialLogger: FastifyBaseLogger;
+// Fallback for errors that occur before registerPerRequestLogger is called
+// (e.g. uncaughtException during module load / server startup)
+const fallbackLogger = initLogger();
+
+let initialLogger: FastifyBaseLogger = fallbackLogger;
 
 export function registerPerRequestLogger(app: FastifyInstanceForRegistration, logger: Logger) {
   initialLogger = logger;
