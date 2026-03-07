@@ -1,8 +1,8 @@
 {
   "extends": "@repo/typescript-config/tsconfig.base",
   "compilerOptions": {
-    "allowJs": true
+    "types": ["node"]
   },
-  "include": ["./src/**/*.js"],
+  "include": ["src/**/*.ts"],
   "exclude": ["**/node_modules", "**/.*/"]
 }

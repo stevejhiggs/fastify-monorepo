@@ -2,7 +2,7 @@
   "name": "@repo/vitest",
   "type": "module",
   "exports": {
-    ".": "./src/index.js"
+    ".": "./src/index.ts"
   },
   "scripts": {},
   "dependencies": {
