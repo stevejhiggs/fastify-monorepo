@@ -8,7 +8,7 @@ const SECRET = 'test-secret-at-least-32-chars-long!!';
 
 async function buildApp(config: Parameters<typeof jwtProvider>[0]) {
   const app = fastify({ logger: false });
-  await registerAuth(app, jwtProvider(config));
+  await registerAuth(app, [jwtProvider(config)]);
 
   app.get('/protected', { preHandler: [app.authenticate] }, async (request) => {
     return request.user;

@@ -11,7 +11,7 @@ export type FastifyBaseConfig = {
   port: number;
   swagger: Omit<SwaggerConfig, 'port' | 'transform' | 'title' | 'version'>;
   logger?: LoggerConfig;
-  auth?: AuthProvider;
+  auth?: AuthProvider[];
   serviceInfo: {
     name: string;
     version: string;

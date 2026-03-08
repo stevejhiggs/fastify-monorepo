@@ -25,7 +25,7 @@ This package is part of the monorepo. Add it as a workspace dependency:
 import { registerAuth } from '@repo/fastify-auth';
 import { jwtProvider } from '@repo/fastify-auth-jwt';
 
-await registerAuth(app, jwtProvider({ secret: process.env.JWT_SECRET }));
+await registerAuth(app, [jwtProvider({ secret: process.env.JWT_SECRET })]);
 ```
 
 ### Required authentication
@@ -59,7 +59,7 @@ The recommended pattern for most apps: register `populateUser` once as a global 
 import { registerAuth } from '@repo/fastify-auth';
 import { jwtProvider } from '@repo/fastify-auth-jwt';
 
-await registerAuth(app, jwtProvider({ secret: process.env.JWT_SECRET }));
+await registerAuth(app, [jwtProvider({ secret: process.env.JWT_SECRET })]);
 
 // Run on every request — sets request.user if a valid token is present.
 // Routes with no token simply get request.user = undefined.
@@ -85,6 +85,20 @@ app.delete('/posts/:id', { preHandler: [app.requireUser] }, async (request) => {
 });
 ```
 
+### Multiple providers
+
+Pass an array of providers to accept tokens from more than one source. Each provider is tried in order; the first one to return a payload wins.
+
+```typescript
+import { registerAuth } from '@repo/fastify-auth';
+import { jwtProvider } from '@repo/fastify-auth-jwt';
+import { firebaseProvider } from '@repo/fastify-auth-firebase';
+
+await registerAuth(app, [jwtProvider({ secret: process.env.JWT_SECRET }), firebaseProvider({ tenantId: process.env.FIREBASE_TENANT_ID, app: firebaseApp })]);
+```
+
+If a provider throws (invalid/expired token) the next provider is tried. If all providers fail, the request gets a 401. If no provider finds any credentials, `request.user` remains `undefined`.
+
 ### Custom providers
 
 For Firebase Authentication with multi-tenant support, use [`@repo/fastify-auth-firebase`](../fastify-auth-firebase/README.md).
@@ -106,14 +120,14 @@ declare module '@repo/fastify-auth' {
 
 ## API
 
-### `registerAuth(app, provider): Promise<void>`
+### `registerAuth(app, providers): Promise<void>`
 
-Registers the auth decorators using the given provider.
+Registers the auth decorators using the given provider(s).
 
-| Parameter  | Type              | Description                                   |
-| ---------- | ----------------- | --------------------------------------------- |
-| `app`      | `FastifyInstance` | The Fastify instance to decorate              |
-| `provider` | `AuthProvider`    | An auth provider (e.g. `jwtProvider(config)`) |
+| Parameter   | Type              | Description                                   |
+| ----------- | ----------------- | --------------------------------------------- |
+| `app`       | `FastifyInstance` | The Fastify instance to decorate              |
+| `providers` | `AuthProvider[]`  | Ordered array of providers to try in sequence |
 
 ### `AuthProvider` interface
 

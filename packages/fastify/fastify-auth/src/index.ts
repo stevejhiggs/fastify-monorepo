@@ -28,16 +28,25 @@ async function requireUser(request: FastifyRequest, reply: FastifyReply) {
   }
 }
 
-export async function registerAuth(app: FastifyInstanceForRegistration, provider: AuthProvider) {
-  await provider.setup?.(app);
+export async function registerAuth(app: FastifyInstanceForRegistration, providers: AuthProvider[]) {
+  for (const provider of providers) {
+    await provider.setup?.(app);
+  }
 
   const populateUser = async (request: FastifyRequest, reply: FastifyReply) => {
-    try {
-      const user = await provider.verify(request);
-      if (user !== undefined) {
-        request.user = user;
+    let lastError: unknown;
+    for (const provider of providers) {
+      try {
+        const user = await provider.verify(request);
+        if (user !== undefined) {
+          request.user = user;
+          return;
+        }
+      } catch (err) {
+        lastError = err;
       }
-    } catch {
+    }
+    if (lastError !== undefined) {
       return reply.status(401).send({ message: 'Unauthorized' });
     }
   };

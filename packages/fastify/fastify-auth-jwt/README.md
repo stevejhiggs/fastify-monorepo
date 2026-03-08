@@ -21,7 +21,7 @@ JWT authentication provider for [`@repo/fastify-auth`](../fastify-auth/README.md
 import { registerAuth } from '@repo/fastify-auth';
 import { jwtProvider } from '@repo/fastify-auth-jwt';
 
-await registerAuth(app, jwtProvider({ secret: process.env.JWT_SECRET }));
+await registerAuth(app, [jwtProvider({ secret: process.env.JWT_SECRET })]);
 ```
 
 ### Signing tokens
@@ -41,13 +41,12 @@ app.post('/login', async (request, reply) => {
 Pass an `audience` array to restrict which tokens are accepted. Tokens whose `aud` claim is not in the list — or that have no `aud` claim at all — are rejected with 401:
 
 ```typescript
-await registerAuth(
-  app,
+await registerAuth(app, [
   jwtProvider({
     secret: process.env.JWT_SECRET,
     audience: ['api', 'admin']
   })
-);
+]);
 
 // Only tokens signed with aud: 'api' or aud: 'admin' are accepted
 app.post('/login', async (request, reply) => {
@@ -63,14 +62,13 @@ When `audience` is not set, the `aud` claim is not checked.
 ```typescript
 import { readFileSync } from 'node:fs';
 
-await registerAuth(
-  app,
+await registerAuth(app, [
   jwtProvider({
     privateKey: readFileSync('./keys/private.pem', 'utf8'),
     publicKey: readFileSync('./keys/public.pem', 'utf8'),
     audience: ['api']
   })
-);
+]);
 ```
 
 ## API

@@ -30,13 +30,12 @@ import { firebaseProvider } from '@repo/fastify-auth-firebase';
 
 const firebaseApp = initializeApp({ credential: cert('./service-account.json') });
 
-await registerAuth(
-  app,
+await registerAuth(app, [
   firebaseProvider({
     tenantId: process.env.FIREBASE_TENANT_ID,
     app: firebaseApp
   })
-);
+]);
 ```
 
 If you only have one Firebase app (the default), you can omit `app`:
@@ -44,12 +43,11 @@ If you only have one Firebase app (the default), you can omit `app`:
 ```typescript
 initializeApp({ credential: cert('./service-account.json') });
 
-await registerAuth(
-  app,
+await registerAuth(app, [
   firebaseProvider({
     tenantId: process.env.FIREBASE_TENANT_ID
   })
-);
+]);
 ```
 
 ### Using the decorators

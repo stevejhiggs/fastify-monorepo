@@ -8,7 +8,7 @@ const SECRET = 'test-secret-at-least-32-chars-long!!';
 
 async function buildApp(config: Parameters<typeof jwtProvider>[0]) {
   const app = fastify({ logger: false });
-  await registerAuth(app, jwtProvider(config));
+  await registerAuth(app, [jwtProvider(config)]);
 
   app.get('/protected', { preHandler: [app.authenticate] }, async (request) => {
     return request.user;
@@ -133,5 +133,82 @@ describe('registerAuth with jwtProvider', () => {
       expect(response.statusCode).toBe(200);
       expect(response.json()).toMatchObject({ sub: 'user-789' });
     });
+  });
+});
+
+// A simple mock provider that authenticates requests with a static "X-Mock-Token" header
+function mockProvider(userId: string): import('./index.ts').AuthProvider {
+  return {
+    async verify(request) {
+      const header = request.headers['x-mock-token'];
+      if (header === 'valid') return { sub: userId };
+      if (header !== undefined) throw new Error('invalid mock token');
+      return undefined;
+    }
+  };
+}
+
+describe('registerAuth with multiple providers', () => {
+  async function buildMultiProviderApp() {
+    const app = fastify({ logger: false });
+    // jwt provider handles Bearer tokens; mockProvider handles X-Mock-Token header
+    await registerAuth(app, [jwtProvider({ secret: SECRET }), mockProvider('mock-user')]);
+
+    app.get('/protected', { preHandler: [app.authenticate] }, async (request) => {
+      return request.user;
+    });
+
+    app.get('/optional', { preHandler: [app.populateUser] }, async (request) => {
+      return { user: request.user ?? null };
+    });
+
+    await app.ready();
+    return app;
+  }
+
+  it('authenticates via first provider (jwt)', async () => {
+    const app = await buildMultiProviderApp();
+    const token = app.jwt.sign({ sub: 'user-p1' });
+    const response = await app.inject({
+      method: 'GET',
+      url: '/protected',
+      headers: { authorization: `Bearer ${token}` }
+    });
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toMatchObject({ sub: 'user-p1' });
+  });
+
+  it('authenticates via second provider (mock) when first returns undefined', async () => {
+    const app = await buildMultiProviderApp();
+    const response = await app.inject({
+      method: 'GET',
+      url: '/protected',
+      headers: { 'x-mock-token': 'valid' }
+    });
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toMatchObject({ sub: 'mock-user' });
+  });
+
+  it('returns 401 when no token is provided', async () => {
+    const app = await buildMultiProviderApp();
+    const response = await app.inject({ method: 'GET', url: '/protected' });
+    expect(response.statusCode).toBe(401);
+  });
+
+  it('returns 401 when token is invalid for all providers', async () => {
+    const app = await buildMultiProviderApp();
+    const response = await app.inject({
+      method: 'GET',
+      url: '/protected',
+      headers: { authorization: 'Bearer not-a-valid-token', 'x-mock-token': 'bad' }
+    });
+    expect(response.statusCode).toBe(401);
+  });
+
+  it('continues without error when no token and using populateUser', async () => {
+    const app = await buildMultiProviderApp();
+    const response = await app.inject({ method: 'GET', url: '/optional' });
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual({ user: null });
   });
 });
