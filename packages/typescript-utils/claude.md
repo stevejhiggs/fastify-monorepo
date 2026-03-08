@@ -5,25 +5,18 @@ Shared TypeScript utility types used across the monorepo.
 ## Exports
 
 ```typescript
-import type {} from /* utility types */ '@repo/typescript-utils/types';
+import type { ObjectValues } from '@repo/typescript-utils/types';
 ```
 
-## Purpose
+## Current Types
 
-Central location for reusable TypeScript utility types that don't belong to any specific domain package.
+- `ObjectValues<T>` — extracts the value union from a `const` object (the preferred alternative to TypeScript `enum`)
 
 ## Adding Types
 
 When adding new utility types:
 
 1. Add to `src/types.ts`
-2. Export from the subpath export
-3. Keep types generic and reusable
-4. Document with JSDoc comments
-
-## Guidelines
-
-- Only add types used by multiple packages
-- Prefer built-in TypeScript utilities when possible
-- No runtime code - types only
-- Use descriptive names that indicate purpose
+2. Export from `./types` subpath
+3. Only add types used by multiple packages
+4. Prefer built-in TypeScript utilities when possible

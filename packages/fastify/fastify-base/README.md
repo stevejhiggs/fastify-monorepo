@@ -1,20 +1,17 @@
 # @repo/fastify-base
 
-A production-ready Fastify setup package that combines all essential plugins into a single, easy-to-use configuration. Perfect for getting started quickly while maintaining flexibility.
-
-## Features
-
-- **All-in-One Setup** - Pre-configured with security, logging, validation, and documentation
-- **Zod Integration** - Type-safe request/response validation
-- **Swagger Documentation** - Automatic OpenAPI docs at `/documentation`
-- **Request-Scoped Logging** - Persistent logger available throughout request lifecycle
-- **Security Headers** - Helmet integration for security best practices
-- **Type-Safe** - Full TypeScript support with enhanced Fastify types
+Combines all Fastify plugins into a single production-ready instance. The main entry point for building APIs in this monorepo.
 
 ## Installation
 
-```bash
-pnpm add @repo/fastify-base fastify zod
+This package is part of the monorepo. Add it as a workspace dependency:
+
+```json
+{
+  "dependencies": {
+    "@repo/fastify-base": "workspace:*"
+  }
+}
 ```
 
 ## Quick Start
@@ -24,199 +21,137 @@ import { setupBaseApp } from '@repo/fastify-base';
 
 const { app } = await setupBaseApp({
   port: 3000,
-  logger: {
-    logLevel: 'info'
-  },
-  swagger: {
-    enable: true,
-    title: 'My API',
-    version: '1.0.0'
-  }
+  serviceInfo: { name: 'My API', version: '1.0.0' },
+  swagger: { enable: true },
+  logger: { logLevel: 'info' }
 });
 
-// Define routes with Zod schemas
-app.get(
-  '/users/:id',
-  {
-    schema: {
-      params: z.object({
-        id: z.string()
-      }),
-      response: {
-        200: z.object({
-          id: z.string(),
-          name: z.string()
-        })
-      }
-    }
-  },
-  async (request, reply) => {
-    const { id } = request.params;
-    return { id, name: 'John Doe' };
-  }
-);
+app.get('/health', async () => ({ status: 'ok' }));
 
 await app.listen({ port: 3000 });
 ```
 
 ## What's Included
 
-This package automatically sets up:
+`setupBaseApp` registers these plugins in order:
 
-1. **Zod Validation** (`@repo/fastify-zod`) - Type-safe request/response validation
-2. **Swagger Documentation** (`@repo/fastify-swagger`) - OpenAPI docs at `/documentation`
-3. **Security Headers** (`@repo/fastify-security`) - Helmet security headers
-4. **Request Logging** (`@repo/fastify-logging`) - Per-request logger
-5. **Structured Logging** (`@repo/logging`) - Pino-based logging with GCP support
+1. **Zod** (`@repo/fastify-zod`) — type-safe request/response validation
+2. **Multipart** (`@repo/fastify-multipart`) — file upload support (100MB limit by default)
+3. **Security** (`@repo/fastify-security`) — Helmet security headers
+4. **Auth** (`@repo/fastify-auth`) — optional, when `auth` providers are configured
+5. **Swagger** (`@repo/fastify-swagger`) — OpenAPI docs at `/documentation`
+
+Request-scoped logging is set up via `@repo/fastify-observability`.
 
 ## API
 
-### `setupBaseApp(config)`
-
-Creates and configures a Fastify instance with all plugins.
+### `setupBaseApp(config): Promise<{ app: EnhancedFastifyInstance }>`
 
 **Config:**
 
 ```typescript
 type FastifyBaseConfig = {
   port: number;
+  serviceInfo: {
+    name: string; // Used as API title in Swagger
+    version: string; // Used as API version in Swagger
+  };
   swagger: {
     enable: boolean;
-    title?: string;
-    version?: string;
+    host?: string; // default: 'localhost'
+    documentationRoute?: string; // default: '/documentation'
   };
   logger?: {
-    outputFormat?: 'DEFAULT' | 'GCP';
-    logLevel?: 'debug' | 'info' | 'warn' | 'error' | 'silent';
+    outputFormat?: 'DEFAULT' | 'GCP'; // default: 'DEFAULT'
+    logLevel?: string; // default: 'info'
   };
+  auth?: AuthProvider[]; // from @repo/fastify-auth
 };
 ```
 
-**Returns:** `Promise<{ app: EnhancedFastifyInstance }>`
-
-### Enhanced Fastify Instance
-
-The returned app has enhanced TypeScript types with:
-
-- Zod type provider for schema validation
-- Request-scoped logger access
-- All Fastify plugins registered
-
 ## Usage Examples
 
-### Basic API Setup
+### With authentication
 
 ```typescript
 import { setupBaseApp } from '@repo/fastify-base';
-import { z } from 'zod';
+import { jwtProvider } from '@repo/fastify-auth-jwt';
 
 const { app } = await setupBaseApp({
   port: 3000,
-  logger: { logLevel: 'info' },
-  swagger: {
-    enable: true,
-    title: 'User API',
-    version: '1.0.0'
-  }
+  serviceInfo: { name: 'My API', version: '1.0.0' },
+  swagger: { enable: true },
+  auth: [jwtProvider({ secret: process.env.JWT_SECRET })]
 });
 
-app.get('/health', async () => {
-  return { status: 'ok' };
+app.get('/me', { preHandler: [app.authenticate] }, async (request) => {
+  return request.user;
 });
-
-await app.listen({ port: 3000 });
 ```
 
-### Using Request-Scoped Logger
+### GCP production config
+
+```typescript
+const { app } = await setupBaseApp({
+  port: Number(process.env.PORT) || 3000,
+  serviceInfo: { name: 'My API', version: process.env.npm_package_version ?? '0.0.0' },
+  logger: {
+    outputFormat: process.env.NODE_ENV === 'production' ? 'GCP' : 'DEFAULT',
+    logLevel: process.env.LOG_LEVEL ?? 'info'
+  },
+  swagger: { enable: process.env.DISABLE_DOCS !== 'true' }
+});
+```
+
+### Request-scoped logger
 
 ```typescript
 import { logger } from '@repo/fastify-base/logging';
 
 app.get('/users/:id', async (request) => {
-  // Access logger from anywhere in your request handler
   logger.instance.info({ userId: request.params.id }, 'Fetching user');
-
-  // Your logic here
-  return { id: request.params.id, name: 'John' };
+  return { id: request.params.id };
 });
 ```
 
-### Using Caching
+### Caching
 
 ```typescript
 import { createInMemoryCache } from '@repo/fastify-base/caching';
 
-const cache = createInMemoryCache({
-  ttl: 3600,
-  maxSize: 1000
-});
+const cache = createInMemoryCache({ ttl: 3600, maxSize: 1000 });
 
 app.get('/users/:id', async (request) => {
-  const cacheKey = `user:${request.params.id}`;
-  const cached = await cache.getItem(cacheKey);
-
-  if (cached) {
-    return cached;
-  }
-
-  const user = await fetchUser(request.params.id);
-  await cache.setItem(cacheKey, user);
-  return user;
-});
-```
-
-### Environment-Based Configuration
-
-```typescript
-const { app } = await setupBaseApp({
-  port: Number(process.env.PORT) || 3000,
-  logger: {
-    outputFormat: process.env.NODE_ENV === 'production' ? 'GCP' : 'DEFAULT',
-    logLevel: process.env.LOG_LEVEL || 'info'
-  },
-  swagger: {
-    enable: process.env.DISABLE_DOCS !== 'true',
-    title: 'My API',
-    version: '1.0.0'
-  }
+  const key = `user:${request.params.id}`;
+  return (await cache.getItem(key)) ?? fetchAndCache(key);
 });
 ```
 
 ## Exports
 
-### Main Export
-
 ```typescript
-import { setupBaseApp, type EnhancedFastifyInstance } from '@repo/fastify-base';
-```
+// Main
+import { setupBaseApp, type FastifyBaseConfig, type EnhancedFastifyInstance } from '@repo/fastify-base';
 
-### Caching Utilities
-
-```typescript
+// Caching utilities
 import { createInMemoryCache, createRedisCache } from '@repo/fastify-base/caching';
-```
 
-### Logging Utilities
-
-```typescript
+// Request-scoped logger
 import { logger } from '@repo/fastify-base/logging';
+
+// Multipart helpers
+import { registerMultipart } from '@repo/fastify-base/multipart';
+
+// OpenTelemetry setup
+import { setupOpenTelemetry } from '@repo/fastify-base/telemetry/setup';
 ```
 
 ## Individual Packages
 
-If you need more control, you can use the individual packages:
+For more control, import plugins directly:
 
-- `@repo/fastify-zod` - Zod validation only
-- `@repo/fastify-swagger` - Swagger documentation only
-- `@repo/fastify-security` - Security headers only
-- `@repo/fastify-logging` - Request logging only
-
-## Testing
-
-```bash
-pnpm typecheck
-```
-
-## License
-
-ISC
+- [`@repo/fastify-zod`](../fastify-zod/README.md) — Zod validation only
+- [`@repo/fastify-swagger`](../fastify-swagger/README.md) — Swagger docs only
+- [`@repo/fastify-security`](../fastify-security/README.md) — Security headers only
+- [`@repo/fastify-observability`](../fastify-observability/README.md) — Request logging only
+- [`@repo/fastify-auth`](../fastify-auth/README.md) — Auth decorators only

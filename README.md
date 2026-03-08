@@ -2,7 +2,7 @@
 
 A Fastify monorepo template for building scalable, type-safe APIs with modular architecture and buildless TypeScript support.
 
-## 🚀 Features
+## Features
 
 - Buildless TypeScript packages (no build step during development)
 - Type-safe APIs with Zod schema validation
@@ -10,13 +10,15 @@ A Fastify monorepo template for building scalable, type-safe APIs with modular a
 - Structured logging with optional GCP formatting
 - In-memory caching with optional Redis
 - Request-scoped logging
+- Auth plugin system with multiple provider support (JWT, Firebase)
+- OpenTelemetry instrumentation
 - Turborepo for fast builds
 
-**Stack:** Fastify, TypeScript, Zod, pnpm, Turborepo, Vitest, Biome
+**Stack:** Fastify v5, TypeScript Native (tsgo), Zod v4, pnpm, Turborepo, Vitest, oxlint + oxfmt
 
-## 🏁 Getting Started
+## Getting Started
 
-**Prerequisites:** Node.js v24+, pnpm v10.24.0+
+**Prerequisites:** Node.js v24+, pnpm v10+
 
 ```bash
 git clone <repository-url>
@@ -25,15 +27,14 @@ pnpm install
 pnpm dev  # API at http://localhost:3000, docs at /documentation
 ```
 
-## 🛠️ Development
+## Development
 
 | Command                 | Description                          |
 | ----------------------- | ------------------------------------ |
 | `pnpm dev`              | Start all apps in development mode   |
 | `pnpm build`            | Build all packages and apps          |
 | `pnpm test`             | Run all tests                        |
-| `pnpm typecheck`        | Type check all packages              |
-| `pnpm lint`             | Lint all packages                    |
+| `pnpm lint`             | Lint and format all packages         |
 | `pnpm generate:package` | Generate a new package from template |
 
 **Environment Variables:**
@@ -41,25 +42,29 @@ pnpm dev  # API at http://localhost:3000, docs at /documentation
 - `LOG_LEVEL` - Logging level (default: `info`)
 - `DISABLE_DOCS` - Disable `/documentation` endpoint (default: `false`)
 - `REDIS_URL` - Optional Redis connection URL
+- `PORT` - Server port (default: `3000`)
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 fastify-monorepo/
 ├── apps/example-api/          # Example API application
 ├── packages/
-│   ├── caching/               # Caching utilities
-│   ├── logging/               # Logging utilities
+│   ├── caching/               # In-memory and Redis caching
+│   ├── logging/               # Pino-based structured logging
 │   ├── open-telemetry/        # OpenTelemetry instrumentation
 │   ├── typescript-utils/      # Shared TypeScript utilities
 │   └── fastify/
-│       ├── fastify-base/      # Base Fastify setup with all plugins
-│       ├── fastify-common-types/
-│       ├── fastify-multipart/
-│       ├── fastify-observability/
-│       ├── fastify-security/
-│       ├── fastify-swagger/
-│       └── fastify-zod/
+│       ├── fastify-auth/          # Auth plugin (multi-provider)
+│       ├── fastify-auth-jwt/      # JWT auth provider
+│       ├── fastify-auth-firebase/ # Firebase auth provider
+│       ├── fastify-base/          # Base Fastify setup with all plugins
+│       ├── fastify-common-types/  # Shared Fastify types
+│       ├── fastify-multipart/     # File upload support
+│       ├── fastify-observability/ # Request-scoped logging
+│       ├── fastify-security/      # Helmet security headers
+│       ├── fastify-swagger/       # OpenAPI documentation
+│       └── fastify-zod/           # Zod validation provider
 └── tooling/                   # Shared configs and templates
 ```
 
@@ -72,12 +77,13 @@ import { setupBaseApp } from '@repo/fastify-base';
 
 const { app } = await setupBaseApp({
   port: 3000,
+  serviceInfo: { name: 'My API', version: '1.0.0' },
   logger: { logLevel: 'info' },
-  swagger: { enable: true, title: 'My API', version: '1.0.0' }
+  swagger: { enable: true }
 });
 ```
 
-## 🐳 Docker
+## Docker
 
 Build an app using the `TARGET_PACKAGE` build argument:
 
@@ -85,7 +91,7 @@ Build an app using the `TARGET_PACKAGE` build argument:
 docker build --build-arg TARGET_PACKAGE=example-api -t example-api:latest .
 ```
 
-## 🧪 Testing
+## Testing
 
 Tests are co-located with source files using Vitest:
 
@@ -94,22 +100,14 @@ pnpm test
 pnpm test --coverage
 ```
 
-## 📝 Code Quality
+## Code Quality
 
-Uses Biome (formatter/linter), TypeScript strict mode, Husky, and lint-staged. Code is automatically formatted and linted on commit.
+Uses oxlint (linter) and oxfmt (formatter) with lint-staged for automatic formatting on commit. TypeScript strict mode is enforced everywhere via tsgo (TypeScript Native).
 
-## 🏗️ Architecture
+## Architecture
 
 Buildless development: packages use TypeScript directly without a build step. Production builds use `tsdown` for optimized output.
 
-## 🗺️ Roadmap
-
-- [ ] OpenTelemetry support
-- [ ] Authentication/Authorization
-- [ ] GitHub Actions CI/CD
-- [ ] API generation from templates
-- [ ] Rate limiting
-
-## 📄 License
+## License
 
 ISC
