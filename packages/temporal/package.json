@@ -1,0 +1,16 @@
+{
+  "name": "@repo/temporal",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {},
+  "dependencies": {
+    "@repo/logging": "workspace:*",
+    "@temporalio/worker": "catalog:temporal"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:tooling"
+  }
+}

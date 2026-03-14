@@ -29,8 +29,22 @@ This repo uses a **buildless development** approach:
 apps/           → Runnable applications
 packages/       → Shared libraries
   fastify/      → Fastify plugins (modular)
+  temporal/     → Temporal worker utilities (@repo/temporal)
 tooling/        → Build configuration
 ```
+
+### Temporal App Pattern
+
+Temporal apps live under `apps/<name>/` with three sub-packages:
+
+```
+apps/<name>/
+  api/                  → Fastify API that starts workflows
+  worker/               → Temporal worker that executes workflows
+  packages/workflows/   → Shared workflow & activity definitions
+```
+
+The shared workflows package is imported by both the API (for type-safe `client.workflow.execute()`) and the worker (for `workflowsPath` bundling). See `apps/temporal-example/` for a working reference.
 
 ### Fastify Plugin Pattern
 
@@ -88,10 +102,15 @@ pnpm build            # Production build
 - `REDIS_URL` - Redis connection for distributed caching
 - `PORT` - Server port (default: `3000`)
 - `DISABLE_DOCS` - Disable Swagger docs endpoint
+- `TEMPORAL_ADDRESS` - Temporal server address (default: `localhost:7233`)
 
 ## Adding New Packages
 
-Use the generator: `pnpm generate:package`
+Use the generators:
+
+- `pnpm generate:package` — new shared library package
+- `pnpm generate:api` — new Fastify API application
+- `pnpm generate:temporal-app` — new Temporal app (API + worker + shared workflows)
 
 Or manually:
 

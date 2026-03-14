@@ -1,10 +1,6 @@
 {
-  "name": "@repo/templates-api",
+  "name": "@repo/temporal-example-api",
   "version": "0.0.1",
-  "description": "",
-  "keywords": [],
-  "license": "ISC",
-  "author": "",
   "type": "module",
   "main": "dist/listener.js",
   "scripts": {
@@ -17,8 +13,10 @@
     "test:ci": "LOG_LEVEL=warn vitest --coverage"
   },
   "dependencies": {
+    "@repo/temporal-example-workflows": "workspace:*",
     "@repo/fastify-base": "workspace:*",
     "@repo/open-telemetry": "workspace:*",
+    "@temporalio/client": "catalog:temporal",
     "fastify": "catalog:",
     "zod": "catalog:"
   },

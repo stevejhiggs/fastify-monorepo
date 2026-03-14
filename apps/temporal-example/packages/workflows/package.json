@@ -1,0 +1,17 @@
+{
+  "name": "@repo/temporal-example-workflows",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./activities": "./src/activities.ts"
+  },
+  "scripts": {},
+  "dependencies": {
+    "@temporalio/activity": "catalog:temporal",
+    "@temporalio/workflow": "catalog:temporal"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:tooling"
+  }
+}

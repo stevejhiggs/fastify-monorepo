@@ -1,0 +1,65 @@
+# {{name}}
+
+Temporal application with API, worker, and shared workflows.
+
+## Structure
+
+```
+{{name}}/
+  api/                         # Fastify API (@repo/{{name}}-api)
+    src/
+      index.ts                 # Entry point
+      listener.ts              # Network listener
+      server.ts                # Fastify instance factory
+      temporal-client.ts       # Lazy Temporal client singleton
+      routes/
+        route-registry.ts      # Central route registration
+        health/route.ts        # Health check
+        example-workflow/route.ts  # Starts the example workflow
+  worker/                      # Temporal worker (@repo/{{name}}-worker)
+    src/
+      index.ts                 # Worker entry point
+      workflows.ts             # Re-exports workflows for workflowsPath bundler
+  packages/workflows/          # Shared workflows (@repo/{{name}}-workflows)
+    src/
+      index.ts                 # Barrel export + task queue constant
+      example-workflow.ts      # Example workflow definition
+      activities.ts            # Activity implementations
+```
+
+## Key Patterns
+
+### Workflow Sharing
+
+The `@repo/{{name}}-workflows` package is the single source of truth for workflow and activity definitions:
+
+- The **API** imports workflow functions directly for type-safe `client.workflow.execute()` calls
+- The **worker** re-exports workflows via `workflows.ts` for the Temporal SDK's Webpack bundler, and imports activities for registration
+
+### Temporal Client (API)
+
+The API uses a lazy-initialized singleton Temporal client in `temporal-client.ts`. Routes import `getTemporalClient()` to start workflows.
+
+### Worker Logging
+
+The worker uses `@repo/temporal`'s `createTemporalLogger()` to route all Temporal SDK logs through the shared pino logger from `@repo/logging`.
+
+## Adding Workflows
+
+1. Create a new workflow file in `packages/workflows/src/`
+2. Export it from `packages/workflows/src/index.ts`
+3. Re-export it in `worker/src/workflows.ts`
+4. Create a route in `api/src/routes/` that calls `client.workflow.execute()`
+5. Register the route in `api/src/routes/route-registry.ts`
+
+## Adding Activities
+
+1. Add the activity function to `packages/workflows/src/activities.ts`
+2. Use `proxyActivities` in the workflow file to call it
+
+## Environment Variables
+
+- `LOG_LEVEL` - Logger level (default: `info`)
+- `PORT` - API server port (default: `3000`)
+- `TEMPORAL_ADDRESS` - Temporal server address (default: `localhost:7233`)
+- `DISABLE_DOCS` - Disable `/documentation` endpoint

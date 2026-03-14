@@ -15,6 +15,7 @@
     "pre-commit": "pnpm lint-staged",
     "generate:package": "turbo gen workspace --copy @repo/templates-package --type package",
     "generate:api": "turbo gen workspace --copy @repo/templates-api --type api",
+    "generate:temporal-app": "turbo gen temporal-app",
     "turbo": "turbo"
   },
   "devDependencies": {
