@@ -42,4 +42,5 @@ COPY --from=prod-deps /app/node_modules ./node_modules
 # Run as non-root user
 USER node
 EXPOSE 3000
-CMD [ "node", "--enable-source-maps", "--import", "./telemetry.mjs", "./index.mjs" ]
+ENV NODE_OPTIONS="--enable-source-maps"
+CMD [ "node", "./index.mjs" ]

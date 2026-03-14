@@ -6,6 +6,7 @@ packages:
   - packages/fastify/*
   - tooling/*
   - tooling/templates/*
+  - tooling/templates/temporal-app/*
 
 catalog:
   fastify: 5.8.2

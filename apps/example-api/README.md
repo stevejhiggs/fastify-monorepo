@@ -32,6 +32,23 @@ The routes are registered in `apps/example-api/src/routes/route-registry.ts`. Ea
 | `GET /caching`                       | Uses the shared `createInMemoryCache` helper with a 20s TTL and size limit. Returns a cached `{ uuid, timestamp }` pair and logs cache hits/misses.                                    |
 | `POST /files/upload`                 | Handles multipart form uploads with Zod validation. Accepts a single `image` field (PNG or JPEG up to 10 MB); echoes the uploaded file’s MIME type.                                    |
 
+## Docker
+
+Build the API image from the repository root:
+
+```bash
+docker build --build-arg TARGET_PACKAGE=example-api -t example-api:latest .
+```
+
+To enable OpenTelemetry instrumentation, set `NODE_OPTIONS` at deploy time:
+
+```yaml
+environment:
+  NODE_OPTIONS: "--enable-source-maps --import ./telemetry.mjs"
+```
+
+See [docs/docker.md](../../docs/docker.md) for full details.
+
 ## Adding new routes
 
 1. Create a new folder under `src/routes/<your-route>` and export a `registerRoutes` function that accepts `EnhancedFastifyInstance`.

@@ -136,12 +136,12 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
         {
           type: 'add',
           path: `${appDir}/api/src/temporal-client.ts`,
-          templateFile: `${temporalTemplate}/api/src/temporal-client.ts.hbs`
+          templateFile: `${temporalTemplate}/api/src/temporal-client.ts`
         },
         {
           type: 'add',
           path: `${appDir}/api/src/routes/route-registry.ts`,
-          templateFile: `${temporalTemplate}/api/src/routes/route-registry.ts.hbs`
+          templateFile: `${temporalTemplate}/api/src/routes/route-registry.ts`
         },
         {
           type: 'add',
@@ -165,7 +165,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
             `  - apps/${name}/packages/*`
           ];
 
-          if (content.includes(`apps/${name}/*`)) {
+          if (content.includes(`- apps/${name}/*`)) {
             return 'Workspace globs already present';
           }
 

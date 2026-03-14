@@ -27,13 +27,13 @@ async function run() {
 
   logger.info({ taskQueue: TASK_QUEUE }, 'Worker started, polling for tasks');
 
-  const shutdown = () => {
+  const shutdown = async () => {
     logger.info('Shutting down worker');
-    worker.shutdown();
+    await worker.shutdown();
   };
 
-  process.on('SIGINT', shutdown);
-  process.on('SIGTERM', shutdown);
+  process.on('SIGINT', () => void shutdown());
+  process.on('SIGTERM', () => void shutdown());
 
   await worker.run();
   logger.info('Worker stopped');
