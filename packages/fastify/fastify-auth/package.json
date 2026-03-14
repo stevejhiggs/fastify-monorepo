@@ -10,7 +10,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@repo/fastify-auth-jwt": "workspace:*",
     "@repo/fastify-common-types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@repo/vitest": "workspace:*",
