@@ -13,6 +13,11 @@ Production-ready Fastify v5 monorepo with modular plugins for building type-safe
 - **Testing**: Vitest
 - **Linting**: oxlint + oxfmt (with type-aware linting)
 
+## Tool Usage
+
+- When globbing for files, always use specific path prefixes (e.g. `apps/**/README.md`, `packages/**/*.ts`) to avoid `node_modules` flooding results. Never glob with just a filename like `README.md` from the repo root.
+- Always run `pnpm lint` after making changes to verify code passes linting and formatting.
+
 ## Architecture
 
 ### Buildless Development
@@ -94,6 +99,8 @@ pnpm test             # Run tests
 pnpm typecheck        # Type check with tsgo (TypeScript Native)
 pnpm lint             # Lint with oxlint and format with oxfmt
 pnpm build            # Production build
+pnpm -w temporal:up   # Start Temporal dev server (Docker)
+pnpm -w temporal:down # Stop Temporal dev server
 ```
 
 ## Environment Variables

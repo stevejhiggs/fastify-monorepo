@@ -44,7 +44,7 @@ To enable OpenTelemetry instrumentation, set `NODE_OPTIONS` at deploy time:
 
 ```yaml
 environment:
-  NODE_OPTIONS: "--enable-source-maps --import ./telemetry.mjs"
+  NODE_OPTIONS: '--enable-source-maps --import ./telemetry.mjs'
 ```
 
 See [docs/docker.md](../../docs/docker.md) for full details.

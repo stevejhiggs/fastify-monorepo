@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
-import { exampleWorkflow, TASK_QUEUE } from '@repo/temporal-example-workflows';
 import type { EnhancedFastifyInstance } from '@repo/fastify-base';
+import { exampleWorkflow, TASK_QUEUE } from '@repo/temporal-example-workflows';
 import { z } from 'zod';
 
 import { getTemporalClient } from '../../temporal-client.ts';

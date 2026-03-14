@@ -1,7 +1,7 @@
-import { TASK_QUEUE } from '@repo/temporal-example-workflows';
-import * as activities from '@repo/temporal-example-workflows/activities';
 import { initLogger } from '@repo/logging';
 import { createTemporalLogger } from '@repo/temporal';
+import { TASK_QUEUE } from '@repo/temporal-example-workflows';
+import * as activities from '@repo/temporal-example-workflows/activities';
 import { NativeConnection, Runtime, Worker } from '@temporalio/worker';
 
 const logger = initLogger({ logLevel: process.env['LOG_LEVEL'] ?? 'info' });
@@ -29,6 +29,7 @@ async function run() {
 
   const shutdown = async () => {
     logger.info('Shutting down worker');
+    // eslint-disable-next-line @typescript-eslint/await-thenable -- shutdown() returns a Promise
     await worker.shutdown();
   };
 

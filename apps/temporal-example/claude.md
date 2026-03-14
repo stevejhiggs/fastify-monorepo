@@ -57,6 +57,15 @@ The worker uses `@repo/temporal`'s `createTemporalLogger()` to route all Tempora
 1. Add the activity function to `packages/workflows/src/activities.ts`
 2. Use `proxyActivities` in the workflow file to call it
 
+## Temporal Dev Server
+
+Start the Temporal dev server via Docker from the repository root:
+
+```bash
+pnpm -w temporal:up      # Start (gRPC on :7233, Web UI on :8233)
+pnpm -w temporal:down    # Stop
+```
+
 ## Environment Variables
 
 - `LOG_LEVEL` - Logger level (default: `info`)

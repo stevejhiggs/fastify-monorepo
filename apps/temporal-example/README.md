@@ -13,7 +13,7 @@ temporal-example/
 
 ## Getting started
 
-**Prerequisites:** A running Temporal server (`temporal server start-dev`)
+**Prerequisites:** A running Temporal server — start one with `pnpm -w temporal:up` (or `temporal server start-dev`)
 
 1. Install dependencies from the repository root: `pnpm install`
 2. Start the worker and API (from the repository root):
@@ -37,7 +37,7 @@ The API and worker use the same base `Dockerfile`. To enable OpenTelemetry on th
 ```yaml
 # API service
 environment:
-  NODE_OPTIONS: "--enable-source-maps --import ./telemetry.mjs"
+  NODE_OPTIONS: '--enable-source-maps --import ./telemetry.mjs'
 ```
 
 The worker uses the default `NODE_OPTIONS` (`--enable-source-maps`) and does not need the telemetry import.

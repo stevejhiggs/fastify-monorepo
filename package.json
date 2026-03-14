@@ -16,6 +16,8 @@
     "generate:package": "turbo gen workspace --copy @repo/templates-package --type package",
     "generate:api": "turbo gen workspace --copy @repo/templates-api --type api",
     "generate:temporal-app": "turbo gen temporal-app",
+    "temporal:up": "docker compose -f tooling/temporal-dev-server/docker-compose.yml up -d",
+    "temporal:down": "docker compose -f tooling/temporal-dev-server/docker-compose.yml down",
     "turbo": "turbo"
   },
   "devDependencies": {

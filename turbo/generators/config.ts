@@ -1,6 +1,7 @@
-import type { PlopTypes } from '@turbo/gen';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+
+import type { PlopTypes } from '@turbo/gen';
 
 export default function generator(plop: PlopTypes.NodePlopAPI): void {
   plop.setGenerator('temporal-app', {
@@ -160,10 +161,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
           const workspaceFile = join(plop.getDestBasePath(), 'pnpm-workspace.yaml');
           const content = readFileSync(workspaceFile, 'utf-8');
 
-          const newGlobs = [
-            `  - apps/${name}/*`,
-            `  - apps/${name}/packages/*`
-          ];
+          const newGlobs = [`  - apps/${name}/*`, `  - apps/${name}/packages/*`];
 
           if (content.includes(`- apps/${name}/*`)) {
             return 'Workspace globs already present';

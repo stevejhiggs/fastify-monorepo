@@ -31,15 +31,17 @@ pnpm dev  # API at http://localhost:3000, docs at /documentation
 
 ## Development
 
-| Command                 | Description                          |
-| ----------------------- | ------------------------------------ |
-| `pnpm dev`              | Start all apps in development mode   |
-| `pnpm build`            | Build all packages and apps          |
-| `pnpm test`             | Run all tests                        |
-| `pnpm lint`             | Lint and format all packages         |
-| `pnpm generate:package`      | Generate a new package from template      |
-| `pnpm generate:api`          | Generate a new API app from template      |
-| `pnpm generate:temporal-app` | Generate a Temporal app (API + worker)    |
+| Command                      | Description                            |
+| ---------------------------- | -------------------------------------- |
+| `pnpm dev`                   | Start all apps in development mode     |
+| `pnpm build`                 | Build all packages and apps            |
+| `pnpm test`                  | Run all tests                          |
+| `pnpm lint`                  | Lint and format all packages           |
+| `pnpm generate:package`      | Generate a new package from template   |
+| `pnpm generate:api`          | Generate a new API app from template   |
+| `pnpm generate:temporal-app` | Generate a Temporal app (API + worker) |
+| `pnpm temporal:up`           | Start Temporal dev server (Docker)     |
+| `pnpm temporal:down`         | Stop Temporal dev server               |
 
 ### Generating Packages
 
