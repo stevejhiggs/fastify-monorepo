@@ -1,6 +1,15 @@
 services:
+  init-temporal-data:
+    image: busybox
+    volumes:
+      - temporal-data:/data
+    command: chown -R 1000:1000 /data
+
   temporal:
     image: temporalio/temporal:latest
+    depends_on:
+      init-temporal-data:
+        condition: service_completed_successfully
     command:
       - server
       - start-dev
