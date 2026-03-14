@@ -1,13 +1,15 @@
 
 
-FROM node:24-slim AS base
+FROM node:24-trixie-slim AS base
+
+FROM base AS builder
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 COPY ./package.json /app/package.json
 RUN corepack enable pnpm && pnpm -v
 WORKDIR /app
 
-FROM base AS prepare
+FROM builder AS prepare
 ARG TARGET_PACKAGE
 RUN pnpm -g add turbo@2
 COPY . .
@@ -23,7 +25,7 @@ COPY --from=prepare /app/out/json/ .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --filter ${TARGET_PACKAGE}... --prod --shamefully-hoist
 
 # Build the app
-FROM base AS build
+FROM builder AS build
 ARG TARGET_PACKAGE
 COPY --from=prepare /app/out/json/ .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
