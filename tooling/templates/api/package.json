@@ -14,7 +14,8 @@
     "start:production": "node --enable-source-maps ./.dist/index.mjs",
     "build": "tsdown",
     "test": "LOG_LEVEL=warn vitest",
-    "test:ci": "LOG_LEVEL=warn vitest --coverage"
+    "test:ci": "LOG_LEVEL=warn vitest --coverage",
+    "generate:openapi": "node --import tsx scripts/generate-openapi.ts"
   },
   "dependencies": {
     "@repo/fastify-base": "workspace:*",

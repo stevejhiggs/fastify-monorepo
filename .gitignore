@@ -143,3 +143,6 @@ vite.config.ts.timestamp-*
 
 # temporal workflow db
 temporal.sqlite
+
+# Generated OpenAPI specs
+openapi.yaml
