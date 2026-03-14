@@ -1,6 +1,6 @@
 import { setupBaseApp } from '@repo/fastify-base';
 
-import { name, version } from '../package.json' with { type: 'json' };
+import { name, version } from '../package.json';
 import registerRoutes from './routes/route-registry';
 
 export default async function getServer(port: number = 3000) {

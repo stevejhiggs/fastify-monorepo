@@ -6,22 +6,23 @@ packages:
   - tooling/templates/*
 
 catalog:
-  zod: ^4.3.6
   fastify: 5.8.2
+  zod: ^4.3.6
 
 catalogs:
   testing:
     '@vitest/coverage-v8': ^4.1.0
     vitest: ^4.1.0
   tooling:
+    '@types/node': ^24.12.0
+    '@typescript/native-preview': ^7.0.0-dev.20260314.1
+    oxfmt: ^0.40.0
     oxlint: ^1.55.0
     oxlint-tsgolint: ^0.16.0
-    oxfmt: ^0.40.0
-    '@types/node': ^24.12.0
     tsdown: ^0.21.2
     tsx: ^4.21.0
-    '@typescript/native-preview': ^7.0.0-dev.20260314.1
 
 onlyBuiltDependencies:
+  - '@firebase/util'
   - esbuild
   - protobufjs

@@ -1,6 +1,6 @@
 import { setupFastifyOpenTelemetry } from '@repo/fastify-base/telemetry/setup';
 
-import { name, version } from '../package.json' with { type: 'json' };
+import { name, version } from '../package.json';
 
 setupFastifyOpenTelemetry({
   serviceInfo: {
