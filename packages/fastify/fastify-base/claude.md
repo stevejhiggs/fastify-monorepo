@@ -38,28 +38,27 @@ const app = await setupBaseApp({
 `setupBaseApp` registers these plugins in order:
 
 1. **Zod** - Type-safe schema validation
-2. **Security** - Helmet security headers
-3. **Swagger** - OpenAPI documentation at `/documentation`
-4. **Multipart** - File upload support
-5. **Observability** - Request logging and correlation IDs
+2. **Sensible** - HTTP error utilities (`reply.notFound()`, `app.httpErrors.conflict()`, etc.)
+3. **Multipart** - File upload support
+4. **Security** - Helmet security headers
+5. **Rate Limit** - Request rate limiting (optional, configured via `rateLimit`)
+6. **Auth** - Authentication providers (optional, configured via `auth`)
+7. **Swagger** - OpenAPI documentation at `/documentation`
+8. **Observability** - Request logging and correlation IDs
 
 ## Configuration
 
 ```typescript
 interface FastifyBaseConfig {
-  logger?: {
-    level?: string;
-    format?: 'default' | 'gcp';
+  port: number;
+  serviceInfo: {
+    name: string;
+    version: string;
   };
-  swagger?: {
-    title?: string;
-    version?: string;
-    description?: string;
-    disabled?: boolean;
-  };
-  multipart?: {
-    limits?: { fileSize?: number };
-  };
+  swagger: SwaggerConfig;
+  logger?: LoggerConfig;
+  auth?: AuthProvider[];
+  rateLimit?: RateLimitPluginOptions;
 }
 ```
 

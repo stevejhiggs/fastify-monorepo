@@ -1,6 +1,8 @@
+import sensible from '@fastify/sensible';
 import { registerAuth, type AuthProvider } from '@repo/fastify-auth';
 import { registerMultipart } from '@repo/fastify-multipart';
 import { registerPerRequestLogger } from '@repo/fastify-observability/logging';
+import { registerRateLimit, type RateLimitPluginOptions } from '@repo/fastify-rate-limit';
 import { registerDefaultSecurity } from '@repo/fastify-security';
 import { registerSwagger, type SwaggerConfig } from '@repo/fastify-swagger';
 import { jsonSchemaTransform, registerZodProvider, type ZodTypeProvider } from '@repo/fastify-zod';
@@ -12,6 +14,7 @@ export type FastifyBaseConfig = {
   swagger: Omit<SwaggerConfig, 'port' | 'transform' | 'title' | 'version'>;
   logger?: LoggerConfig;
   auth?: AuthProvider[];
+  rateLimit?: RateLimitPluginOptions;
   serviceInfo: {
     name: string;
     version: string;
@@ -34,10 +37,15 @@ export async function setupBaseApp(config: FastifyBaseConfig): Promise<{ app: En
 
   // Set up Zod validators and serializers
   const app = registerZodProvider(rawApp);
+  // add sensible defaults (httpErrors, reply decorators, etc.)
+  await app.register(sensible);
   // support multipart/form-data requests for file uploads
   registerMultipart(app, { limits: { fileSize: 100 * 1024 * 1024 } }); // 100MB max file size, you can enforce limits lower than this via validation
   // add security headers
   await registerDefaultSecurity(app);
+  if (config.rateLimit) {
+    await registerRateLimit(app, config.rateLimit);
+  }
   if (config.auth) {
     await registerAuth(app, config.auth);
   }

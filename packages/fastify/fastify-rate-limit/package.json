@@ -1,0 +1,26 @@
+{
+  "name": "@repo/fastify-rate-limit",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest",
+    "test:ci": "vitest run"
+  },
+  "dependencies": {
+    "@fastify/rate-limit": "^10.3.0"
+  },
+  "devDependencies": {
+    "@repo/fastify-common-types": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@repo/vitest": "workspace:*",
+    "@types/node": "catalog:tooling",
+    "@vitest/coverage-v8": "catalog:testing",
+    "fastify": "catalog:",
+    "vitest": "catalog:testing"
+  },
+  "peerDependencies": {
+    "fastify": "catalog:"
+  }
+}
