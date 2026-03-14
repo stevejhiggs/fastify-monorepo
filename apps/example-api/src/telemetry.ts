@@ -8,10 +8,12 @@ setupFastifyOpenTelemetry({
     version
   },
   traces: {
-    exporter: 'otlp-grpc'
+    // change me - see open-telemetry package readme
+    exporter: 'console'
   },
   metrics: {
-    exporter: 'otlp-grpc'
+    // change me
+    exporter: 'console'
   },
   logLevel: 'info'
 });
