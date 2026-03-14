@@ -11,8 +11,12 @@ Fastify plugin for security headers using Helmet. Provides essential security he
 
 ## Installation
 
-```bash
-pnpm add @repo/fastify-security fastify
+```json
+{
+  "dependencies": {
+    "@repo/fastify-security": "workspace:*"
+  }
+}
 ```
 
 ## Usage
@@ -75,31 +79,6 @@ await app.register(helmet, {
     }
   }
 });
-```
-
-## Example: Complete Setup
-
-```typescript
-import fastify from 'fastify';
-import { registerDefaultSecurity } from '@repo/fastify-security';
-
-const app = fastify();
-
-// Register security headers
-await registerDefaultSecurity(app);
-
-app.get('/api/users', async (request, reply) => {
-  // All responses will include security headers
-  return { users: [] };
-});
-
-await app.listen({ port: 3000 });
-```
-
-## Testing
-
-```bash
-pnpm typecheck
 ```
 
 ## License

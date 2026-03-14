@@ -12,8 +12,12 @@ Fastify plugin for Zod schema validation and serialization. Provides type-safe r
 
 ## Installation
 
-```bash
-pnpm add @repo/fastify-zod fastify zod
+```json
+{
+  "dependencies": {
+    "@repo/fastify-zod": "workspace:*"
+  }
+}
 ```
 
 ## Usage
@@ -185,29 +189,6 @@ Transform function for converting Zod schemas to OpenAPI/JSON Schema format. Use
 
 Type provider for Fastify that enables Zod schema validation.
 
-## Type Safety
-
-All request properties are automatically typed based on your Zod schemas:
-
-```typescript
-zodApp.get(
-  '/users/:id',
-  {
-    schema: {
-      params: z.object({ id: z.string() }),
-      querystring: z.object({ page: z.number().default(1) }),
-      body: z.object({ name: z.string() })
-    }
-  },
-  async (request) => {
-    // TypeScript knows the exact types:
-    // request.params.id: string
-    // request.query.page: number
-    // request.body.name: string
-  }
-);
-```
-
 ## Error Handling
 
 Invalid requests automatically return 400 errors with validation details:
@@ -224,12 +205,6 @@ Invalid requests automatically return 400 errors with validation details:
     }
   ]
 }
-```
-
-## Testing
-
-```bash
-pnpm typecheck
 ```
 
 ## License

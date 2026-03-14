@@ -5,15 +5,15 @@ Security headers via Fastify Helmet integration.
 ## Exports
 
 ```typescript
-import { registerSecurity } from '@repo/fastify-security';
+import { registerDefaultSecurity } from '@repo/fastify-security';
 ```
 
 ## Usage
 
 ```typescript
-import { registerSecurity } from '@repo/fastify-security';
+import { registerDefaultSecurity } from '@repo/fastify-security';
 
-const app = registerSecurity(fastifyInstance);
+const app = registerDefaultSecurity(fastifyInstance);
 ```
 
 ## What It Does

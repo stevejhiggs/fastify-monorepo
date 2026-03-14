@@ -12,12 +12,11 @@ A Fastify service that demonstrates the shared `@repo/fastify-base` utilities us
 
 Common scripts:
 
-| Script                                | What it does                             |
-| ------------------------------------- | ---------------------------------------- |
-| `pnpm --filter example-api build`     | Builds the API using `tsdown`.           |
-| `pnpm --filter example-api test`      | Runs the Vitest suite.                   |
-| `pnpm --filter example-api lint`      | Formats and lints the source with Biome. |
-| `pnpm --filter example-api typecheck` | Runs TypeScript in noEmit mode.          |
+| Script                                | What it does                                      |
+| ------------------------------------- | ------------------------------------------------- |
+| `pnpm --filter example-api build`     | Builds the API using `tsdown`.                    |
+| `pnpm --filter example-api test`      | Runs the Vitest suite.                            |
+| `pnpm --filter example-api lint`      | Formats and lints the source with oxlint + oxfmt. |
 
 ## Route reference
 
@@ -46,8 +45,6 @@ To enable OpenTelemetry instrumentation, set `NODE_OPTIONS` at deploy time:
 environment:
   NODE_OPTIONS: '--enable-source-maps --import ./telemetry.mjs'
 ```
-
-See [docs/docker.md](../../docs/docker.md) for full details.
 
 ## Adding new routes
 

@@ -164,12 +164,6 @@ You can then use these paths in your tests:
 import { something } from '@/utils/helpers';
 ```
 
-## Testing
-
-```bash
-pnpm typecheck
-```
-
 ## License
 
 ISC

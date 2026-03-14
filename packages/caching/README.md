@@ -11,8 +11,12 @@ A flexible caching solution with in-memory and Redis support, featuring SuperJSO
 
 ## Installation
 
-```bash
-pnpm add @repo/caching
+```json
+{
+  "dependencies": {
+    "@repo/caching": "workspace:*"
+  }
+}
 ```
 
 ## Usage

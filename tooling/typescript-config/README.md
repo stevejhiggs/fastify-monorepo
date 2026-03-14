@@ -120,23 +120,7 @@ If you're adding this to an existing package:
    }
    ```
 
-2. Run type checking:
-
-   ```bash
-   pnpm typecheck
-   ```
-
-3. Fix any new type errors (the strict settings may reveal issues)
-
-## Testing
-
-This package doesn't have tests as it's a configuration file. Verify it works by running:
-
-```bash
-pnpm typecheck
-```
-
-in any package that uses it.
+2. Fix any new type errors (the strict settings may reveal issues)
 
 ## License
 

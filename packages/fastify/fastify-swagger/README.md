@@ -219,12 +219,6 @@ await registerSwagger(app, {
 });
 ```
 
-## Testing
-
-```bash
-pnpm typecheck
-```
-
 ## License
 
 ISC

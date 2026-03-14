@@ -8,8 +8,12 @@ This package provides a common type definition (`FastifyInstanceForRegistration`
 
 ## Installation
 
-```bash
-pnpm add @repo/fastify-common-types
+```json
+{
+  "dependencies": {
+    "@repo/fastify-common-types": "workspace:*"
+  }
+}
 ```
 
 ## Usage
@@ -42,23 +46,6 @@ Use this type when:
 - Building reusable Fastify plugins
 - You need to register plugins without strict type constraints
 - Creating plugin registration functions that work with any Fastify instance
-
-## Example
-
-```typescript
-import type { FastifyInstanceForRegistration } from '@repo/fastify-common-types';
-import fastifyHelmet from '@fastify/helmet';
-
-export async function registerSecurity(app: FastifyInstanceForRegistration) {
-  await app.register(fastifyHelmet);
-}
-```
-
-## Testing
-
-```bash
-pnpm typecheck
-```
 
 ## License
 

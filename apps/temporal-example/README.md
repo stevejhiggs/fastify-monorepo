@@ -42,8 +42,6 @@ environment:
 
 The worker uses the default `NODE_OPTIONS` (`--enable-source-maps`) and does not need the telemetry import.
 
-See [docs/docker.md](../../docs/docker.md) for full details.
-
 ## Environment Variables
 
 - `LOG_LEVEL` - Logger level (default: `info`)

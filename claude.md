@@ -96,7 +96,6 @@ Plugins can be composed: `registerZod(registerSecurity(app))`
 pnpm install          # Install dependencies
 pnpm dev              # Run all apps in watch mode
 pnpm test             # Run tests
-pnpm typecheck        # Type check with tsgo (TypeScript Native)
 pnpm lint             # Lint with oxlint and format with oxfmt
 pnpm build            # Production build
 pnpm -w temporal:up   # Start Temporal dev server (Docker)
@@ -140,5 +139,3 @@ Build any app with:
 ```bash
 docker build --build-arg TARGET_PACKAGE=example-api -t example-api:latest .
 ```
-
-See [docs/docker.md](docs/docker.md) for details on how the build pipeline works.

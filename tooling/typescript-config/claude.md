@@ -75,8 +75,4 @@ Each package defines its own path aliases in its tsconfig:
 
 ## Modifying
 
-Changes here affect all packages. Test thoroughly:
-
-```bash
-pnpm typecheck
-```
+Changes here affect all packages. Test thoroughly.

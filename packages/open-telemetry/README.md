@@ -4,8 +4,12 @@ A comprehensive OpenTelemetry setup package for Node.js applications. This packa
 
 ## Installation
 
-```bash
-pnpm add @repo/open-telemetry
+```json
+{
+  "dependencies": {
+    "@repo/open-telemetry": "workspace:*"
+  }
+}
 ```
 
 ## Quick Start
@@ -64,42 +68,6 @@ setupOpenTelemetry({
 
 ## Examples
 
-### Basic Setup with OTLP gRPC
-
-```typescript
-import { setupOpenTelemetry } from '@repo/open-telemetry';
-
-setupOpenTelemetry({
-  serviceInfo: {
-    name: 'my-api',
-    version: '1.0.0'
-  },
-  traces: {
-    exporter: 'otlp-grpc'
-  },
-  metrics: {
-    exporter: 'otlp-grpc'
-  }
-});
-```
-
-### Console Exporters (for Development)
-
-```typescript
-setupOpenTelemetry({
-  serviceInfo: {
-    name: 'my-api',
-    version: '1.0.0'
-  },
-  traces: {
-    exporter: 'console'
-  },
-  metrics: {
-    exporter: 'console'
-  }
-});
-```
-
 ### Custom Endpoints
 
 ```typescript
@@ -156,22 +124,7 @@ docker run --rm -it -p 18888:18888 -p 4317:18889 --name aspire-dashboard \
   mcr.microsoft.com/dotnet/aspire-dashboard:latest
 ```
 
-2. Configure your application to use OTLP gRPC:
-
-```typescript
-setupOpenTelemetry({
-  serviceInfo: {
-    name: 'my-api',
-    version: '1.0.0'
-  },
-  traces: {
-    exporter: 'otlp-grpc'
-  },
-  metrics: {
-    exporter: 'otlp-grpc'
-  }
-});
-```
+2. Configure your application to use OTLP gRPC (see Quick Start above).
 
 3. Navigate to `http://localhost:18888` in your browser and enter the key shown in the Docker logs.
 
@@ -199,46 +152,6 @@ Some instrumentations are disabled by default to reduce noise:
 ## Graceful Shutdown
 
 The package automatically handles graceful shutdown on `SIGTERM`, ensuring all telemetry is flushed before the process exits. This is important for production deployments where you want to capture all telemetry data.
-
-## API Reference
-
-### `setupOpenTelemetry(params: OpenTelemetryParams): void`
-
-Initializes and starts the OpenTelemetry SDK with the provided configuration.
-
-### `OpenTelemetryParams`
-
-```typescript
-type OpenTelemetryParams = {
-  metrics: {
-    exporter: MetricsExporter;
-    intervalMillis?: number;
-    endpoint?: string;
-  };
-  traces: {
-    exporter: TraceExporter;
-    endpoint?: string;
-  };
-  instrumentations?: NodeSDKConfiguration['instrumentations'];
-  serviceInfo: {
-    name: string;
-    version: string;
-  };
-  logLevel?: string;
-};
-```
-
-### `TraceExporter`
-
-```typescript
-type TraceExporter = 'otlp-http' | 'otlp-grpc' | 'console' | 'none';
-```
-
-### `MetricsExporter`
-
-```typescript
-type MetricsExporter = 'otlp' | 'otlp-grpc' | 'console' | 'none';
-```
 
 ## License
 

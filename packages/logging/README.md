@@ -11,8 +11,12 @@ Core logging utilities built on Pino with optional Google Cloud Platform (GCP) f
 
 ## Installation
 
-```bash
-pnpm add @repo/logging
+```json
+{
+  "dependencies": {
+    "@repo/logging": "workspace:*"
+  }
+}
 ```
 
 ## Usage
@@ -84,57 +88,9 @@ The returned logger supports all standard Pino methods:
 - `logger.fatal(obj?, msg?)` - Fatal level logging
 - `logger.trace(obj?, msg?)` - Trace level logging
 
-## Example: Structured Logging
-
-```typescript
-import { initLogger } from '@repo/logging';
-
-const logger = initLogger({ logLevel: 'info' });
-
-// Simple message
-logger.info('Server started on port 3000');
-
-// Structured logging with context
-logger.info(
-  {
-    userId: 123,
-    action: 'login',
-    ip: '192.168.1.1'
-  },
-  'User logged in'
-);
-
-// Error logging
-logger.error(
-  {
-    err: error,
-    userId: 123,
-    endpoint: '/api/users'
-  },
-  'Failed to fetch user'
-);
-```
-
-## Example: Environment-Based Configuration
-
-```typescript
-import { initLogger } from '@repo/logging';
-
-const logger = initLogger({
-  outputFormat: process.env.NODE_ENV === 'production' ? 'GCP' : 'DEFAULT',
-  logLevel: process.env.LOG_LEVEL || 'info'
-});
-```
-
 ## Integration with Fastify
 
 This logger is designed to work seamlessly with Fastify. See `@repo/fastify-base` for a complete setup example.
-
-## Testing
-
-```bash
-pnpm typecheck
-```
 
 ## License
 

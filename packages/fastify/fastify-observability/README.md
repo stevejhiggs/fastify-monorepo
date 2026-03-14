@@ -12,8 +12,12 @@ Fastify plugin for observability features including request-scoped logging. Prov
 
 ## Installation
 
-```bash
-pnpm add @repo/fastify-observability fastify @repo/logging
+```json
+{
+  "dependencies": {
+    "@repo/fastify-observability": "workspace:*"
+  }
+}
 ```
 
 ## Usage
@@ -90,37 +94,6 @@ export class UserService {
 }
 ```
 
-### Example: Middleware Logging
-
-```typescript
-import { getPerRequestLogger } from '@repo/fastify-observability/logging';
-
-app.addHook('onRequest', async (request, reply) => {
-  const logger = getPerRequestLogger();
-  logger.info(
-    {
-      method: request.method,
-      url: request.url,
-      ip: request.ip
-    },
-    'Incoming request'
-  );
-});
-
-app.addHook('onResponse', async (request, reply) => {
-  const logger = getPerRequestLogger();
-  logger.info(
-    {
-      method: request.method,
-      url: request.url,
-      statusCode: reply.statusCode,
-      responseTime: reply.getResponseTime()
-    },
-    'Request completed'
-  );
-});
-```
-
 ## API
 
 ### `registerPerRequestLogger(app, logger)`
@@ -144,19 +117,6 @@ Retrieves the current request's logger instance. Returns the base logger if call
 2. The child logger is stored in the request context using `@fastify/request-context`
 3. `getPerRequestLogger()` retrieves the logger from the request context
 4. If called outside a request context, it falls back to the base logger
-
-## Benefits
-
-- **Consistent Logging** - Same logger instance throughout the request
-- **Request Correlation** - All logs from a single request share context
-- **Flexible Access** - No need to pass logger instances around
-- **Type Safety** - Full TypeScript support with proper types
-
-## Testing
-
-```bash
-pnpm typecheck
-```
 
 ## License
 
