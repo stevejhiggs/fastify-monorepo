@@ -1,5 +1,5 @@
 {
-  "name": "example-temporal-worker",
+  "name": "@repo/{{name}}-worker",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
@@ -7,11 +7,10 @@
   "scripts": {
     "dev": "node --import tsx --watch-path=./src ./src/index.ts | pino-pretty",
     "start:production": "node --enable-source-maps ./.dist/index.mjs",
-    "temporal:cli": "temporal server start-dev --db-filename temporal.sqlite &",
     "build": "tsdown"
   },
   "dependencies": {
-    "@example-temporal/workflows": "workspace:*",
+    "@repo/{{name}}-workflows": "workspace:*",
     "@repo/logging": "workspace:*",
     "@repo/temporal": "workspace:*",
     "@temporalio/worker": "catalog:temporal",

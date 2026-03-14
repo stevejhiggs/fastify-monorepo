@@ -1,7 +1,7 @@
 packages:
   - apps/*
-  - apps/example-temporal/*
-  - apps/example-temporal/packages/*
+  - apps/temporal-example/*
+  - apps/temporal-example/packages/*
   - packages/*
   - packages/fastify/*
   - tooling/*

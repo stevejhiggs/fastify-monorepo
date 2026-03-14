@@ -37,8 +37,9 @@ pnpm dev  # API at http://localhost:3000, docs at /documentation
 | `pnpm build`            | Build all packages and apps          |
 | `pnpm test`             | Run all tests                        |
 | `pnpm lint`             | Lint and format all packages         |
-| `pnpm generate:package` | Generate a new package from template |
-| `pnpm generate:api`     | Generate a new API app from template |
+| `pnpm generate:package`      | Generate a new package from template      |
+| `pnpm generate:api`          | Generate a new API app from template      |
+| `pnpm generate:temporal-app` | Generate a Temporal app (API + worker)    |
 
 ### Generating Packages
 
@@ -69,22 +70,45 @@ This copies the template from `tooling/templates/api/`, which includes a fully c
 
 After generation, run `pnpm install` to link the new workspace package.
 
+### Generating Temporal Apps
+
+Scaffold a complete Temporal application with API, worker, and shared workflows package:
+
+```bash
+pnpm generate:temporal-app
+```
+
+This uses a custom Turborepo generator (defined in `turbo/generators/config.ts`) that prompts for a kebab-case name and creates three sub-packages under `apps/<name>/`:
+
+- **`api/`** — Fastify API with a Temporal client and an example route that executes a workflow
+- **`worker/`** — Temporal worker with structured logging via `@repo/temporal`
+- **`packages/workflows/`** — Shared workflow and activity definitions (imported by both API and worker)
+
+The generator also updates `pnpm-workspace.yaml` with the required workspace globs. After generation, run `pnpm install` to link everything.
+
 **Environment Variables:**
 
 - `LOG_LEVEL` - Logging level (default: `info`)
 - `DISABLE_DOCS` - Disable `/documentation` endpoint (default: `false`)
 - `REDIS_URL` - Optional Redis connection URL
 - `PORT` - Server port (default: `3000`)
+- `TEMPORAL_ADDRESS` - Temporal server address (default: `localhost:7233`)
 
 ## Project Structure
 
 ```
 fastify-monorepo/
-├── apps/example-api/          # Example API application
+├── apps/
+│   ├── example-api/           # Example API application
+│   └── temporal-example/      # Example Temporal app
+│       ├── api/               # Fastify API with Temporal client
+│       ├── worker/            # Temporal worker
+│       └── packages/workflows/ # Shared workflow definitions
 ├── packages/
 │   ├── caching/               # In-memory and Redis caching
 │   ├── logging/               # Pino-based structured logging
 │   ├── open-telemetry/        # OpenTelemetry instrumentation
+│   ├── temporal/              # Temporal worker utilities
 │   ├── typescript-utils/      # Shared TypeScript utilities
 │   └── fastify/
 │       ├── fastify-auth/          # Auth plugin (multi-provider)
