@@ -13,6 +13,7 @@
   "dependencies": {
     "@example-temporal/workflows": "workspace:*",
     "@repo/logging": "workspace:*",
+    "@repo/temporal": "workspace:*",
     "@temporalio/worker": "catalog:temporal",
     "@temporalio/workflow": "catalog:temporal"
   },

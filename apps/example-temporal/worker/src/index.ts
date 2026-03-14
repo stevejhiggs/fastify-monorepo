@@ -1,10 +1,14 @@
 import { GREETING_TASK_QUEUE } from '@example-temporal/workflows';
-import { initLogger } from '@repo/logging';
-import { NativeConnection, Worker } from '@temporalio/worker';
-
 import * as activities from '@example-temporal/workflows/activities';
+import { initLogger } from '@repo/logging';
+import { createTemporalLogger } from '@repo/temporal';
+import { NativeConnection, Runtime, Worker } from '@temporalio/worker';
 
 const logger = initLogger({ logLevel: process.env['LOG_LEVEL'] ?? 'info' });
+
+Runtime.install({
+  logger: createTemporalLogger(logger)
+});
 
 const TEMPORAL_ADDRESS = process.env['TEMPORAL_ADDRESS'] ?? 'localhost:7233';
 

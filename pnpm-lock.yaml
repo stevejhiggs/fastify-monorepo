@@ -206,6 +206,9 @@ importers:
       '@repo/logging':
         specifier: workspace:*
         version: link:../../../packages/logging
+      '@repo/temporal':
+        specifier: workspace:*
+        version: link:../../../packages/temporal
       '@temporalio/worker':
         specifier: catalog:temporal
         version: 1.15.0(tslib@2.8.1)
@@ -594,6 +597,22 @@ importers:
       '@repo/typescript-utils':
         specifier: workspace:*
         version: link:../typescript-utils
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../tooling/typescript-config
+      '@types/node':
+        specifier: catalog:tooling
+        version: 24.12.0
+
+  packages/temporal:
+    dependencies:
+      '@repo/logging':
+        specifier: workspace:*
+        version: link:../logging
+      '@temporalio/worker':
+        specifier: catalog:temporal
+        version: 1.15.0(tslib@2.8.1)
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*

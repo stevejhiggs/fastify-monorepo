@@ -14,8 +14,7 @@
     "start:production": "node --enable-source-maps ./.dist/index.mjs",
     "build": "tsdown",
     "test": "LOG_LEVEL=warn vitest",
-    "test:ci": "LOG_LEVEL=warn vitest --coverage",
-    "typecheck": "tsgo --noEmit"
+    "test:ci": "LOG_LEVEL=warn vitest --coverage"
   },
   "dependencies": {
     "@repo/fastify-base": "workspace:*",
