@@ -10,12 +10,12 @@
   },
   "scripts": {},
   "dependencies": {
+    "@fastify/sensible": "^6.0.4",
     "@repo/caching": "workspace:*",
     "@repo/fastify-auth": "workspace:*",
     "@repo/fastify-multipart": "workspace:*",
     "@repo/fastify-observability": "workspace:*",
     "@repo/fastify-rate-limit": "workspace:*",
-    "@fastify/sensible": "^6.0.4",
     "@repo/fastify-security": "workspace:*",
     "@repo/fastify-swagger": "workspace:*",
     "@repo/fastify-zod": "workspace:*",

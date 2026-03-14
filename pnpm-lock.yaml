@@ -73,6 +73,9 @@ importers:
 
   apps/example-api:
     dependencies:
+      '@opentelemetry/api':
+        specifier: ^1.9.0
+        version: 1.9.0
       '@repo/fastify-base':
         specifier: workspace:*
         version: link:../../packages/fastify/fastify-base
