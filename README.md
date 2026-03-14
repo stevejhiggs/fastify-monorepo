@@ -43,19 +43,19 @@ pnpm --filter example-api dev   # API at http://localhost:3000, docs at /documen
 
 Every plugin is a standalone package with its own entry point and no hard dependencies on the others. You can adopt them incrementally or use `@repo/fastify-base` to get them all at once.
 
-| Package                        | What it does                                                     |
-| ------------------------------ | ---------------------------------------------------------------- |
-| `@repo/fastify-base`           | One-call server setup with all plugins pre-configured            |
-| `@repo/fastify-zod`            | Zod v4 schema validation with compile-time type inference        |
-| `@repo/fastify-swagger`        | Auto-generated OpenAPI docs from Zod schemas                     |
-| `@repo/fastify-auth`           | Pluggable auth with support for multiple providers per app       |
-| `@repo/fastify-auth-jwt`       | JWT bearer token authentication provider                         |
-| `@repo/fastify-auth-firebase`  | Firebase authentication provider                                 |
-| `@repo/fastify-observability`  | Request-scoped logging with correlation IDs and async context    |
-| `@repo/fastify-rate-limit`     | Per-route or global rate limiting with Redis or in-memory stores |
-| `@repo/fastify-security`       | Helmet security headers                                          |
-| `@repo/fastify-multipart`      | File upload handling with MIME type and size validation          |
-| `@repo/fastify-common-types`   | Shared TypeScript types across Fastify plugins                   |
+| Package                       | What it does                                                     |
+| ----------------------------- | ---------------------------------------------------------------- |
+| `@repo/fastify-base`          | One-call server setup with all plugins pre-configured            |
+| `@repo/fastify-zod`           | Zod v4 schema validation with compile-time type inference        |
+| `@repo/fastify-swagger`       | Auto-generated OpenAPI docs from Zod schemas                     |
+| `@repo/fastify-auth`          | Pluggable auth with support for multiple providers per app       |
+| `@repo/fastify-auth-jwt`      | JWT bearer token authentication provider                         |
+| `@repo/fastify-auth-firebase` | Firebase authentication provider                                 |
+| `@repo/fastify-observability` | Request-scoped logging with correlation IDs and async context    |
+| `@repo/fastify-rate-limit`    | Per-route or global rate limiting with Redis or in-memory stores |
+| `@repo/fastify-security`      | Helmet security headers                                          |
+| `@repo/fastify-multipart`     | File upload handling with MIME type and size validation          |
+| `@repo/fastify-common-types`  | Shared TypeScript types across Fastify plugins                   |
 
 ### Infrastructure Packages
 
@@ -69,7 +69,7 @@ Every plugin is a standalone package with its own entry point and no hard depend
 
 ### No Build Step in Packages
 
-None of the packages in this monorepo have a build step. They're written in native TypeScript and imported directly as `.ts` files — no compilation, no `dist` folders, no waiting for incremental builds to catch up. The TypeScript source *is* the package.
+None of the packages in this monorepo have a build step. They're written in native TypeScript and imported directly as `.ts` files — no compilation, no `dist` folders, no waiting for incremental builds to catch up. The TypeScript source _is_ the package.
 
 Only the final applications (`apps/`) compile anything, using `tsdown` to produce optimised production bundles. Everything upstream stays as raw TypeScript.
 
