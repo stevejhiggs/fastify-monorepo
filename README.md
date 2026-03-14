@@ -11,6 +11,8 @@ A Fastify monorepo template for building scalable, type-safe APIs with modular a
 - In-memory caching with optional Redis
 - Request-scoped logging
 - Auth plugin system with multiple provider support (JWT, Firebase)
+- Rate limiting with pluggable stores (in-memory or Redis)
+- Sensible defaults for HTTP error handling (`reply.notFound()`, `app.httpErrors.conflict()`, etc.)
 - OpenTelemetry instrumentation
 - Turborepo for fast builds
 
@@ -62,6 +64,7 @@ fastify-monorepo/
 │       ├── fastify-common-types/  # Shared Fastify types
 │       ├── fastify-multipart/     # File upload support
 │       ├── fastify-observability/ # Request-scoped logging
+│       ├── fastify-rate-limit/    # Rate limiting
 │       ├── fastify-security/      # Helmet security headers
 │       ├── fastify-swagger/       # OpenAPI documentation
 │       └── fastify-zod/           # Zod validation provider
@@ -79,7 +82,8 @@ const { app } = await setupBaseApp({
   port: 3000,
   serviceInfo: { name: 'My API', version: '1.0.0' },
   logger: { logLevel: 'info' },
-  swagger: { enable: true }
+  swagger: { enable: true },
+  rateLimit: { max: 100, timeWindow: '1 minute' }
 });
 ```
 
