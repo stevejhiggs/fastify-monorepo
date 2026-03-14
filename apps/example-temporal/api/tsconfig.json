@@ -1,0 +1,11 @@
+{
+  "extends": "@repo/typescript-config/tsconfig.base",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "types": ["node"]
+  },
+  "include": ["./src/**/*.ts", "./tests/**/*.ts"],
+  "exclude": ["**/node_modules", "**/.turbo", "**/.dist", "**/.*/"]
+}

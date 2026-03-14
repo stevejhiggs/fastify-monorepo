@@ -1,0 +1,26 @@
+{
+  "name": "example-temporal-worker",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "dev": "node --import tsx --watch-path=./src ./src/index.ts | pino-pretty",
+    "start:production": "node --enable-source-maps ./.dist/index.mjs",
+    "build": "tsdown"
+  },
+  "dependencies": {
+    "@repo/logging": "workspace:*",
+    "@temporalio/activity": "catalog:temporal",
+    "@temporalio/client": "catalog:temporal",
+    "@temporalio/worker": "catalog:temporal",
+    "@temporalio/workflow": "catalog:temporal"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:tooling",
+    "pino-pretty": "catalog:tooling",
+    "tsdown": "catalog:tooling",
+    "tsx": "catalog:tooling"
+  }
+}

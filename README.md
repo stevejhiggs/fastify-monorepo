@@ -38,7 +38,7 @@ pnpm dev  # API at http://localhost:3000, docs at /documentation
 | `pnpm test`             | Run all tests                        |
 | `pnpm lint`             | Lint and format all packages         |
 | `pnpm generate:package` | Generate a new package from template |
-| `pnpm generate:api`     | Generate a new API app from template  |
+| `pnpm generate:api`     | Generate a new API app from template |
 
 ### Generating Packages
 
