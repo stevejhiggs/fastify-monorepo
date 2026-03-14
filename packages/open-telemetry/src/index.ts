@@ -1,4 +1,6 @@
-import { DiagConsoleLogger, diag } from '@opentelemetry/api';
+import { DiagConsoleLogger, diag, metrics, trace } from '@opentelemetry/api';
+
+export { metrics, trace };
 import { getResourceDetectors as getResourceDetectorsFromEnv } from '@opentelemetry/auto-instrumentations-node';
 import { OTLPMetricExporter as OTLPMetricExporterGrpc } from '@opentelemetry/exporter-metrics-otlp-grpc';
 import { OTLPMetricExporter as OTLPMetricExporterProto } from '@opentelemetry/exporter-metrics-otlp-proto';

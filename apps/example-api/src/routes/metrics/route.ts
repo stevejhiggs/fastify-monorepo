@@ -1,11 +1,11 @@
+import type { EnhancedFastifyInstance } from '@repo/fastify-base';
 /**
  * Custom OpenTelemetry metrics example.
  * Demonstrates creating and recording custom counter and histogram metrics
  * using the OpenTelemetry API. Run with `pnpm dev:with-telemetry` to see
  * metrics exported to the console.
  */
-import { metrics } from '@opentelemetry/api';
-import type { EnhancedFastifyInstance } from '@repo/fastify-base';
+import { metrics } from '@repo/open-telemetry';
 
 const meter = metrics.getMeter('example-api');
 

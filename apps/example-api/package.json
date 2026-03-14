@@ -18,8 +18,8 @@
     "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
-    "@opentelemetry/api": "^1.9.0",
     "@repo/fastify-base": "workspace:*",
+    "@repo/open-telemetry": "workspace:*",
     "fastify": "catalog:",
     "zod": "catalog:"
   },
