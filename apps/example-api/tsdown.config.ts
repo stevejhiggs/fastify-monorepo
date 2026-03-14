@@ -4,10 +4,10 @@ export default defineConfig({
   // input
   entry: ['src/index.ts', 'src/telemetry.ts'],
 
-  // transform
   deps: {
-    // make sure that internal packages (@repo/*) are bundled into the output
-    alwaysBundle: [/^@repo\//]
+    // Bundle @repo/* packages, keep everything else external
+    alwaysBundle: [/^@repo\//],
+    neverBundle: (id) => !id.startsWith('@repo/') && !id.startsWith('.') && !id.startsWith('/')
   },
 
   platform: 'node',
