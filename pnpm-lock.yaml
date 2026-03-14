@@ -16,6 +16,9 @@ catalogs:
     '@vitest/coverage-v8':
       specifier: ^4.1.0
       version: 4.1.0
+    globals:
+      specifier: ^17.4.0
+      version: 17.4.0
     vitest:
       specifier: ^4.1.0
       version: 4.1.0
@@ -35,6 +38,9 @@ catalogs:
     oxlint-tsgolint:
       specifier: ^0.16.0
       version: 0.16.0
+    pino-pretty:
+      specifier: ^13.1.3
+      version: 13.1.3
     tsdown:
       specifier: ^0.21.2
       version: 0.21.2
@@ -99,10 +105,10 @@ importers:
         specifier: catalog:testing
         version: 4.1.0(vitest@4.1.0(@opentelemetry/api@1.9.0)(@types/node@24.12.0)(vite@7.2.7(@types/node@24.12.0)(tsx@4.21.0)(yaml@2.8.2)))
       globals:
-        specifier: ^17.4.0
+        specifier: catalog:testing
         version: 17.4.0
       pino-pretty:
-        specifier: ^13.1.3
+        specifier: catalog:tooling
         version: 13.1.3
       tsdown:
         specifier: catalog:tooling
@@ -495,6 +501,49 @@ importers:
       '@types/node':
         specifier: catalog:tooling
         version: 24.12.0
+
+  tooling/templates/api:
+    dependencies:
+      '@repo/fastify-base':
+        specifier: workspace:*
+        version: link:../../../packages/fastify/fastify-base
+      '@repo/open-telemetry':
+        specifier: workspace:*
+        version: link:../../../packages/open-telemetry
+      fastify:
+        specifier: 'catalog:'
+        version: 5.8.2
+      zod:
+        specifier: 'catalog:'
+        version: 4.3.6
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../typescript-config
+      '@repo/vitest':
+        specifier: workspace:*
+        version: link:../../vitest
+      '@types/node':
+        specifier: catalog:tooling
+        version: 24.12.0
+      '@vitest/coverage-v8':
+        specifier: catalog:testing
+        version: 4.1.0(vitest@4.1.0(@opentelemetry/api@1.9.0)(@types/node@24.12.0)(vite@7.2.7(@types/node@24.12.0)(tsx@4.21.0)(yaml@2.8.2)))
+      globals:
+        specifier: catalog:testing
+        version: 17.4.0
+      pino-pretty:
+        specifier: catalog:tooling
+        version: 13.1.3
+      tsdown:
+        specifier: catalog:tooling
+        version: 0.21.2(@typescript/native-preview@7.0.0-dev.20260314.1)(typescript@5.9.3)
+      tsx:
+        specifier: catalog:tooling
+        version: 4.21.0
+      vitest:
+        specifier: catalog:testing
+        version: 4.1.0(@opentelemetry/api@1.9.0)(@types/node@24.12.0)(vite@7.2.7(@types/node@24.12.0)(tsx@4.21.0)(yaml@2.8.2))
 
   tooling/templates/package:
     devDependencies:

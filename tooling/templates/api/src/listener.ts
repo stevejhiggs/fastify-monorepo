@@ -1,0 +1,29 @@
+import { logger } from '@repo/fastify-base/logging';
+
+import getServer from './server';
+
+const port: number = Number.parseInt(process.env['PORT'] || '3000');
+
+process.on('uncaughtException', (err) => {
+  logger.instance.error({ message: 'uncaught exception', err });
+});
+
+// The listener attaches the server to a network port
+// this is done seperately to the server to allow the server
+// to be used within tests without needing a network connection
+const start = async () => {
+  try {
+    const app = await getServer(port);
+    await app.listen({
+      port,
+      host: '::',
+      listenTextResolver: (address) => {
+        return `Server listening on ${address.replace('[::]', 'localhost')}`;
+      }
+    });
+  } catch (error) {
+    logger.instance.error(error);
+  }
+};
+
+await start();
