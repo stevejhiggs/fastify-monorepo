@@ -12,11 +12,11 @@ A Fastify service that demonstrates the shared `@repo/fastify-base` utilities us
 
 Common scripts:
 
-| Script                                | What it does                                      |
-| ------------------------------------- | ------------------------------------------------- |
-| `pnpm --filter example-api build`     | Builds the API using `tsdown`.                    |
-| `pnpm --filter example-api test`      | Runs the Vitest suite.                            |
-| `pnpm --filter example-api lint`      | Formats and lints the source with oxlint + oxfmt. |
+| Script                            | What it does                                      |
+| --------------------------------- | ------------------------------------------------- |
+| `pnpm --filter example-api build` | Builds the API using `tsdown`.                    |
+| `pnpm --filter example-api test`  | Runs the Vitest suite.                            |
+| `pnpm --filter example-api lint`  | Formats and lints the source with oxlint + oxfmt. |
 
 ## Route reference
 
