@@ -114,3 +114,5 @@ Build any app with:
 ```bash
 docker build --build-arg TARGET_PACKAGE=example-api -t example-api:latest .
 ```
+
+See [docs/docker.md](docs/docker.md) for details on how the build pipeline works.
