@@ -7,14 +7,13 @@
   "scripts": {
     "dev": "node --import tsx --watch-path=./src ./src/index.ts | pino-pretty",
     "start:production": "node --enable-source-maps ./.dist/index.mjs",
+    "temporal:cli": "temporal server start-dev --db-filename temporal.sqlite &",
     "build": "tsdown"
   },
   "dependencies": {
+    "@example-temporal/workflows": "workspace:*",
     "@repo/logging": "workspace:*",
-    "@temporalio/activity": "catalog:temporal",
-    "@temporalio/client": "catalog:temporal",
-    "@temporalio/worker": "catalog:temporal",
-    "@temporalio/workflow": "catalog:temporal"
+    "@temporalio/worker": "catalog:temporal"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",

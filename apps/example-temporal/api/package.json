@@ -17,8 +17,10 @@
     "test:ci": "LOG_LEVEL=warn vitest --coverage"
   },
   "dependencies": {
+    "@example-temporal/workflows": "workspace:*",
     "@repo/fastify-base": "workspace:*",
     "@repo/open-telemetry": "workspace:*",
+    "@temporalio/client": "catalog:temporal",
     "fastify": "catalog:",
     "zod": "catalog:"
   },
