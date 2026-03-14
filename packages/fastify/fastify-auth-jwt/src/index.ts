@@ -1,5 +1,5 @@
 import jwt from '@fastify/jwt';
-import type { AuthProvider, JwtPayload } from '@repo/fastify-auth';
+import { extractBearerToken, type AuthProvider, type JwtPayload } from '@repo/fastify-auth';
 import type { FastifyInstanceForRegistration } from '@repo/fastify-common-types';
 
 declare module '@fastify/jwt' {
@@ -23,9 +23,8 @@ export function jwtProvider(config: JwtConfig): AuthProvider {
     },
 
     async verify(request) {
-      const auth = request.headers.authorization;
-      if (!auth?.startsWith('Bearer ')) return undefined;
-      const token = auth.slice(7);
+      const token = extractBearerToken(request);
+      if (!token) return undefined;
       // Use server.jwt.verify() instead of request.jwtVerify() so that
       // @fastify/jwt does not set request.user — the core handles that.
       // Throws on invalid/expired token, propagating a 401 to the caller.

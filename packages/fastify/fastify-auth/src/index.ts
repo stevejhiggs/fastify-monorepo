@@ -22,9 +22,17 @@ declare module 'fastify' {
   }
 }
 
+const UNAUTHORIZED = { message: 'Unauthorized' } as const;
+
+export function extractBearerToken(request: FastifyRequest): string | undefined {
+  const auth = request.headers.authorization;
+  if (!auth?.startsWith('Bearer ')) return undefined;
+  return auth.slice(7);
+}
+
 async function requireUser(request: FastifyRequest, reply: FastifyReply) {
   if (!request.user) {
-    return reply.status(401).send({ message: 'Unauthorized' });
+    return reply.status(401).send(UNAUTHORIZED);
   }
 }
 
@@ -47,7 +55,7 @@ export async function registerAuth(app: FastifyInstanceForRegistration, provider
       }
     }
     if (lastError !== undefined) {
-      return reply.status(401).send({ message: 'Unauthorized' });
+      return reply.status(401).send(UNAUTHORIZED);
     }
   };
 

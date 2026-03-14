@@ -1,3 +1,2 @@
-export function doNothing() {
-  console.log('I dont do anything');
-}
+export { registerPerRequestLogger, getPerRequestLogger } from './logging.ts';
+export { setupFastifyOpenTelemetry } from './open-telemetry/setup.ts';

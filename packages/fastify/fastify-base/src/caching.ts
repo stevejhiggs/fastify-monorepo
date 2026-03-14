@@ -6,10 +6,12 @@ import { logger } from './logging';
 
 export type { Cache } from '@repo/caching';
 
+const onError = (error: unknown) => logger.instance.error({ message: 'Error caching item', err: error });
+
 export function createInMemoryCache(args: Omit<CacheOptions, 'onError'>): Cache {
-  return baseCreateInMemoryCache({ ...args, onError: (error) => logger.instance.error({ message: 'Error caching item', err: error }) });
+  return baseCreateInMemoryCache({ ...args, onError });
 }
 
 export function createRedisCache(args: Omit<RedisCacheOptions, 'onError'>): Cache {
-  return baseCreateRedisCache({ ...args, onError: (error) => logger.instance.error({ message: 'Error caching item', err: error }) });
+  return baseCreateRedisCache({ ...args, onError });
 }

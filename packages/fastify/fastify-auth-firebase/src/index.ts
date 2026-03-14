@@ -1,4 +1,4 @@
-import type { AuthProvider, JwtPayload } from '@repo/fastify-auth';
+import { extractBearerToken, type AuthProvider, type JwtPayload } from '@repo/fastify-auth';
 import { getApp, type App } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 
@@ -14,17 +14,11 @@ export function firebaseProvider(config: FirebaseConfig): AuthProvider {
 
   return {
     async verify(request) {
-      const header = request.headers.authorization;
-      if (!header?.startsWith('Bearer ')) return undefined;
-      const token = header.slice(7);
+      const token = extractBearerToken(request);
+      if (!token) return undefined;
       // checkRevoked: true rejects tokens whose session has been revoked
-      const decoded = await tenantAuth.verifyIdToken(token, true);
-      const { uid, ...rest } = decoded;
-      const payload: JwtPayload = { sub: uid };
-      for (const [k, v] of Object.entries(rest)) {
-        payload[k] = v;
-      }
-      return payload;
+      const { uid, ...rest } = await tenantAuth.verifyIdToken(token, true);
+      return { ...rest, sub: uid } as JwtPayload;
     }
   };
 }
