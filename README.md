@@ -38,6 +38,36 @@ pnpm dev  # API at http://localhost:3000, docs at /documentation
 | `pnpm test`             | Run all tests                        |
 | `pnpm lint`             | Lint and format all packages         |
 | `pnpm generate:package` | Generate a new package from template |
+| `pnpm generate:api`     | Generate a new API app from template  |
+
+### Generating Packages
+
+Scaffold a new shared library into `packages/`:
+
+```bash
+pnpm generate:package
+```
+
+This copies the template from `tooling/templates/package/`, which includes a minimal `package.json` (scoped to `@repo/`), a `tsconfig.json` extending the shared config, and a `src/index.ts` entry point. Turbo will prompt you for the new package name and destination.
+
+### Generating APIs
+
+Scaffold a new API application into `apps/`:
+
+```bash
+pnpm generate:api
+```
+
+This copies the template from `tooling/templates/api/`, which includes a fully configured Fastify app with:
+
+- `@repo/fastify-base` integration with all plugins pre-wired
+- Example routes (health check, schema validation, caching, rate limiting, logging, file upload, metrics)
+- OpenTelemetry instrumentation setup
+- Vitest configuration with coverage
+- `tsdown` production build config
+- Dev scripts with hot reload and `pino-pretty` log formatting
+
+After generation, run `pnpm install` to link the new workspace package.
 
 **Environment Variables:**
 
