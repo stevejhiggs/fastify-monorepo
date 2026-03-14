@@ -13,7 +13,8 @@
   "dependencies": {
     "@example-temporal/workflows": "workspace:*",
     "@repo/logging": "workspace:*",
-    "@temporalio/worker": "catalog:temporal"
+    "@temporalio/worker": "catalog:temporal",
+    "@temporalio/workflow": "catalog:temporal"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
