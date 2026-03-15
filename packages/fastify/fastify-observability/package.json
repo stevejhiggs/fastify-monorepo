@@ -10,6 +10,7 @@
   "dependencies": {
     "@fastify/otel": "^0.17.1",
     "@fastify/request-context": "^6.2.1",
+    "@opentelemetry/api": "^1.9.0",
     "@repo/logging": "workspace:*",
     "@repo/open-telemetry": "workspace:*"
   },

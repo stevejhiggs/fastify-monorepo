@@ -62,6 +62,30 @@ Standard OTEL env vars are supported:
 - `OTEL_SERVICE_NAME` - Service name override
 - `OTEL_RESOURCE_ATTRIBUTES` - Additional resource attributes
 
+## withSpan
+
+Wraps a function in a span with automatic error recording, status setting, and `span.end()`:
+
+```typescript
+import { withSpan } from '@repo/open-telemetry';
+
+const user = await withSpan('getUser', async (span) => {
+  span.setAttribute('userId', id);
+  return db.users.findById(id);
+});
+
+// With options (kind, attributes, custom tracer name)
+await withSpan('sendEmail', sendFn, {
+  kind: SpanKind.CLIENT,
+  attributes: { 'email.to': addr },
+  tracerName: 'my-library'
+});
+```
+
+On success the span gets status OK. On error it records the exception, sets status ERROR, and re-throws. The span is always ended.
+
+Also re-exports `Span`, `SpanOptions`, `SpanStatusCode`, and `SpanKind` from `@opentelemetry/api` for convenience.
+
 ## Graceful Shutdown
 
 The SDK registers shutdown handlers automatically. Spans and metrics are flushed on process exit.

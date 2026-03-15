@@ -85,6 +85,18 @@ pnpm build && pnpm start
 2. Export async registration function
 3. Import and call in `routes/index.ts`
 
+## Observability
+
+- Logs automatically include `traceId` and `spanId` when OpenTelemetry is enabled (run with `pnpm dev:with-telemetry`)
+- Use `withSpan` from `@repo/open-telemetry` to create custom spans with automatic error recording:
+  ```typescript
+  import { withSpan } from '@repo/open-telemetry';
+  const result = await withSpan('operationName', async (span) => {
+    span.setAttribute('key', 'value');
+    return doWork();
+  });
+  ```
+
 ## Environment Variables
 
 - `LOG_LEVEL` - Logger level (default: `info`)

@@ -31,6 +31,10 @@ The routes are registered in `apps/example-api/src/routes/route-registry.ts`. Ea
 | `GET /caching`                       | Uses the shared `createInMemoryCache` helper with a 20s TTL and size limit. Returns a cached `{ uuid, timestamp }` pair and logs cache hits/misses.                                    |
 | `POST /files/upload`                 | Handles multipart form uploads with Zod validation. Accepts a single `image` field (PNG or JPEG up to 10 MB); echoes the uploaded file’s MIME type.                                    |
 
+## Observability
+
+When running with OpenTelemetry enabled (`pnpm dev:with-telemetry`), all request logs automatically include `traceId` and `spanId` fields for trace correlation. Use `withSpan` from `@repo/open-telemetry` to create custom spans in route handlers and service functions.
+
 ## Docker
 
 Build the API image from the repository root:

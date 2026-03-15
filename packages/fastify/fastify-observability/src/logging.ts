@@ -1,4 +1,5 @@
 import { fastifyRequestContext, requestContext } from '@fastify/request-context';
+import { trace } from '@opentelemetry/api';
 import type { FastifyInstanceForRegistration } from '@repo/fastify-common-types';
 import { initLogger, type Logger } from '@repo/logging';
 import type { FastifyBaseLogger } from 'fastify';
@@ -19,9 +20,17 @@ export function registerPerRequestLogger(app: FastifyInstanceForRegistration, lo
   initialLogger = logger;
 
   app.register(fastifyRequestContext, {
-    defaultStoreValues: (request) => ({
-      logger: request.log.child({})
-    })
+    defaultStoreValues: (request) => {
+      const spanContext = trace.getActiveSpan()?.spanContext();
+      return {
+        logger: request.log.child({
+          ...(spanContext && {
+            traceId: spanContext.traceId,
+            spanId: spanContext.spanId
+          })
+        })
+      };
+    }
   });
 }
 

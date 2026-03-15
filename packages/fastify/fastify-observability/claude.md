@@ -62,18 +62,22 @@ app.get('/users/:id', async (request) => {
 
 When OTEL is configured (via `@repo/open-telemetry`), this plugin:
 
-- Correlates logs with trace IDs
+- Automatically injects `traceId` and `spanId` into every per-request log line
 - Adds span context to requests
 - Enables distributed tracing
 
+If OTel is not initialized, logs work normally without trace fields.
+
 ## Log Output
 
-Request logs include:
+Request logs include `traceId` and `spanId` when OTel is active:
 
 ```json
 {
   "level": "info",
   "time": 1234567890,
+  "traceId": "abc123def456...",
+  "spanId": "789abc...",
   "requestId": "abc-123",
   "method": "GET",
   "url": "/users/1",

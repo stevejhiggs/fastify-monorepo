@@ -44,6 +44,18 @@ The API uses a lazy-initialized singleton Temporal client in `temporal-client.ts
 
 The worker uses `@repo/temporal`'s `createTemporalLogger()` to route all Temporal SDK logs through the shared pino logger from `@repo/logging`.
 
+### Custom Spans
+
+Use `withSpan` from `@repo/open-telemetry` to create traced spans in activities or API routes with automatic error recording:
+
+```typescript
+import { withSpan } from '@repo/open-telemetry';
+const result = await withSpan('myActivity', async (span) => {
+  span.setAttribute('key', 'value');
+  return doWork();
+});
+```
+
 ## Adding Workflows
 
 1. Create a new workflow file in `packages/workflows/src/`

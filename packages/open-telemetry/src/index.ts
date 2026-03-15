@@ -1,6 +1,9 @@
-import { DiagConsoleLogger, diag, metrics, trace } from '@opentelemetry/api';
+import { DiagConsoleLogger, SpanKind, diag, metrics, trace } from '@opentelemetry/api';
 
-export { metrics, trace };
+export { SpanKind, metrics, trace };
+export type { Span, SpanOptions } from '@opentelemetry/api';
+export { SpanStatusCode } from '@opentelemetry/api';
+export { withSpan } from './with-span.ts';
 import { getResourceDetectors as getResourceDetectorsFromEnv } from '@opentelemetry/auto-instrumentations-node';
 import { OTLPMetricExporter as OTLPMetricExporterGrpc } from '@opentelemetry/exporter-metrics-otlp-grpc';
 import { OTLPMetricExporter as OTLPMetricExporterProto } from '@opentelemetry/exporter-metrics-otlp-proto';
