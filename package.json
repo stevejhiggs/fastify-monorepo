@@ -23,7 +23,7 @@
   "devDependencies": {
     "@typescript/native-preview": "catalog:tooling",
     "husky": "^9.1.7",
-    "lint-staged": "^16.3.4",
+    "lint-staged": "^16.4.0",
     "oxfmt": "catalog:tooling",
     "oxlint": "catalog:tooling",
     "oxlint-tsgolint": "catalog:tooling",
