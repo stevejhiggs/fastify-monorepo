@@ -260,6 +260,27 @@ importers:
         specifier: catalog:testing
         version: 4.1.0(@opentelemetry/api@1.9.0)(@types/node@24.12.0)(vite@7.2.7(@types/node@24.12.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
 
+  packages/config:
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../tooling/typescript-config
+      '@repo/vitest':
+        specifier: workspace:*
+        version: link:../../tooling/vitest
+      '@types/node':
+        specifier: catalog:tooling
+        version: 24.12.0
+      '@vitest/coverage-v8':
+        specifier: catalog:testing
+        version: 4.1.0(vitest@4.1.0(@opentelemetry/api@1.9.0)(@types/node@24.12.0)(vite@7.2.7(@types/node@24.12.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)))
+      vitest:
+        specifier: catalog:testing
+        version: 4.1.0(@opentelemetry/api@1.9.0)(@types/node@24.12.0)(vite@7.2.7(@types/node@24.12.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
+      zod:
+        specifier: 'catalog:'
+        version: 4.3.6
+
   packages/fastify/fastify-auth:
     devDependencies:
       '@repo/fastify-common-types':

@@ -1,0 +1,22 @@
+{
+  "name": "@repo/config",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest",
+    "test:ci": "vitest run"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@repo/vitest": "workspace:*",
+    "@types/node": "catalog:tooling",
+    "@vitest/coverage-v8": "catalog:testing",
+    "vitest": "catalog:testing",
+    "zod": "catalog:"
+  },
+  "peerDependencies": {
+    "zod": "catalog:"
+  }
+}
